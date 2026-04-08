@@ -1498,6 +1498,14 @@
 			transform: translateY(6px);
 			transition: opacity var(--dur-mid) var(--ease-smooth), transform var(--dur-mid) var(--ease-smooth), background var(--dur-mid) var(--ease-smooth), color var(--dur-fast) var(--ease-smooth);
 			width: fit-content;
+			cursor: pointer;
+			touch-action: manipulation;
+		}
+
+		.details-btn:active,
+		.view-project-btn:active,
+		.cta-scroll-contact:active {
+			transform: scale(0.98);
 		}
 
 		.project-card.project-collapsed {
@@ -3438,7 +3446,7 @@
 				<li><a class="nav-link" href="#reviews">Reviews</a></li>
 				<li><a class="nav-link" href="#contact">Contact</a></li>
 			</ul>
-			<a href="https://calendly.com/automistlabs/free-ai-automation-consultation" target="_blank" rel="noopener noreferrer" class="button button-primary nav-cta cta-btn" aria-label="Book a free automation consultation call">Start Your Project <span aria-hidden="true">&rarr;</span></a>
+			<a href="#contact" class="button button-primary nav-cta cta-btn cta-scroll-contact" aria-label="Start your project by contacting us">Start Your Project <span aria-hidden="true">&rarr;</span></a>
 			<button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation"><span></span></button>
 		</div>
 		<nav class="mobile-panel" id="mobilePanel" aria-label="Mobile navigation">
@@ -3449,7 +3457,7 @@
 				<li><a href="#projects">Projects</a></li>
 				<li><a href="#reviews">Reviews</a></li>
 				<li><a href="#contact">Contact</a></li>
-				<li><a href="https://calendly.com/automistlabs/free-ai-automation-consultation" target="_blank" rel="noopener noreferrer" class="button button-primary cta-btn" style="justify-content:center; margin-top:0.3rem;" aria-label="Book a free automation consultation call">Start Your Project <span aria-hidden="true">&rarr;</span></a></li>
+				<li><a href="#contact" class="button button-primary cta-btn cta-scroll-contact" style="justify-content:center; margin-top:0.3rem;" aria-label="Start your project by contacting us">Start Your Project <span aria-hidden="true">&rarr;</span></a></li>
 			</ul>
 		</nav>
 	</header>
@@ -3463,7 +3471,7 @@
 				<div class="typewriter-wrap reveal-up"><span class="typewriter" id="typewriterText"></span></div>
 				<p class="hero-copy reveal-up">At Automist Labs, we engineer intelligent automation systems powered by n8n, GoHighLevel, and AI - so your business scales faster, operates smarter, and generates revenue even while you sleep.</p>
 				<div class="hero-actions reveal-up">
-					<a href="https://calendly.com/automistlabs/free-ai-automation-consultation" target="_blank" rel="noopener noreferrer" class="button button-primary cta-btn" aria-label="Book a free automation consultation call">Start Your Project <span aria-hidden="true">&rarr;</span></a>
+					<a href="#contact" class="button button-primary cta-btn cta-scroll-contact" aria-label="Start your project by contacting us">Start Your Project <span aria-hidden="true">&rarr;</span></a>
 					<a href="#projects" class="button button-ghost hero-secondary-btn">Explore Our Work</a>
 				</div>
 				<div class="trust-bar reveal-up">
@@ -3595,7 +3603,7 @@
 				<div class="projects-banner reveal-up">
 					<h3 style="font-family:'Playfair Display', serif; font-size:1.4rem;">These are just a selection of 100+ systems we've built.</h3>
 					<p>Primary expertise: n8n. Also delivering powerful GoHighLevel solutions.</p>
-					<a href="https://calendly.com/automistlabs/free-ai-automation-consultation" target="_blank" rel="noopener noreferrer" class="button button-primary cta-btn" aria-label="Book a free automation consultation call">Start Your Project <span aria-hidden="true">&rarr;</span></a>
+					<a href="#contact" class="button button-primary cta-btn cta-scroll-contact" aria-label="Start your project by contacting us">Start Your Project <span aria-hidden="true">&rarr;</span></a>
 				</div>
 			</div>
 		</section>
@@ -4065,7 +4073,7 @@
 					<h3>${project.title}</h3>
 					<p>${project.short}</p>
 					<div class="tool-pills">${project.tools.map((tool) => `<span>${tool}</span>`).join("")}</div>
-					<button class="details-btn" type="button">View Details &rarr;</button>
+					<button class="details-btn view-project-btn" type="button">View Details &rarr;</button>
 				</article>`;
 		}
 
@@ -4464,9 +4472,7 @@
 			modalMediaCleanup = null;
 			modalStepState = null;
 			const showcase = getProjectShowcase(selectedProject);
-			showcase.outputs = await resolveOutputImages(showcase.mediaBase);
-			if (!selectedProject || selectedProject.id !== modalProjectId) return;
-			const outputsMarkup = buildOutputsMarkup(showcase.outputs, selectedProject.title);
+			const loadingOutputsMarkup = '<div class="empty-media">Loading output gallery...</div>';
 
 			modalBody.innerHTML = `
 				<div class="project-step-shell">
@@ -4514,7 +4520,7 @@
 						</div>
 						<div class="tool-pills">${selectedProject.tools.map((tool) => `<span>${tool}</span>`).join("")}</div>
 						<div class="modal-actions">
-							<a href="https://calendly.com/automistlabs/free-ai-automation-consultation" target="_blank" rel="noopener noreferrer" class="button button-primary cta-btn" id="modalContactCta" aria-label="Book a free automation consultation call">Start a Similar Project <span aria-hidden="true">&rarr;</span></a>
+							<a href="#contact" class="button button-primary cta-btn cta-scroll-contact" id="modalContactCta" aria-label="Start your project by contacting us">Start a Similar Project <span aria-hidden="true">&rarr;</span></a>
 						</div>
 									</div>
 								</div>
@@ -4536,7 +4542,7 @@
 							</section>
 							<section class="project-step">
 								<div class="project-step-title">Step 3 - Output Images</div>
-								${outputsMarkup}
+								<div data-output-slot>${loadingOutputsMarkup}</div>
 								<div class="step-inline-flow">
 									<div class="step-status-line">Step 3 of 3 - Next: Done</div>
 								</div>
@@ -4575,6 +4581,15 @@
 			document.body.classList.add("modal-open");
 			initModalStepNavigation();
 
+			resolveOutputImages(showcase.mediaBase).then((outputs) => {
+				if (!selectedProject || selectedProject.id !== modalProjectId) return;
+				if (!projectModal.classList.contains("open")) return;
+				const outputSlot = modalBody.querySelector("[data-output-slot]");
+				if (!outputSlot) return;
+				outputSlot.innerHTML = buildOutputsMarkup(outputs, selectedProject.title);
+				modalStepState?.syncOutputs?.();
+			});
+
 			const modalContactCta = document.getElementById("modalContactCta");
 			if (modalContactCta) {
 				modalContactCta.addEventListener("click", () => {
@@ -4605,14 +4620,23 @@
 			renderProjects();
 		});
 
-		projectsGrid.addEventListener("click", (event) => {
-			const clickedImage = event.target.closest(".clickable-image");
-			if (clickedImage) {
+		document.addEventListener("click", (event) => {
+			const viewButton = event.target.closest(".view-project-btn");
+			if (viewButton) {
+				event.preventDefault();
+				const viewCard = viewButton.closest(".project-card");
+				if (!viewCard || !projectsGrid.contains(viewCard)) return;
+				const viewId = Number(viewCard.getAttribute("data-project-id"));
+				if (!Number.isFinite(viewId)) return;
+				openProjectModal(viewId);
 				return;
 			}
 
+			const clickedImage = event.target.closest(".clickable-image");
+			if (clickedImage) return;
+
 			const card = event.target.closest(".project-card");
-			if (!card) return;
+			if (!card || !projectsGrid.contains(card)) return;
 			const id = Number(card.getAttribute("data-project-id"));
 			if (!Number.isFinite(id)) return;
 			openProjectModal(id);
@@ -4654,6 +4678,16 @@
 				if (event.target === imageViewerModal) closeImageViewer();
 			});
 		}
+
+		document.addEventListener("click", (event) => {
+			const contactCta = event.target.closest(".cta-scroll-contact");
+			if (!contactCta) return;
+			event.preventDefault();
+			event.stopImmediatePropagation();
+			const contactSection = document.getElementById("contact");
+			if (!contactSection) return;
+			contactSection.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth", block: "start" });
+		});
 
 		projectFilters.addEventListener("click", (event) => {
 			const button = event.target.closest(".filter-btn");
