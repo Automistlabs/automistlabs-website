@@ -3445,10 +3445,12 @@
 					</div>
 				</div>
 
-				<form class="contact-form glass reveal-up" id="contactForm" novalidate>
+				<form class="contact-form glass reveal-up" id="contactForm" action="https://formspree.io/f/mzdkqpbn" method="POST">
+					<input type="hidden" name="_subject" value="New Automist Labs Lead">
+					<input type="hidden" name="_next" value="https://automistlabs-website.vercel.app">
 					<div class="field">
 						<label for="fullName">Full Name</label>
-						<input type="text" id="fullName" name="fullName" required>
+						<input type="text" id="fullName" name="name" required>
 					</div>
 					<div class="field">
 						<label for="email">Email Address</label>
@@ -3456,7 +3458,7 @@
 					</div>
 					<div class="field">
 						<label for="businessType">Business Type</label>
-						<select id="businessType" name="businessType" required>
+						<select id="businessType" name="business_type" required>
 							<option value="">Select</option>
 							<option>Agency</option>
 							<option>E-commerce</option>
@@ -3467,7 +3469,7 @@
 					</div>
 					<div class="field">
 						<label for="serviceNeeded">Service Needed</label>
-						<select id="serviceNeeded" name="serviceNeeded" required>
+						<select id="serviceNeeded" name="service" required>
 							<option value="">Select</option>
 							<option>n8n Automation</option>
 							<option>GHL System</option>
@@ -3478,7 +3480,7 @@
 					</div>
 					<div class="field">
 						<label for="projectDetails">Project Details</label>
-						<textarea id="projectDetails" name="projectDetails" rows="5" required></textarea>
+						<textarea id="projectDetails" name="message" rows="5" required></textarea>
 					</div>
 					<button class="button button-primary full-width" type="submit">
 						<span class="btn-text">Send Message</span>
@@ -3800,7 +3802,6 @@
 		const menuToggle = document.getElementById("menuToggle");
 		const mobilePanel = document.getElementById("mobilePanel");
 		const typewriterText = document.getElementById("typewriterText");
-		const contactForm = document.getElementById("contactForm");
 
 		let currentFilter = "all";
 		let expanded = false;
@@ -4803,141 +4804,6 @@
 			statCards.forEach((card) => counterObserver.observe(card));
 		}
 
-		function initFormValidation() {
-			const submitBtn = contactForm.querySelector("button[type='submit']");
-			const btnText = submitBtn.querySelector(".btn-text");
-			const feedback = document.getElementById("formFeedback");
-			const fields = Array.from(contactForm.querySelectorAll("input[required], select[required], textarea[required]"));
-
-			fields.forEach((field, index) => {
-				field.closest(".field")?.style.setProperty("--field-delay", `${index * 60}ms`);
-				const parent = field.closest(".field");
-				if (parent && !parent.querySelector(".field-error")) {
-					const errorEl = document.createElement("small");
-					errorEl.className = "field-error";
-					errorEl.setAttribute("aria-live", "polite");
-					parent.appendChild(errorEl);
-				}
-			});
-
-			const formObserver = new IntersectionObserver(
-				(entries) => {
-					entries.forEach((entry) => {
-						if (!entry.isIntersecting) return;
-						contactForm.classList.add("form-ready");
-						formObserver.disconnect();
-					});
-				},
-				{ threshold: 0.2 }
-			);
-			formObserver.observe(contactForm);
-
-			function setFieldError(field, message) {
-				const errorEl = field.closest(".field")?.querySelector(".field-error");
-				field.classList.add("error");
-				if (errorEl) {
-					errorEl.textContent = message;
-					errorEl.classList.add("visible");
-				}
-			}
-
-			function clearFieldError(field) {
-				const errorEl = field.closest(".field")?.querySelector(".field-error");
-				field.classList.remove("error");
-				if (errorEl) {
-					errorEl.textContent = "";
-					errorEl.classList.remove("visible");
-				}
-			}
-
-			function setFeedback(message, type) {
-				feedback.classList.remove("success", "error", "show");
-				feedback.textContent = message;
-				feedback.classList.add(type);
-				requestAnimationFrame(() => feedback.classList.add("show"));
-			}
-
-			function validateFields() {
-				let valid = true;
-				fields.forEach((field) => {
-					const value = field.value.trim();
-					if (!value) {
-						setFieldError(field, "This field is required.");
-						valid = false;
-						return;
-					}
-
-					if (field.type === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-						setFieldError(field, "Enter a valid email address.");
-						valid = false;
-						return;
-					}
-
-					clearFieldError(field);
-				});
-
-				return valid;
-			}
-
-			fields.forEach((field) => {
-				field.addEventListener("input", () => {
-					if (field.value.trim()) clearFieldError(field);
-				});
-				field.addEventListener("change", () => {
-					if (field.value.trim()) clearFieldError(field);
-				});
-			});
-
-			contactForm.addEventListener("submit", async (event) => {
-				event.preventDefault();
-				feedback.classList.remove("show", "success", "error");
-
-				if (!validateFields()) return;
-
-				const payload = {
-					name: contactForm.fullName.value.trim(),
-					email: contactForm.email.value.trim(),
-					businessType: contactForm.businessType.value.trim(),
-					serviceNeeded: contactForm.serviceNeeded.value.trim(),
-					message: contactForm.projectDetails.value.trim()
-				};
-
-				console.log("[contact] sending payload", payload);
-
-				submitBtn.disabled = true;
-				submitBtn.classList.add("is-loading");
-				if (btnText) btnText.textContent = "Sending...";
-
-				try {
-					const response = await fetch("http://localhost:3000/send-email", {
-						method: "POST",
-						headers: { "Content-Type": "application/json" },
-						body: JSON.stringify(payload)
-					});
-					const result = await response.json().catch(() => ({}));
-					console.log("[contact] backend response", { status: response.status, result });
-
-					if (!response.ok) {
-						throw new Error(result.error || "Failed to send message");
-					}
-
-					setFeedback("✅ Message sent successfully!", "success");
-					contactForm.reset();
-					feedback.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth", block: "nearest" });
-				} catch (error) {
-					if (error instanceof TypeError) {
-						console.error("[contact] network error", error);
-					} else {
-						console.error("[contact] submission failed", error);
-					}
-					setFeedback("❌ Failed to send message", "error");
-				} finally {
-					submitBtn.disabled = false;
-					submitBtn.classList.remove("is-loading");
-					if (btnText) btnText.textContent = "Send Message";
-				}
-			});
-		}
 
 		function initParticleMesh() {
 			if (prefersReducedMotion) return;
@@ -5053,7 +4919,6 @@
 		initRevealObserver();
 		initServicesCardsObserver();
 		initCounters();
-		initFormValidation();
 		initParticleMesh();
 	</script>
 </body>
