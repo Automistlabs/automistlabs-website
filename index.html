@@ -2390,13 +2390,8 @@
 		}
 
 		.contact-form .field {
-			opacity: 0;
-			transform: translateY(12px);
-		}
-
-		.contact-form.form-ready .field {
-			animation: fieldFadeUp 0.44s ease-out both;
-			animation-delay: var(--field-delay, 0ms);
+			opacity: 1;
+			transform: none;
 		}
 
 		@keyframes fieldFadeUp {
@@ -2412,7 +2407,7 @@
 
 		.field {
 			display: grid;
-			gap: 0.35rem;
+			gap: 0.48rem;
 			min-height: 86px;
 		}
 
@@ -2432,31 +2427,59 @@
 
 		.field label {
 			font-family: "Space Grotesk", sans-serif;
-			font-size: 0.82rem;
-			color: #d6dff1;
+			font-size: 0.84rem;
+			font-weight: 600;
+			letter-spacing: 0.01em;
+			color: #eef3ff;
 		}
 
 		.field input,
 		.field select,
 		.field textarea {
 			width: 100%;
-			border-radius: 12px;
-			border: 1px solid rgba(201, 168, 76, 0.26);
-			background: rgba(8, 12, 24, 0.58);
+			border-radius: 10px;
+			border: 1px solid rgba(255, 255, 255, 0.2);
+			background: rgba(255, 255, 255, 0.06);
 			color: #f5f8ff;
-			padding: 0.72rem 0.82rem;
+			padding: 0.82rem 0.95rem;
 			outline: none;
-			transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease, background 0.3s ease;
+			transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease, background 0.3s ease, color 0.3s ease;
 			font: inherit;
 			caret-color: var(--accent);
+		}
+
+		.field input::placeholder,
+		.field textarea::placeholder {
+			color: rgba(225, 236, 255, 0.72);
+		}
+
+		.field select {
+			appearance: none;
+			-webkit-appearance: none;
+			-moz-appearance: none;
+			padding-right: 2.75rem;
+			background-image:
+				linear-gradient(45deg, transparent 50%, #e9d08c 50%),
+				linear-gradient(135deg, #e9d08c 50%, transparent 50%);
+			background-position:
+				calc(100% - 20px) calc(50% - 2px),
+				calc(100% - 14px) calc(50% - 2px);
+			background-size: 6px 6px, 6px 6px;
+			background-repeat: no-repeat;
+		}
+
+		.field select option {
+			background: #0f172a;
+			color: #f5f8ff;
 		}
 
 		.field input:focus,
 		.field select:focus,
 		.field textarea:focus {
-			border-color: rgba(201, 168, 76, 0.82);
-			box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.16);
-			background: rgba(10, 16, 30, 0.72);
+			outline: none;
+			border-color: #ffd700;
+			box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.2);
+			background: rgba(16, 24, 42, 0.88);
 		}
 
 		.field select option:checked {
@@ -2537,7 +2560,7 @@
 		}
 
 		.contact-form button[type="submit"]:hover {
-			transform: scale(1.03);
+			transform: translateY(-2px);
 			box-shadow: 0 10px 24px rgba(201, 168, 76, 0.24);
 		}
 
