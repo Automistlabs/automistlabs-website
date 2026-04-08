@@ -29,9 +29,9 @@
 			--container: min(1160px, 92vw);
 			--shadow-gold: 0 0 0 1px rgba(201, 168, 76, 0.3), 0 16px 38px rgba(201, 168, 76, 0.18);
 			--ease-smooth: cubic-bezier(0.22, 0.61, 0.36, 1);
-			--dur-fast: 0.25s;
-			--dur-mid: 0.32s;
-			--dur-slow: 0.35s;
+			--dur-fast: 0.2s;
+			--dur-mid: 0.2s;
+			--dur-slow: 0.2s;
 		}
 
 		* {
@@ -419,17 +419,8 @@
 		}
 
 		.nav-cta:hover {
-			animation: ctaPulse 1.5s ease infinite;
-		}
-
-		@keyframes ctaPulse {
-			0%,
-			100% {
-				box-shadow: 0 0 0 1px rgba(201, 168, 76, 0.35), 0 0 0 0 rgba(201, 168, 76, 0.15);
-			}
-			50% {
-				box-shadow: 0 0 0 1px rgba(201, 168, 76, 0.8), 0 0 18px rgba(201, 168, 76, 0.4);
-			}
+			transform: scale(1.02);
+			box-shadow: 0 10px 22px rgba(201, 168, 76, 0.22);
 		}
 
 		.menu-toggle {
@@ -3415,6 +3406,28 @@
 			}
 		}
 
+		/* Fast interaction pass: preserve look, remove sluggishness and heavy hover paints */
+		:where(.button, .cta-btn, .contact-btn, .details-btn, .filter-btn, #projectsExpandBtn, .modal-close, .step-nav-btn, .contact-form button[type="submit"], .footer-social a, .contact-link, .project-card, .services-card, .review-card, .hero-secondary-btn, .floating-wa, .nav-link) {
+			transition-duration: 0.2s !important;
+			transition-timing-function: ease !important;
+		}
+
+		:where(.button, .cta-btn, .contact-btn, .details-btn, .filter-btn, #projectsExpandBtn, .contact-form button[type="submit"], .footer-social a, .contact-link, .modal-close, .step-nav-btn) {
+			will-change: transform, opacity;
+		}
+
+		:where(.button, .cta-btn, .contact-btn, .details-btn, .filter-btn, #projectsExpandBtn, .contact-form button[type="submit"], .footer-social a, .contact-link):hover {
+			transform: scale(1.02);
+		}
+
+		:where(.button, .cta-btn, .contact-btn, .details-btn, .filter-btn, #projectsExpandBtn, .contact-form button[type="submit"], .footer-social a, .contact-link):active {
+			transform: scale(0.98);
+		}
+
+		:where(.project-card:hover, .services-card:hover, .review-card:hover, .button:hover, .contact-link:hover, .footer-social a:hover) {
+			box-shadow: 0 10px 22px rgba(6, 10, 18, 0.35);
+		}
+
 		@media (prefers-reduced-motion: reduce) {
 			html {
 				scroll-behavior: auto;
@@ -3435,7 +3448,7 @@
 	<header class="site-header" id="siteHeader">
 		<div class="nav-wrap">
 			<a href="#home" class="logo-wrap brand">
-				<img src="Images/logo.png" alt="Automist Labs Logo" class="site-logo" loading="eager" decoding="async">
+				<img src="Images/logo.png" alt="Automist Labs Logo" class="site-logo" loading="lazy" decoding="async">
 				<span class="brand-text">Automist Labs</span>
 			</a>
 			<ul class="nav-links" id="desktopNav">
@@ -3723,7 +3736,7 @@
 	<!-- ADDED: Fullscreen project image viewer -->
 	<div class="image-viewer-modal" id="imageViewerModal" aria-hidden="true">
 		<button class="image-viewer-close" id="imageViewerClose" aria-label="Close fullscreen image">&times;</button>
-		<img class="image-viewer-content" id="imageViewerContent" src="" alt="Expanded project image" loading="eager" decoding="async">
+		<img class="image-viewer-content" id="imageViewerContent" src="" alt="Expanded project image" loading="lazy" decoding="async">
 	</div>
 
 	<script>
@@ -3998,6 +4011,8 @@
 		const imageViewerModal = document.getElementById("imageViewerModal");
 		const imageViewerClose = document.getElementById("imageViewerClose");
 		const imageViewerContent = document.getElementById("imageViewerContent");
+		const outputsCache = new Map();
+		const outputsPending = new Map();
 		const siteHeader = document.getElementById("siteHeader");
 		const menuToggle = document.getElementById("menuToggle");
 		const mobilePanel = document.getElementById("mobilePanel");
@@ -4164,6 +4179,22 @@
 
 			projectsWrap.style.maxHeight = "";
 			window.setTimeout(refreshSectionMetrics, 50);
+
+			// Prime one likely modal gallery during idle for faster perceived step-3 loading.
+			const warmProject = orderedItems[0];
+			if (warmProject) {
+				const warmBase = getProjectShowcase(warmProject).mediaBase;
+				if (warmBase && !outputsCache.has(warmBase) && !outputsPending.has(warmBase)) {
+					const warm = () => {
+						resolveOutputImages(warmBase).catch(() => null);
+					};
+					if ("requestIdleCallback" in window) {
+						window.requestIdleCallback(warm, { timeout: 500 });
+					} else {
+						window.setTimeout(warm, 80);
+					}
+				}
+			}
 		}
 
 		function animateProjectsHeight(mutator) {
@@ -4274,12 +4305,17 @@
 				const img = new Image();
 				img.onload = () => resolve(true);
 				img.onerror = () => resolve(false);
+				img.decoding = "async";
 				img.src = src;
 			});
 		}
 
 		async function resolveOutputImages(basePath) {
 			if (!basePath) return [];
+			if (outputsCache.has(basePath)) return outputsCache.get(basePath);
+			if (outputsPending.has(basePath)) return outputsPending.get(basePath);
+
+			const resolver = (async () => {
 			const extPriority = ["jpg", "jpeg", "png", "webp"];
 			const outputCandidates = Array.from({ length: 12 }, (_, i) => i + 1)
 				.flatMap((index) => extPriority.map((ext) => `${basePath}/output-${index}.${ext}`));
@@ -4292,7 +4328,17 @@
 				const order = Number(match[1]);
 				if (!byNumber.has(order)) byNumber.set(order, src);
 			}
-			return Array.from(byNumber.keys()).sort((a, b) => a - b).map((key) => byNumber.get(key));
+			const resolved = Array.from(byNumber.keys()).sort((a, b) => a - b).map((key) => byNumber.get(key));
+			outputsCache.set(basePath, resolved);
+			return resolved;
+			})();
+
+			outputsPending.set(basePath, resolver);
+			try {
+				return await resolver;
+			} finally {
+				outputsPending.delete(basePath);
+			}
 		}
 
 		function buildOutputsMarkup(outputs, title) {
@@ -4679,16 +4725,6 @@
 			});
 		}
 
-		document.addEventListener("click", (event) => {
-			const contactCta = event.target.closest(".cta-scroll-contact");
-			if (!contactCta) return;
-			event.preventDefault();
-			event.stopImmediatePropagation();
-			const contactSection = document.getElementById("contact");
-			if (!contactSection) return;
-			contactSection.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth", block: "start" });
-		});
-
 		projectFilters.addEventListener("click", (event) => {
 			const button = event.target.closest(".filter-btn");
 			if (!button) return;
@@ -4703,10 +4739,10 @@
 			button.classList.add("active");
 
 			projectsWrap.classList.add("fading");
-			setTimeout(() => {
+			requestAnimationFrame(() => {
 				renderProjects();
 				projectsWrap.classList.remove("fading");
-			}, 260);
+			});
 		});
 
 		modalClose.addEventListener("click", closeModal);
@@ -4792,9 +4828,10 @@
 		}
 
 		let resizeTimer;
-		window.addEventListener("resize", () => {
+		function scheduleLayoutRefresh(delay = 100) {
 			window.clearTimeout(resizeTimer);
 			resizeTimer = window.setTimeout(() => {
+				requestAnimationFrame(() => {
 				const nextMode = getProjectsViewportMode();
 				if (nextMode !== projectsViewportMode) {
 					projectsViewportMode = nextMode;
@@ -4803,19 +4840,22 @@
 				}
 				refreshSectionMetrics();
 				updateReviewMarqueeMetrics();
-			}, 120);
+				});
+			}, delay);
+		}
+
+		window.addEventListener("resize", () => {
+			scheduleLayoutRefresh(100);
 		});
 
 		window.addEventListener("orientationchange", () => {
-			window.setTimeout(() => {
-				refreshSectionMetrics();
-				updateReviewMarqueeMetrics();
-			}, 160);
+			scheduleLayoutRefresh(120);
 		});
 
 		const allSections = document.querySelectorAll("section[id]");
 		const navLinks = document.querySelectorAll(".nav-link");
 		let sectionMetrics = [];
+		let activeSectionId = "";
 
 		function refreshSectionMetrics() {
 			sectionMetrics = Array.from(allSections).map((section) => ({
@@ -4829,13 +4869,19 @@
 			siteHeader.classList.toggle("scrolled", window.scrollY > 22);
 
 			const triggerLine = window.scrollY + 140;
-			sectionMetrics.forEach((section) => {
+			let nextActive = activeSectionId;
+			for (let i = 0; i < sectionMetrics.length; i += 1) {
+				const section = sectionMetrics[i];
 				if (triggerLine >= section.top && triggerLine < section.bottom) {
-					const id = section.id;
-					navLinks.forEach((link) => {
-						link.classList.toggle("active", link.getAttribute("href") === `#${id}`);
-					});
+					nextActive = section.id;
+					break;
 				}
+			}
+
+			if (nextActive === activeSectionId) return;
+			activeSectionId = nextActive;
+			navLinks.forEach((link) => {
+				link.classList.toggle("active", link.getAttribute("href") === `#${activeSectionId}`);
 			});
 		}
 
@@ -4898,14 +4944,6 @@
 
 			tick();
 		}
-
-		document.addEventListener("DOMContentLoaded", function () {
-			document.querySelectorAll(".contact-btn").forEach((btn) => {
-				btn.addEventListener("click", function () {
-					console.log("Calendly button clicked");
-				});
-			});
-		});
 
 		function initRevealObserver() {
 			const revealCandidates = document.querySelectorAll(".reveal, .reveal-up:not(.service-card), .reveal-left, .reveal-right, .reveal-scale, .section-head .label, .section-head h2, .section-head p");
