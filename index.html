@@ -1,1 +1,5060 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Automist Labs — We Automate. You Dominate.</title>
+	<meta name="description" content="Premium AI automation agency specializing in n8n workflows and GoHighLevel CRM systems.">
+	<link rel="icon" type="image/png" href="/images/logo.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/images/logo.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/images/logo.png">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+	<style>
+		:root {
+			--bg-primary: #0A0E1A;
+			--bg-secondary: #0D1B2A;
+			--surface: #112240;
+			--accent: #C9A84C;
+			--accent-hover: #E8C96D;
+			--text-primary: #FFFFFF;
+			--text-secondary: #8892A4;
+			--border: rgba(201, 168, 76, 0.2);
+			--ghl: #2DD4BF;
+			--n8n: #C9A84C;
+			--ai: #8B5CF6;
+			--danger: #ef5350;
+			--container: min(1160px, 92vw);
+			--shadow-gold: 0 0 0 1px rgba(201, 168, 76, 0.3), 0 16px 38px rgba(201, 168, 76, 0.18);
+			--ease-smooth: cubic-bezier(0.22, 0.61, 0.36, 1);
+			--dur-fast: 0.25s;
+			--dur-mid: 0.32s;
+			--dur-slow: 0.35s;
+		}
 
+		* {
+			box-sizing: border-box;
+			margin: 0;
+			padding: 0;
+		}
+
+		html {
+			scroll-behavior: smooth;
+			scroll-padding-top: 92px;
+			-webkit-font-smoothing: antialiased;
+		}
+
+		body {
+			font-family: "Inter", sans-serif;
+			background: radial-gradient(circle at 10% 0%, rgba(201, 168, 76, 0.1), transparent 38%),
+									radial-gradient(circle at 88% 25%, rgba(45, 212, 191, 0.1), transparent 40%),
+									linear-gradient(180deg, var(--bg-primary), #090f1f 40%, var(--bg-secondary));
+			color: var(--text-primary);
+			line-height: 1.6;
+			overflow-x: hidden;
+			text-rendering: optimizeLegibility;
+			-webkit-font-smoothing: antialiased;
+			-moz-osx-font-smoothing: grayscale;
+		}
+
+		body.modal-open {
+			overflow: hidden;
+		}
+
+		*::-webkit-scrollbar {
+			width: 11px;
+		}
+
+		*::-webkit-scrollbar-track {
+			background: var(--bg-secondary);
+		}
+
+		*::-webkit-scrollbar-thumb {
+			background: linear-gradient(180deg, var(--accent), #8f7532);
+			border-radius: 10px;
+		}
+
+		a {
+			color: inherit;
+			text-decoration: none;
+		}
+
+		a,
+		button,
+		input,
+		select,
+		textarea {
+			-webkit-tap-highlight-color: transparent;
+			touch-action: manipulation;
+		}
+
+		a:focus-visible,
+		button:focus-visible {
+			outline: none;
+			box-shadow: 0 0 0 2px rgba(201, 168, 76, 0.26);
+			border-radius: 10px;
+		}
+
+		img,
+		svg,
+		canvas {
+			display: block;
+			max-width: 100%;
+		}
+
+		.container {
+			width: var(--container);
+			margin-inline: auto;
+		}
+
+		.section {
+			position: relative;
+			padding: 6.5rem 0;
+			scroll-margin-top: 96px;
+		}
+
+		.section-divider {
+			height: 1px;
+			background: linear-gradient(90deg, transparent, rgba(201, 168, 76, 0.65), transparent);
+			margin: 0 auto;
+			width: min(1140px, 92vw);
+		}
+
+		.label {
+			font-family: "Space Grotesk", sans-serif;
+			letter-spacing: 0.12em;
+			text-transform: uppercase;
+			color: var(--accent);
+			font-size: 0.82rem;
+			font-weight: 700;
+		}
+
+		h1,
+		h2,
+		h3,
+		h4 {
+			font-family: "Playfair Display", serif;
+			line-height: 1.15;
+		}
+
+		p {
+			color: var(--text-secondary);
+		}
+
+		.button {
+			font-family: "Space Grotesk", sans-serif;
+			border-radius: 999px;
+			border: 1px solid transparent;
+			cursor: pointer;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			gap: 0.45rem;
+			font-weight: 600;
+			min-height: 44px;
+			transition: transform var(--dur-mid) var(--ease-smooth), box-shadow var(--dur-mid) var(--ease-smooth), background var(--dur-mid) var(--ease-smooth), color var(--dur-fast) var(--ease-smooth), border-color var(--dur-fast) var(--ease-smooth);
+			will-change: transform;
+		}
+
+		.button:hover {
+			transform: scale(1.03);
+			box-shadow: 0 0 0 1px rgba(201, 168, 76, 0.42), 0 14px 30px rgba(201, 168, 76, 0.3);
+		}
+
+		.button-primary {
+			background: linear-gradient(120deg, #b3903f, var(--accent), #f0d98a);
+			color: #121212;
+			padding: 0.92rem 1.35rem;
+		}
+
+		.button-ghost {
+			border-color: rgba(201, 168, 76, 0.65);
+			color: var(--accent);
+			background: rgba(10, 14, 26, 0.25);
+			padding: 0.9rem 1.35rem;
+		}
+
+		.button-ghost:hover {
+			color: #1d1d1d;
+			background: var(--accent);
+		}
+
+		.cta-btn,
+		.contact-btn {
+			transition: all 0.3s ease;
+		}
+
+		.cta-btn:hover,
+		.contact-btn:hover {
+			transform: translateY(-2px);
+			box-shadow: 0 10px 25px rgba(255, 200, 0, 0.2);
+		}
+
+		.hero-secondary-btn {
+			position: relative;
+			border: 1px solid rgba(255, 215, 0, 0.5);
+			background: transparent;
+			color: #ffd700;
+			overflow: hidden;
+			isolation: isolate;
+			transition: transform 0.35s ease, color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+		}
+
+		.hero-secondary-btn::before {
+			content: "";
+			position: absolute;
+			inset: 0;
+			background: linear-gradient(120deg, #ffd700, #ffcc00);
+			opacity: 0;
+			transition: opacity 0.35s ease;
+			z-index: -1;
+		}
+
+		.hero-secondary-btn:hover {
+			color: #0b1220;
+			border-color: #ffd700;
+			background: transparent;
+			transform: translateY(-3px);
+			box-shadow: 0 14px 28px rgba(255, 215, 0, 0.25);
+		}
+
+		.hero-secondary-btn:hover::before {
+			opacity: 1;
+		}
+
+		.glass {
+			background: rgba(17, 34, 64, 0.7);
+			backdrop-filter: blur(10px);
+			-webkit-backdrop-filter: blur(10px);
+			border: 1px solid var(--border);
+			border-radius: 22px;
+			transition: transform var(--dur-mid) var(--ease-smooth), border-color var(--dur-fast) var(--ease-smooth), box-shadow var(--dur-mid) var(--ease-smooth);
+		}
+
+		.glass:hover {
+			transform: translateY(-6px);
+			border-color: rgba(201, 168, 76, 0.6);
+			box-shadow: var(--shadow-gold);
+		}
+
+		.reveal,
+		.reveal-up {
+			opacity: 0;
+			transform: translate3d(0, 40px, 0);
+			transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+			will-change: transform, opacity;
+		}
+
+		.reveal-left {
+			opacity: 0;
+			transform: translate3d(-40px, 0, 0);
+			transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+			will-change: transform, opacity;
+		}
+
+		.reveal-right {
+			opacity: 0;
+			transform: translate3d(40px, 0, 0);
+			transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+			will-change: transform, opacity;
+		}
+
+		.reveal-scale {
+			opacity: 0;
+			transform: translate3d(0, 0, 0) scale(0.95);
+			transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+			will-change: transform, opacity;
+		}
+
+		.reveal.active,
+		.reveal-up.active,
+		.reveal-left.active,
+		.reveal-right.active,
+		.reveal-scale.active,
+		.reveal.visible,
+		.reveal-up.visible,
+		.reveal-left.visible,
+		.reveal-right.visible,
+		.reveal-scale.visible {
+			opacity: 1;
+			transform: translate3d(0, 0, 0) scale(1);
+		}
+
+		@media (hover: hover) and (pointer: fine) {
+			.button,
+			.filter-btn,
+			.project-card,
+			.contact-link,
+			.service-card,
+			.footer-social a {
+				transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.55s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.35s ease, background 0.35s ease;
+				will-change: transform;
+			}
+
+			.button:hover,
+			.filter-btn:hover,
+			.project-card:hover,
+			.contact-link:hover,
+			.service-card:hover,
+			.footer-social a:hover {
+				transform: translateY(-5px);
+			}
+		}
+
+		.site-header {
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			z-index: 1000;
+			border-bottom: 1px solid transparent;
+			transition: background var(--dur-mid) var(--ease-smooth), border-color var(--dur-mid) var(--ease-smooth), backdrop-filter var(--dur-mid) var(--ease-smooth);
+		}
+
+		.site-header.scrolled {
+			background: rgba(9, 13, 25, 0.72);
+			border-color: rgba(201, 168, 76, 0.16);
+			backdrop-filter: blur(10px);
+			-webkit-backdrop-filter: blur(10px);
+		}
+
+		.nav-wrap {
+			width: var(--container);
+			margin-inline: auto;
+			min-height: 78px;
+			display: grid;
+			grid-template-columns: auto 1fr auto;
+			align-items: center;
+			gap: 1.4rem;
+		}
+
+		.logo-wrap {
+			display: inline-flex;
+			align-items: center;
+			gap: 0.7rem;
+			color: var(--accent);
+			font-family: "Space Grotesk", sans-serif;
+			font-weight: 700;
+			font-size: 1rem;
+		}
+
+		.brand {
+			display: inline-flex;
+			align-items: center;
+			gap: 10px;
+		}
+
+		.site-logo {
+			height: 36px;
+			width: auto;
+			object-fit: contain;
+			display: block;
+			flex-shrink: 0;
+			filter: drop-shadow(0 0 6px rgba(255, 215, 0, 0.2));
+			transition: transform 0.3s ease;
+		}
+
+		.brand-text {
+			font-weight: 600;
+			font-size: 16px;
+			letter-spacing: 0.3px;
+			background: linear-gradient(120deg, #f6d365, #d4af37);
+			-webkit-background-clip: text;
+			background-clip: text;
+			-webkit-text-fill-color: transparent;
+			color: #f6d365;
+			line-height: 1;
+		}
+
+		.brand:hover .site-logo {
+			transform: scale(1.05);
+		}
+
+
+		.nav-links {
+			display: flex;
+			justify-content: center;
+			gap: 1.2rem;
+			list-style: none;
+		}
+
+		.nav-link {
+			font-family: "Space Grotesk", sans-serif;
+			font-size: 0.92rem;
+			color: #d6dcea;
+			position: relative;
+			padding: 0.2rem 0.15rem;
+			transition: color 0.3s ease;
+		}
+
+		.nav-link::after {
+			content: "";
+			position: absolute;
+			left: 0;
+			bottom: -0.32rem;
+			height: 2px;
+			width: 100%;
+			background: var(--accent);
+			transform-origin: left;
+			transform: scaleX(0);
+			transition: transform 0.3s ease;
+		}
+
+		.nav-link:hover,
+		.nav-link.active {
+			color: var(--accent);
+		}
+
+		.nav-link:hover::after,
+		.nav-link.active::after {
+			transform: scaleX(1);
+		}
+
+		.nav-cta {
+			font-size: 0.88rem;
+			padding: 0.8rem 1.08rem;
+			box-shadow: 0 0 0 1px rgba(201, 168, 76, 0.35);
+		}
+
+		.nav-cta:hover {
+			animation: ctaPulse 1.5s ease infinite;
+		}
+
+		@keyframes ctaPulse {
+			0%,
+			100% {
+				box-shadow: 0 0 0 1px rgba(201, 168, 76, 0.35), 0 0 0 0 rgba(201, 168, 76, 0.15);
+			}
+			50% {
+				box-shadow: 0 0 0 1px rgba(201, 168, 76, 0.8), 0 0 18px rgba(201, 168, 76, 0.4);
+			}
+		}
+
+		.menu-toggle {
+			display: none;
+			width: 44px;
+			aspect-ratio: 1;
+			border: 1px solid rgba(201, 168, 76, 0.35);
+			border-radius: 12px;
+			background: rgba(17, 34, 64, 0.8);
+			position: relative;
+			cursor: pointer;
+		}
+
+		.menu-toggle span,
+		.menu-toggle::before,
+		.menu-toggle::after {
+			content: "";
+			position: absolute;
+			left: 11px;
+			right: 11px;
+			height: 2px;
+			background: var(--accent);
+			top: 21px;
+			transition: transform var(--dur-mid) var(--ease-smooth), opacity var(--dur-fast) var(--ease-smooth);
+			transform-origin: center;
+		}
+
+		.menu-toggle span {
+			transform: translateY(0) translateZ(0);
+		}
+
+		.menu-toggle::before {
+			transform: translateY(-7px) translateZ(0);
+		}
+
+		.menu-toggle::after {
+			transform: translateY(7px) translateZ(0);
+		}
+
+		.menu-toggle.open span {
+			opacity: 0;
+		}
+
+		.menu-toggle.open::before {
+			transform: translateY(0) rotate(45deg) translateZ(0);
+		}
+
+		.menu-toggle.open::after {
+			transform: translateY(0) rotate(-45deg) translateZ(0);
+		}
+
+		.mobile-panel {
+			display: grid;
+			grid-template-rows: 0fr;
+			overflow: hidden;
+			opacity: 0;
+			transform: translateY(-8px) translateZ(0);
+			pointer-events: none;
+			transition: grid-template-rows var(--dur-slow) ease-in-out, opacity var(--dur-mid) var(--ease-smooth), transform var(--dur-mid) var(--ease-smooth);
+			background: rgba(10, 14, 26, 0.95);
+			border-bottom: 1px solid rgba(201, 168, 76, 0.2);
+		}
+
+		.mobile-panel.open {
+			grid-template-rows: 1fr;
+			opacity: 1;
+			transform: translateY(0) translateZ(0);
+			pointer-events: auto;
+		}
+
+		.mobile-panel ul {
+			width: var(--container);
+			margin-inline: auto;
+			list-style: none;
+			display: flex;
+			flex-direction: column;
+			padding: 0.8rem 0 1rem;
+			gap: 0.7rem;
+			min-height: 0;
+			overflow: hidden;
+		}
+
+		.mobile-panel a {
+			display: inline-flex;
+			width: 100%;
+			padding: 0.68rem 0.4rem;
+			font-family: "Space Grotesk", sans-serif;
+			color: #d5dff1;
+			border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+			transition: color var(--dur-fast) var(--ease-smooth), background var(--dur-fast) var(--ease-smooth), transform var(--dur-fast) var(--ease-smooth);
+			transform: translateX(0) translateZ(0);
+		}
+
+		.mobile-panel a:hover {
+			color: #fff2cb;
+			background: rgba(201, 168, 76, 0.08);
+			transform: translateX(4px) translateZ(0);
+		}
+
+		.hero {
+			min-height: 100svh;
+			display: grid;
+			place-items: center;
+			position: relative;
+			padding-top: 7.2rem;
+			isolation: isolate;
+		}
+
+		#particleCanvas {
+			position: absolute;
+			inset: 0;
+			width: 100%;
+			height: 100%;
+			z-index: -1;
+			opacity: 0.9;
+		}
+
+		.hero-content {
+			width: var(--container);
+			text-align: center;
+			display: grid;
+			gap: 1.35rem;
+			justify-items: center;
+			padding-bottom: 2.5rem;
+			animation: heroEntrance 0.8s ease;
+		}
+
+		@keyframes heroEntrance {
+			from {
+				opacity: 0.4;
+				transform: translateY(16px);
+			}
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
+
+		.accepting {
+			display: inline-flex;
+			align-items: center;
+			gap: 0.55rem;
+			font-family: "Space Grotesk", sans-serif;
+			font-size: 0.84rem;
+			border: 1px solid rgba(201, 168, 76, 0.46);
+			border-radius: 999px;
+			padding: 0.48rem 0.9rem;
+			background: rgba(17, 34, 64, 0.55);
+			color: #e6ebf9;
+		}
+
+		.dot-pulse {
+			width: 10px;
+			aspect-ratio: 1;
+			border-radius: 50%;
+			background: #27d36c;
+			box-shadow: 0 0 0 rgba(39, 211, 108, 0.45);
+			animation: greenPulse 1.7s ease infinite;
+		}
+
+		@keyframes greenPulse {
+			0% {
+				box-shadow: 0 0 0 0 rgba(39, 211, 108, 0.45);
+			}
+			70% {
+				box-shadow: 0 0 0 11px rgba(39, 211, 108, 0);
+			}
+			100% {
+				box-shadow: 0 0 0 0 rgba(39, 211, 108, 0);
+			}
+		}
+
+		.hero h1 {
+			max-width: 820px;
+			font-size: clamp(2.2rem, 5.8vw, 4.6rem);
+			background: linear-gradient(120deg, #fef6dd 8%, #d9b457 18%, #f2d993 30%, #e0b652 42%, #fff3c9 53%, #dbb758 64%, #f6e0a8 76%, #c9a84c 90%);
+			background-size: 220% auto;
+			-webkit-background-clip: text;
+			background-clip: text;
+			color: transparent;
+			animation: goldShimmer 6s linear infinite;
+		}
+
+		@keyframes goldShimmer {
+			to {
+				background-position: 220% center;
+			}
+		}
+
+		.typewriter-wrap {
+			min-height: 2.1em;
+			font-size: clamp(1.05rem, 2.1vw, 1.44rem);
+			color: #d9e2f4;
+			font-weight: 500;
+			position: relative;
+			font-family: "Space Grotesk", sans-serif;
+		}
+
+		.typewriter {
+			border-right: 2px solid var(--accent);
+			padding-right: 0.2rem;
+			white-space: nowrap;
+			display: inline-block;
+			max-width: min(90vw, 700px);
+			overflow: hidden;
+			text-overflow: ellipsis;
+			animation: caretBlink 0.85s step-end infinite;
+		}
+
+		@keyframes caretBlink {
+			50% {
+				border-color: transparent;
+			}
+		}
+
+		.hero-copy {
+			max-width: 860px;
+			font-size: clamp(1rem, 1.8vw, 1.16rem);
+		}
+
+		.hero-actions {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			gap: 0.85rem;
+			margin-top: 0.3rem;
+		}
+
+		.trust-bar {
+			margin-top: 0.35rem;
+			font-family: "Space Grotesk", sans-serif;
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			gap: 0.6rem;
+			color: #d3dcf1;
+			font-size: 0.9rem;
+		}
+
+		.trust-bar span {
+			white-space: nowrap;
+		}
+
+		.about-grid {
+			display: grid;
+			gap: clamp(1.6rem, 3vw, 2.2rem);
+			grid-template-columns: minmax(280px, 0.95fr) minmax(0, 1.15fr);
+			align-items: center;
+		}
+
+		.about-visual {
+			position: relative;
+			padding: 0.2rem 0.8rem 0;
+			width: 100%;
+			max-width: 540px;
+		}
+
+		.about-content {
+			display: grid;
+			gap: 0.6rem;
+			align-content: start;
+		}
+
+		.profile-frame {
+			border: 1px solid rgba(255, 255, 255, 0.08);
+			border-radius: 28px;
+			min-height: unset;
+			width: min(100%, 356px);
+			background: rgba(255, 255, 255, 0.03);
+			backdrop-filter: blur(12px);
+			-webkit-backdrop-filter: blur(12px);
+			position: relative;
+			overflow: hidden;
+			box-shadow: 0 14px 34px rgba(5, 9, 18, 0.5);
+			display: grid;
+			place-items: center;
+			transition: transform var(--dur-mid) var(--ease-smooth), box-shadow var(--dur-mid) var(--ease-smooth), border-color var(--dur-mid) var(--ease-smooth);
+		}
+
+		.profile-frame::before {
+			content: none;
+		}
+
+		.profile-placeholder {
+			position: relative;
+			z-index: 2;
+			display: grid;
+			justify-items: center;
+			gap: 0;
+			text-align: center;
+			padding: 22px;
+		}
+
+		.placeholder-ring {
+			width: clamp(128px, 14vw, 166px);
+			aspect-ratio: 1;
+			border-radius: 50%;
+			background: linear-gradient(140deg, rgba(201, 168, 76, 0.28), rgba(201, 168, 76, 0.08));
+			border: 1px solid rgba(201, 168, 76, 0.42);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			box-shadow: 0 0 0 5px rgba(201, 168, 76, 0.06), 0 0 0 11px rgba(201, 168, 76, 0.03), 0 7px 14px rgba(7, 11, 20, 0.3);
+			animation: profileFloat 5s ease-in-out infinite;
+			overflow: hidden;
+			position: relative;
+			padding: 0;
+			margin: 0;
+			margin-bottom: 14px;
+			line-height: 0;
+		}
+
+		@keyframes profileFloat {
+			0%,
+			100% {
+				transform: translateY(0);
+			}
+			50% {
+				transform: translateY(-6px);
+			}
+		}
+
+		.founder-image {
+			position: absolute;
+			inset: 0;
+			width: 100%;
+			height: 100%;
+			max-width: 100%;
+			object-fit: cover;
+			object-position: center 24%;
+			display: block;
+			border-radius: 50%;
+			transform: scale(1) translateZ(0);
+			opacity: 0;
+			animation: founderImageIn var(--dur-slow) ease-out 0.12s forwards;
+			will-change: transform, opacity;
+			backface-visibility: hidden;
+			margin: 0;
+			padding: 0;
+			border: 0;
+			box-shadow: inset 0 0 0 1px rgba(201, 168, 76, 0.45), 0 10px 22px rgba(4, 8, 16, 0.45);
+		}
+
+		@keyframes founderImageIn {
+			from {
+				opacity: 0;
+				transform: scale(1.05) translateZ(0);
+			}
+			to {
+				opacity: 1;
+				transform: scale(1.12) translateZ(0);
+			}
+		}
+
+		@media (hover: hover) and (pointer: fine) {
+			.profile-frame:hover {
+				transform: translateY(-6px) scale(1.01);
+				box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+				border-color: rgba(255, 215, 0, 0.3);
+			}
+
+			.profile-frame:hover .founder-image {
+				transform: scale(1.1) translateZ(0);
+			}
+
+			.profile-frame:hover .placeholder-ring {
+				box-shadow: 0 0 0 9px rgba(201, 168, 76, 0.08), 0 0 0 18px rgba(201, 168, 76, 0.04), 0 0 18px rgba(201, 168, 76, 0.16);
+			}
+		}
+
+		.profile-name {
+			font-family: "Playfair Display", serif;
+			font-size: clamp(1.5rem, 3.2vw, 2.15rem);
+			color: #f7f3e3;
+			line-height: 1.08;
+			margin-top: 0;
+		}
+
+		.profile-role {
+			font-family: "Space Grotesk", sans-serif;
+			font-size: 0.88rem;
+			letter-spacing: 0.08em;
+			text-transform: uppercase;
+			color: rgba(201, 168, 76, 0.88);
+			margin-top: 6px;
+			line-height: 1.2;
+		}
+
+		.about-badge,
+		.about-float-card {
+			font-family: "Space Grotesk", sans-serif;
+			border: 1px solid rgba(201, 168, 76, 0.45);
+			border-radius: 999px;
+			background: rgba(10, 14, 26, 0.72);
+			color: #f2f4fa;
+			padding: 0.52rem 0.92rem;
+			font-size: 0.82rem;
+			line-height: 1.5;
+			white-space: normal;
+			text-align: center;
+		}
+
+		.about-badge {
+			position: static;
+			display: inline-block;
+			margin-top: 10px;
+			margin-bottom: 0;
+			padding: 6px 12px;
+			border-radius: 999px;
+			font-size: 0.78rem;
+			border: 1px solid rgba(255, 255, 255, 0.15);
+			background: rgba(255, 255, 255, 0.03);
+			width: auto;
+			max-width: fit-content;
+		}
+
+		.about-float-card {
+			position: absolute;
+			right: 0.7rem;
+			top: 0.6rem;
+			border-radius: 14px;
+			font-size: 0.86rem;
+			padding: 0.62rem 0.82rem;
+			box-shadow: var(--shadow-gold);
+			overflow: hidden;
+			transition: transform var(--dur-mid) var(--ease-smooth), box-shadow var(--dur-mid) var(--ease-smooth), border-color var(--dur-mid) var(--ease-smooth), background var(--dur-mid) var(--ease-smooth);
+			animation: floatBadge 4.6s ease-in-out infinite;
+		}
+
+		.about-float-card::after {
+			content: "";
+			position: absolute;
+			inset: -1px;
+			background: linear-gradient(120deg, transparent 15%, rgba(255, 255, 255, 0.2), transparent 48%);
+			transform: translateX(-130%);
+			transition: transform var(--dur-mid) var(--ease-smooth);
+			pointer-events: none;
+		}
+
+		.about-float-card:hover {
+			transform: translateY(-4px) scale(1.02);
+			box-shadow: 0 14px 30px rgba(201, 168, 76, 0.24);
+			border-color: rgba(201, 168, 76, 0.8);
+			background: rgba(21, 35, 54, 0.88);
+		}
+
+		.about-float-card:hover::after {
+			transform: translateX(130%);
+		}
+
+		@keyframes floatBadge {
+			0%,
+			100% {
+				transform: translateY(0);
+			}
+			50% {
+				transform: translateY(-3px);
+			}
+		}
+
+		.about-content h2 {
+			font-size: clamp(1.9rem, 4vw, 3rem);
+			margin: 0.68rem 0 1rem;
+		}
+
+		.about-story {
+			margin-bottom: 1.2rem;
+			font-size: 1rem;
+		}
+
+		.tool-list {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0.58rem;
+			margin-bottom: 1.3rem;
+		}
+
+		.pill {
+			border: 1px solid rgba(201, 168, 76, 0.35);
+			border-radius: 999px;
+			padding: 0.4rem 0.75rem;
+			font-size: 0.8rem;
+			color: #dfe7f8;
+			background: rgba(10, 14, 26, 0.6);
+			font-family: "Space Grotesk", sans-serif;
+		}
+
+		.stats-row {
+			display: grid;
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+			gap: 0.9rem;
+		}
+
+		.stat-card {
+			padding: 1rem 1rem 0.92rem;
+			border-radius: 14px;
+			border: 1px solid rgba(201, 168, 76, 0.24);
+			background: rgba(17, 34, 64, 0.5);
+			position: relative;
+			overflow: hidden;
+			transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+		}
+
+		.stat-card::after {
+			content: "";
+			position: absolute;
+			inset: 0;
+			background: radial-gradient(circle at 15% 0%, rgba(201, 168, 76, 0.16), transparent 48%);
+			opacity: 0;
+			transition: opacity 0.35s ease;
+			pointer-events: none;
+		}
+
+		.stat-card.is-active {
+			border-color: rgba(201, 168, 76, 0.5);
+			box-shadow: 0 12px 28px rgba(201, 168, 76, 0.1);
+		}
+
+		.stat-card:hover {
+			transform: translateY(-4px);
+			border-color: rgba(201, 168, 76, 0.56);
+			box-shadow: 0 12px 28px rgba(201, 168, 76, 0.12);
+		}
+
+		.stat-card:hover::after {
+			opacity: 1;
+		}
+
+		.stat-card::before {
+			content: "";
+			position: absolute;
+			left: 0;
+			right: 0;
+			top: 0;
+			height: 1px;
+			background: linear-gradient(90deg, transparent, rgba(201, 168, 76, 0.7), transparent);
+		}
+
+		.stat-number {
+			font-family: "Playfair Display", serif;
+			font-size: 2rem;
+			color: var(--accent);
+			line-height: 1.1;
+			text-shadow: 0 0 18px rgba(201, 168, 76, 0.1);
+			letter-spacing: 0.02em;
+		}
+
+		.stat-card.count-finished .stat-number {
+			animation: numberReveal 0.58s cubic-bezier(0.2, 0.8, 0.2, 1);
+		}
+
+		.stat-card:hover .stat-number {
+			color: #e8c96d;
+			text-shadow: 0 0 20px rgba(201, 168, 76, 0.22);
+		}
+
+		@keyframes numberReveal {
+			0% {
+				opacity: 0.45;
+				transform: translateY(7px) scale(0.96);
+			}
+			100% {
+				opacity: 1;
+				transform: translateY(0) scale(1);
+			}
+		}
+
+		.stat-label {
+			color: #d3deef;
+			font-size: 0.85rem;
+			font-family: "Space Grotesk", sans-serif;
+		}
+
+		.stat-label-nowrap {
+			white-space: nowrap;
+			font-size: clamp(0.72rem, 0.85vw, 0.82rem);
+			letter-spacing: -0.01em;
+		}
+
+		.stat-card-wide {
+			padding-left: 0.78rem;
+			padding-right: 0.78rem;
+		}
+
+		.stat-progress {
+			margin-top: 0.7rem;
+			height: 5px;
+			background: rgba(255, 255, 255, 0.08);
+			border-radius: 999px;
+			overflow: hidden;
+			position: relative;
+		}
+
+		.stat-progress span {
+			display: block;
+			height: 100%;
+			width: 100%;
+			background: linear-gradient(90deg, #947837, var(--accent), #f1dd9b);
+			transform-origin: left;
+			transform: scaleX(0);
+			will-change: transform;
+		}
+
+		.stat-progress span::after {
+			content: "";
+			position: absolute;
+			top: 0;
+			right: 0;
+			width: 18px;
+			height: 100%;
+			background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45));
+			opacity: 0;
+			transition: opacity 0.35s ease;
+		}
+
+		.stat-card.count-finished .stat-progress span::after {
+			opacity: 1;
+		}
+
+		.section-head {
+			text-align: center;
+			margin-bottom: 2.1rem;
+			display: grid;
+			gap: 0.7rem;
+			justify-items: center;
+		}
+
+		.section-head h2 {
+			font-size: clamp(2rem, 4.6vw, 3.35rem);
+			max-width: 860px;
+		}
+
+		.section-head p {
+			max-width: 820px;
+		}
+
+		.service-grid {
+			display: grid;
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+			gap: 1rem;
+		}
+
+		.service-card {
+			position: relative;
+			padding: 1.5rem;
+			display: grid;
+			gap: 0.9rem;
+			align-content: start;
+			background: rgba(20, 30, 50, 0.6);
+			backdrop-filter: blur(16px);
+			-webkit-backdrop-filter: blur(16px);
+			border: 1px solid rgba(255, 215, 0, 0.15);
+			border-radius: 20px;
+			overflow: hidden;
+			transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.4s ease, box-shadow 0.4s ease, background 0.4s ease;
+			will-change: transform, opacity;
+		}
+
+		.services-card::before {
+			content: "";
+			position: absolute;
+			inset: 0;
+			border-radius: 20px;
+			padding: 1px;
+			background: linear-gradient(120deg, transparent, rgba(255, 215, 0, 0.5), transparent);
+			-webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+			-webkit-mask-composite: xor;
+			mask-composite: exclude;
+			opacity: 0;
+			transition: opacity 0.4s ease;
+			pointer-events: none;
+		}
+
+		.services-card::after {
+			content: "";
+			position: absolute;
+			width: 200px;
+			height: 200px;
+			top: -50px;
+			right: -50px;
+			background: radial-gradient(circle, rgba(255, 215, 0, 0.08), transparent 70%);
+			opacity: 0;
+			transition: opacity 0.4s ease;
+			pointer-events: none;
+		}
+
+		.services-card:hover {
+			transform: translateY(-10px) scale(1.02);
+			border-color: rgba(255, 215, 0, 0.6);
+			box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 40px rgba(255, 215, 0, 0.15);
+		}
+
+		.services-card:hover::before,
+		.services-card:hover::after {
+			opacity: 1;
+		}
+
+		.service-grid .service-card.reveal-up {
+			opacity: 0;
+			transform: translateY(40px);
+			transition: opacity 0.6s ease, transform 0.6s ease;
+			transition-delay: calc(var(--i, 0) * 0.08s) !important;
+			will-change: transform, opacity;
+		}
+
+		.service-grid .service-card.reveal-up.visible {
+			opacity: 1;
+			transform: translateY(0);
+		}
+
+		.service-icon {
+			font-size: 1.35rem;
+			width: 46px;
+			aspect-ratio: 1;
+			border: 1px solid rgba(201, 168, 76, 0.45);
+			border-radius: 12px;
+			display: grid;
+			place-items: center;
+			color: var(--accent);
+			background: rgba(10, 14, 26, 0.56);
+			transition: transform 0.4s ease;
+			will-change: transform;
+		}
+
+		.services-card:hover .service-icon {
+			transform: rotate(8deg) scale(1.1);
+		}
+
+		.service-card h3 {
+			font-size: 1.46rem;
+			transition: color 0.3s ease, letter-spacing 0.3s ease;
+		}
+
+		.service-card p {
+			transition: opacity 0.3s ease;
+		}
+
+		.services-card:hover h3 {
+			color: #ffd700;
+			letter-spacing: 0.5px;
+		}
+
+		.services-card:hover p {
+			opacity: 0.9;
+		}
+
+		.badge {
+			display: inline-flex;
+			font-family: "Space Grotesk", sans-serif;
+			font-size: 0.72rem;
+			border-radius: 999px;
+			border: 1px solid rgba(201, 168, 76, 0.45);
+			color: #f6e7bb;
+			padding: 0.3rem 0.64rem;
+			background: rgba(20, 34, 52, 0.82);
+			width: fit-content;
+		}
+
+		.service-corner {
+			position: absolute;
+			right: 1rem;
+			top: 1rem;
+		}
+
+		.service-tags {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0.45rem;
+		}
+
+		.service-tags span {
+			border-radius: 999px;
+			font-size: 0.72rem;
+			font-family: "Space Grotesk", sans-serif;
+			border: 1px solid rgba(201, 168, 76, 0.2);
+			color: #e2ebfb;
+			background: rgba(8, 12, 24, 0.55);
+			padding: 0.32rem 0.6rem;
+			transition: background 0.3s ease, border-color 0.3s ease;
+		}
+
+		.services-card:hover .service-tags span {
+			background: rgba(255, 215, 0, 0.1);
+			border-color: rgba(255, 215, 0, 0.5);
+		}
+
+		.services-cta-wrap {
+			text-align: center;
+			margin-top: 1.8rem;
+			display: grid;
+			gap: 0.8rem;
+			justify-items: center;
+		}
+
+		.filters {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0.65rem;
+			justify-content: center;
+			margin-bottom: 1.4rem;
+		}
+
+		.filter-btn {
+			border: 1px solid rgba(201, 168, 76, 0.42);
+			border-radius: 999px;
+			background: rgba(17, 34, 64, 0.45);
+			color: #d4ddf2;
+			padding: 0.52rem 0.92rem;
+			font-family: "Space Grotesk", sans-serif;
+			cursor: pointer;
+			transition: transform var(--dur-fast) var(--ease-smooth), background var(--dur-fast) var(--ease-smooth), color var(--dur-fast) var(--ease-smooth), box-shadow var(--dur-fast) var(--ease-smooth);
+		}
+
+		.filter-btn.active,
+		.filter-btn:hover {
+			background: var(--accent);
+			color: #111318;
+			box-shadow: 0 8px 20px rgba(201, 168, 76, 0.22);
+			transform: translateY(-2px);
+		}
+
+		.projects-grid-wrap {
+			transition: opacity var(--dur-mid) var(--ease-smooth), transform var(--dur-mid) var(--ease-smooth);
+			max-height: 5000px;
+			overflow: visible;
+			opacity: 1;
+			will-change: transform, opacity;
+		}
+
+		.projects-grid-wrap.fading {
+			opacity: 0;
+			transform: translateY(8px);
+		}
+
+		.projects-grid {
+			display: grid;
+			grid-template-columns: repeat(4, minmax(0, 1fr));
+			gap: 0.95rem;
+			align-items: stretch;
+			margin-top: 20px;
+			margin-bottom: 20px;
+			overflow: visible !important;
+		}
+
+		.project-card {
+			position: relative;
+			z-index: 1;
+			padding: 0.9rem;
+			border-radius: 18px;
+			border: 1px solid rgba(255, 215, 0, 0.15);
+			background: rgba(20, 30, 50, 0.6);
+			backdrop-filter: blur(16px);
+			-webkit-backdrop-filter: blur(16px);
+			display: grid;
+			gap: 0.72rem;
+			cursor: pointer;
+			overflow: hidden;
+			opacity: 0;
+			transform: translate3d(0, 40px, 0);
+			transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.4s ease, box-shadow 0.4s ease;
+			transition-delay: calc(var(--i, 0) * 0.08s);
+			will-change: transform, opacity;
+		}
+
+		.project-card::before {
+			content: "";
+			position: absolute;
+			inset: 0;
+			border-radius: 18px;
+			padding: 1px;
+			background: linear-gradient(120deg, transparent, rgba(255, 215, 0, 0.4), transparent);
+			-webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+			-webkit-mask-composite: xor;
+			mask-composite: exclude;
+			opacity: 0;
+			transition: opacity 0.4s ease;
+			pointer-events: none;
+		}
+
+		.project-card.active {
+			opacity: 1;
+			transform: translate3d(0, 0, 0);
+		}
+
+		@keyframes projectCardIn {
+			from {
+				opacity: 0;
+				transform: translateY(20px);
+			}
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
+
+		@media (hover: hover) and (pointer: fine) {
+			.project-card:hover {
+				transform: translateY(-6px) scale(1.02);
+				z-index: 5;
+				border-color: rgba(255, 215, 0, 0.6);
+				box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 40px rgba(255, 215, 0, 0.15);
+			}
+
+			.project-card:hover::before {
+				opacity: 1;
+			}
+
+			.project-card:hover .details-btn {
+				opacity: 1;
+				transform: translateY(0);
+			}
+
+			.project-card:hover .project-workflow-thumb {
+				transform: scale(1.05);
+			}
+
+			.project-card:hover h3 {
+				color: #ffd700;
+			}
+
+			.project-card:hover .tool-pills span {
+				background: rgba(255, 215, 0, 0.1);
+				border-color: rgba(255, 215, 0, 0.5);
+			}
+		}
+
+		.project-top {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			gap: 0.45rem;
+		}
+
+		.cat-badge {
+			border-radius: 999px;
+			padding: 0.26rem 0.55rem;
+			font-size: 0.7rem;
+			font-family: "Space Grotesk", sans-serif;
+			border: 1px solid transparent;
+			width: fit-content;
+		}
+
+		.cat-n8n {
+			background: rgba(201, 168, 76, 0.18);
+			border-color: rgba(201, 168, 76, 0.62);
+			color: #f4e2a3;
+		}
+
+		.cat-ghl {
+			background: rgba(45, 212, 191, 0.14);
+			border-color: rgba(45, 212, 191, 0.65);
+			color: #9ff8e9;
+		}
+
+		.cat-ai {
+			background: rgba(139, 92, 246, 0.16);
+			border-color: rgba(139, 92, 246, 0.62);
+			color: #d0b5ff;
+		}
+
+		.preview {
+			min-height: 132px;
+			border-radius: 12px;
+			border: 1px solid rgba(201, 168, 76, 0.25);
+			background: linear-gradient(170deg, #0c1629, #0a1223 62%, #0b1324);
+			position: relative;
+			overflow: hidden;
+			display: grid;
+			place-items: center;
+			padding: 0.65rem;
+		}
+
+		.preview svg {
+			position: absolute;
+			inset: 0;
+			width: 100%;
+			height: 100%;
+			opacity: 0.85;
+		}
+
+		.preview small {
+			z-index: 2;
+			color: #95a0b9;
+			font-size: 0.72rem;
+			text-align: center;
+			background: rgba(8, 12, 24, 0.6);
+			padding: 0.2rem 0.48rem;
+			border-radius: 999px;
+		}
+
+		.project-workflow-thumb {
+			width: 100%;
+			height: 100%;
+			object-fit: contain;
+			object-position: center;
+			position: absolute;
+			inset: 0;
+			padding: 0.4rem;
+			transition: transform 0.5s ease;
+			will-change: transform;
+		}
+
+		.project-card h3 {
+			font-size: 1.07rem;
+			line-height: 1.35;
+			transition: color 0.3s ease;
+		}
+
+		.project-card p {
+			font-size: 0.88rem;
+			color: #c6d0e5;
+		}
+
+		.tool-pills {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0.35rem;
+		}
+
+		.tool-pills span {
+			font-size: 0.68rem;
+			font-family: "Space Grotesk", sans-serif;
+			border: 1px solid rgba(255, 255, 255, 0.12);
+			border-radius: 999px;
+			padding: 0.24rem 0.48rem;
+			background: rgba(7, 12, 24, 0.55);
+			color: #d5dff3;
+			transition: background 0.3s ease, border-color 0.3s ease;
+		}
+
+		.details-btn {
+			margin-top: 0.15rem;
+			align-self: end;
+			font-size: 0.83rem;
+			border-radius: 999px;
+			border: 1px solid rgba(201, 168, 76, 0.42);
+			color: var(--accent);
+			background: rgba(8, 12, 24, 0.45);
+			font-family: "Space Grotesk", sans-serif;
+			padding: 0.42rem 0.62rem;
+			opacity: 0;
+			transform: translateY(6px);
+			transition: opacity var(--dur-mid) var(--ease-smooth), transform var(--dur-mid) var(--ease-smooth), background var(--dur-mid) var(--ease-smooth), color var(--dur-fast) var(--ease-smooth);
+			width: fit-content;
+		}
+
+		.project-card.project-collapsed {
+			display: none;
+		}
+
+		.project-card.project-reveal {
+			display: grid;
+			animation: projectRevealIn 0.42s ease-out both;
+			animation-delay: var(--reveal-delay, 0ms);
+		}
+
+		@keyframes projectRevealIn {
+			from {
+				opacity: 0;
+				transform: translateY(20px);
+			}
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
+
+		.details-btn:hover {
+			color: #131313;
+			background: var(--accent);
+		}
+
+		.projects-expand {
+			margin-top: 1.2rem;
+			text-align: center;
+			display: none;
+		}
+
+		.projects-expand.visible {
+			display: block;
+		}
+
+		#projectsExpandBtn {
+			transition: transform 0.3s ease, box-shadow 0.3s ease;
+		}
+
+		#projectsExpandBtn:hover {
+			transform: scale(1.05);
+			box-shadow: 0 10px 26px rgba(201, 168, 76, 0.24);
+		}
+
+		.projects-expand.hidden {
+			display: none;
+		}
+
+		.projects-banner {
+			margin-top: 1.6rem;
+			padding: 1.3rem;
+			border-radius: 18px;
+			border: 1px solid rgba(201, 168, 76, 0.24);
+			background: linear-gradient(135deg, rgba(15, 28, 46, 0.82), rgba(10, 18, 36, 0.78));
+			display: grid;
+			gap: 0.75rem;
+			justify-items: center;
+			text-align: center;
+			transition: transform var(--dur-mid) var(--ease-smooth), border-color var(--dur-mid) var(--ease-smooth), box-shadow var(--dur-mid) var(--ease-smooth);
+		}
+
+		.projects-banner:hover {
+			transform: translateY(-4px);
+			border-color: rgba(201, 168, 76, 0.55);
+			box-shadow: 0 14px 30px rgba(201, 168, 76, 0.14);
+		}
+
+		.modal {
+			position: fixed;
+			inset: 0;
+			z-index: 2000;
+			background: rgba(6, 10, 18, 0.86);
+			backdrop-filter: blur(10px);
+			-webkit-backdrop-filter: blur(10px);
+			display: grid;
+			place-items: center;
+			padding: clamp(0.7rem, 1.8vw, 1.2rem);
+			opacity: 0;
+			pointer-events: none;
+			transition: opacity 0.24s ease;
+			overflow-y: auto;
+			overflow-x: hidden;
+		}
+
+		.modal.open {
+			opacity: 1;
+			pointer-events: auto;
+		}
+
+		.modal-card {
+			width: 92%;
+			max-width: 900px;
+			max-height: none;
+			overflow: visible;
+			border-radius: 16px;
+			border: 1px solid rgba(255, 255, 255, 0.1);
+			background: rgba(15, 24, 42, 0.78);
+			backdrop-filter: blur(12px);
+			-webkit-backdrop-filter: blur(12px);
+			opacity: 0;
+			transition: opacity 0.24s ease;
+			position: relative;
+			padding: clamp(0.8rem, 1.4vw, 1rem);
+			box-shadow: 0 18px 44px rgba(0, 0, 0, 0.42);
+		}
+
+		.modal.open .modal-card {
+			opacity: 1;
+		}
+
+		.modal-close {
+			position: absolute;
+			right: clamp(0.7rem, 1.5vw, 1rem);
+			top: clamp(0.7rem, 1.5vw, 1rem);
+			border: 1px solid rgba(201, 168, 76, 0.46);
+			border-radius: 50%;
+			width: 42px;
+			aspect-ratio: 1;
+			background: rgba(9, 15, 28, 0.82);
+			color: var(--accent);
+			cursor: pointer;
+			transition: transform var(--dur-fast) var(--ease-smooth), box-shadow var(--dur-mid) var(--ease-smooth), background var(--dur-fast) var(--ease-smooth), color var(--dur-fast) var(--ease-smooth), border-color var(--dur-fast) var(--ease-smooth);
+			font-size: 1.2rem;
+			z-index: 6;
+		}
+
+		.modal-close:hover {
+			background: var(--accent);
+			color: #131313;
+			box-shadow: 0 0 12px rgba(201, 168, 76, 0.25);
+		}
+
+		.modal-body {
+			display: block;
+			height: auto;
+			overflow: visible;
+			padding: clamp(0.35rem, 1vw, 0.6rem);
+		}
+
+		.project-step-shell {
+			display: grid;
+			gap: 0.78rem;
+		}
+
+		.project-step-viewport {
+			position: relative;
+			overflow: hidden;
+			border-radius: 12px;
+			border: 1px solid rgba(255, 255, 255, 0.1);
+			background: rgba(8, 12, 22, 0.58);
+			padding: 0 2.9rem;
+		}
+
+		.project-step-track {
+			display: flex;
+			width: 100%;
+			transition: transform 0.4s ease;
+			will-change: transform;
+		}
+
+		.project-step {
+			min-width: 100%;
+			padding: 0.82rem;
+			display: grid;
+			gap: 1rem;
+			align-content: start;
+		}
+
+		.project-step.step-scroll {
+			max-height: none;
+			overflow: visible;
+		}
+
+		.project-step-title {
+			font-family: "Space Grotesk", sans-serif;
+			font-size: 0.78rem;
+			letter-spacing: 0.08em;
+			text-transform: uppercase;
+			color: rgba(201, 168, 76, 0.9);
+			margin-bottom: 0.2rem;
+		}
+
+		.project-step.step-details {
+			max-height: none;
+			overflow: hidden;
+		}
+
+		.media-frame,
+		.output-viewport {
+			position: relative;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 100%;
+			height: auto;
+			min-height: 0;
+			aspect-ratio: 16 / 10;
+			border-radius: 12px;
+			border: 1px solid rgba(255, 255, 255, 0.12);
+			background: rgba(8, 12, 22, 0.66);
+			padding: 14px;
+			box-shadow: 0 8px 20px rgba(0, 0, 0, 0.24);
+			overflow: visible;
+		}
+
+		.media-stage {
+			width: 100%;
+			height: 100%;
+			min-height: 0;
+		}
+
+		.media-frame img,
+		.media-frame video {
+			width: 100%;
+			height: 100%;
+			object-fit: contain;
+			display: block;
+			border-radius: inherit;
+		}
+
+		.workflow-image {
+			width: 100%;
+			height: 100%;
+			object-fit: contain;
+			max-height: none;
+		}
+
+		.workflow-frame {
+			margin-bottom: 0;
+		}
+
+		.step-content-stack {
+			display: grid;
+			gap: 0.95rem;
+		}
+
+		.step-inline-flow {
+			display: grid;
+			justify-items: center;
+			margin-top: 0.22rem;
+			margin-bottom: 0.18rem;
+		}
+
+		.step-status-line {
+			font-family: "Space Grotesk", sans-serif;
+			font-size: 0.77rem;
+			letter-spacing: 0.08em;
+			text-transform: uppercase;
+			text-align: center;
+			color: rgba(207, 218, 239, 0.94);
+		}
+
+		.step-scroll-hint {
+			font-family: "Space Grotesk", sans-serif;
+			font-size: 0.74rem;
+			letter-spacing: 0.08em;
+			text-transform: uppercase;
+			color: rgba(201, 168, 76, 0.92);
+			margin-top: 0.2rem;
+		}
+
+		.step1-details-wrap {
+			position: relative;
+			margin-top: 0.45rem;
+		}
+
+		.step1-details-scroll {
+			max-height: none;
+			overflow: visible;
+			scrollbar-width: thin;
+			padding-right: 0;
+			line-height: 1.5;
+		}
+
+		.step1-details-wrap::after {
+			content: none;
+			position: absolute;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			height: 24px;
+			background: linear-gradient(180deg, rgba(9, 15, 29, 0), rgba(9, 15, 29, 0.9));
+			pointer-events: none;
+		}
+
+		.project-video {
+			width: 100%;
+			height: auto;
+			max-width: none;
+			object-fit: contain;
+			border-radius: inherit;
+			display: block;
+		}
+
+		.media-frame.video-frame {
+			padding: 14px;
+			overflow: visible;
+		}
+
+		.outputs-grid {
+			display: block;
+		}
+
+		.output-viewer {
+			position: relative;
+			display: grid;
+			gap: 0.72rem;
+		}
+
+		.output-track {
+			position: relative;
+			display: block;
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+		}
+
+		.output-slide {
+			position: absolute;
+			inset: 0;
+			width: 100%;
+			height: 100%;
+			opacity: 0;
+			pointer-events: none;
+			transition: opacity 0.4s ease;
+		}
+
+		.output-slide.active {
+			position: relative;
+			opacity: 1;
+			pointer-events: auto;
+		}
+
+		.output-indicator {
+			font-family: "Space Grotesk", sans-serif;
+			font-size: 0.76rem;
+			letter-spacing: 0.08em;
+			text-transform: uppercase;
+			text-align: center;
+			color: #ced9ef;
+			margin-top: 0.15rem;
+		}
+
+		.output-item {
+			display: block;
+			height: 100%;
+		}
+
+		.output-item img {
+			width: 100%;
+			height: 100%;
+			object-fit: contain;
+			display: block;
+		}
+
+		.empty-media {
+			border-radius: 10px;
+			border: 1px dashed rgba(255, 255, 255, 0.24);
+			padding: 0.86rem;
+			text-align: center;
+			font-size: 0.9rem;
+			color: #c8d4ee;
+			background: rgba(7, 12, 24, 0.45);
+		}
+
+		.step-nav-btn {
+			position: absolute;
+			top: 50%;
+			transform: translateY(-50%);
+			width: 40px;
+			height: 40px;
+			border-radius: 50%;
+			border: 1px solid rgba(201, 168, 76, 0.42);
+			background: rgba(11, 17, 30, 0.8);
+			color: var(--accent);
+			display: grid;
+			place-items: center;
+			font-size: 1rem;
+			cursor: pointer;
+			transition: background var(--dur-fast) var(--ease-smooth), color var(--dur-fast) var(--ease-smooth), border-color var(--dur-fast) var(--ease-smooth), opacity var(--dur-fast) var(--ease-smooth), box-shadow var(--dur-fast) var(--ease-smooth);
+			z-index: 4;
+		}
+
+		.step-nav-btn.left {
+			left: 20px;
+		}
+
+		.step-nav-btn.right {
+			right: 20px;
+		}
+
+		.step-nav-btn:hover:not(:disabled) {
+			background: rgba(201, 168, 76, 0.16);
+			border-color: rgba(201, 168, 76, 0.78);
+			box-shadow: 0 0 14px rgba(201, 168, 76, 0.22);
+		}
+
+		.step-nav-btn:disabled {
+			opacity: 0.38;
+			cursor: not-allowed;
+		}
+
+		.step-indicator {
+			text-align: center;
+			font-family: "Space Grotesk", sans-serif;
+			font-size: 0.78rem;
+			letter-spacing: 0.07em;
+			text-transform: uppercase;
+			color: #cfdaef;
+		}
+
+		.project-meta {
+			border: 1px solid rgba(255, 255, 255, 0.12);
+			border-radius: 12px;
+			background: rgba(9, 15, 29, 0.66);
+			padding: 0.9rem;
+			display: grid;
+			gap: 1.35rem;
+			max-width: 700px;
+			width: 100%;
+			margin-inline: auto;
+			text-align: left;
+		}
+
+		.project-meta h3 {
+			font-size: clamp(1.35rem, 2.6vw, 1.9rem);
+			line-height: 1.2;
+		}
+
+		.project-meta h2 {
+			font-size: clamp(1.35rem, 2.6vw, 1.9rem);
+			line-height: 1.2;
+		}
+
+		.project-subtitle {
+			font-family: "Space Grotesk", sans-serif;
+			font-size: 0.8rem;
+			text-transform: uppercase;
+			letter-spacing: 0.1em;
+			color: rgba(201, 168, 76, 0.9);
+		}
+
+		.project-section {
+			display: grid;
+			gap: 0.45rem;
+		}
+
+		.project-section h4 {
+			font-family: "Space Grotesk", sans-serif;
+			font-size: 0.88rem;
+			font-weight: 600;
+			letter-spacing: 0.07em;
+			text-transform: uppercase;
+			color: #e6c879;
+			margin: 0 0 0.12rem;
+		}
+
+		.project-copy,
+		.project-section p {
+			font-size: 0.95rem;
+			color: #d6dff3;
+			line-height: 1.5;
+			margin: 0 0 11px;
+			text-align: left;
+		}
+
+		.project-section p:last-child {
+			margin-bottom: 0;
+		}
+
+		.project-points {
+			display: grid;
+			gap: 0.38rem;
+			list-style: none;
+			padding: 0 0 0 0.1rem;
+			margin: 0.1rem 0 0;
+		}
+
+		.project-points li {
+			font-size: 0.88rem;
+			color: #dbe5fb;
+			padding-left: 1.22rem;
+			position: relative;
+			line-height: 1.5;
+		}
+
+		.project-points li::before {
+			content: "•";
+			position: absolute;
+			left: 0.12rem;
+			top: 0;
+			color: #e2bc61;
+			font-size: 1rem;
+			line-height: 1.45;
+		}
+
+		.modal-actions {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0.5rem;
+			align-items: center;
+		}
+
+		@media (max-width: 900px) {
+			.modal {
+				padding: 0.5rem;
+			}
+
+			.modal-card {
+				width: 92%;
+				max-height: none;
+				padding: 0.72rem;
+			}
+
+			.project-step {
+				padding: 0.95rem;
+				gap: 1.05rem;
+			}
+
+			.outputs-grid.count-3,
+			.outputs-grid {
+				display: block;
+			}
+
+			.project-step-viewport {
+				padding: 0 2.55rem;
+			}
+
+			.project-step.step-scroll {
+				max-height: none;
+			}
+
+			.media-stage {
+				height: 100%;
+				min-height: 0;
+			}
+
+			.media-frame,
+			.output-viewport {
+				height: auto;
+				min-height: 0;
+				aspect-ratio: 16 / 10;
+				padding: 13px;
+			}
+
+			.step-content-stack {
+				gap: 1rem;
+			}
+
+			.step-status-line {
+				font-size: 0.74rem;
+				line-height: 1.5;
+			}
+		}
+
+		@media (max-width: 640px) {
+			.modal {
+				padding: 0.35rem;
+			}
+
+			.modal-card {
+				width: 95%;
+				border-radius: 14px;
+				padding: 0.78rem;
+			}
+
+			.modal-close {
+				width: 38px;
+			}
+
+			.modal-body {
+				padding: 0.72rem;
+			}
+
+			.step-nav-btn {
+				width: 34px;
+				height: 34px;
+				font-size: 0.92rem;
+			}
+
+			.step-nav-btn.left {
+				left: 20px;
+			}
+
+			.step-nav-btn.right {
+				right: 20px;
+			}
+
+			.project-step-viewport {
+				padding: 0 2rem;
+			}
+
+			.media-stage {
+				height: 100%;
+				min-height: 0;
+			}
+
+			.media-frame,
+			.output-viewport {
+				height: auto;
+				min-height: 0;
+				aspect-ratio: 4 / 3;
+				padding: 12px;
+			}
+
+			.step-content-stack {
+				gap: 0.9rem;
+			}
+
+			.workflow-frame {
+				margin-bottom: 0;
+			}
+
+			.step1-details-scroll {
+				max-height: none;
+				line-height: 1.5;
+			}
+
+			.step-status-line {
+				font-size: 0.72rem;
+				line-height: 1.5;
+			}
+
+			.project-step-title {
+				font-size: 0.73rem;
+			}
+
+			.project-meta {
+				padding: 0.95rem;
+				gap: 1rem;
+			}
+
+			.project-copy {
+				font-size: 0.9rem;
+				line-height: 1.5;
+				margin: 0 0 11px;
+			}
+
+			.project-section p,
+			.project-points li {
+				font-size: 0.9rem;
+				line-height: 1.5;
+			}
+
+			.project-section {
+				padding: 0.54rem 0 0.5rem;
+			}
+
+			.project-section h4 {
+				font-size: 0.88rem;
+				margin-bottom: 0.2rem;
+			}
+		}
+
+		@media (prefers-reduced-motion: reduce) {
+			.modal,
+			.modal-card {
+				transition: none !important;
+				animation: none !important;
+			}
+		}
+
+		.reviews-shell {
+			position: relative;
+			padding-inline: 0;
+			overflow: hidden;
+		}
+
+		.reviews-viewport {
+			overflow-x: hidden;
+			overflow-y: visible;
+			padding: 0.8rem 0.25rem 1rem;
+			scrollbar-width: none;
+			-ms-overflow-style: none;
+		}
+
+		.reviews-viewport::-webkit-scrollbar {
+			display: none;
+		}
+
+		.reviews-track {
+			display: flex;
+			gap: 1rem;
+			width: max-content;
+			align-items: stretch;
+			will-change: transform;
+			animation: reviewsMarquee var(--reviews-duration, 56s) linear infinite;
+		}
+
+		.reviews-shell:hover .reviews-track,
+		.reviews-shell:focus-within .reviews-track {
+			animation-play-state: paused;
+		}
+
+		@keyframes reviewsMarquee {
+			from {
+				transform: translate3d(0, 0, 0);
+			}
+			to {
+				transform: translate3d(calc(-1 * var(--reviews-shift, 50%)), 0, 0);
+			}
+		}
+
+		.review-item {
+			flex: 0 0 clamp(250px, 31vw, 360px);
+			min-width: 0;
+		}
+
+		.review-card {
+			padding: 1.3rem 1.2rem 1.18rem;
+			border-radius: 18px;
+			border: 1px solid rgba(201, 168, 76, 0.3);
+			background: rgba(17, 34, 64, 0.7);
+			backdrop-filter: blur(10px);
+			-webkit-backdrop-filter: blur(10px);
+			position: relative;
+			display: grid;
+			gap: 0.75rem;
+			align-content: start;
+			min-height: 286px;
+			overflow: hidden;
+			transition: transform var(--dur-slow) ease-in-out, box-shadow var(--dur-slow) ease-in-out, border-color var(--dur-mid) var(--ease-smooth), filter var(--dur-mid) var(--ease-smooth);
+			will-change: transform, opacity;
+		}
+
+		.review-head {
+			display: flex;
+			align-items: center;
+			gap: 0.55rem;
+			margin-bottom: 0.85rem;
+			min-height: 28px;
+			line-height: 1;
+		}
+
+		.review-card:hover {
+			transform: translateY(-5px) scale(1.03);
+			border-color: rgba(201, 168, 76, 0.74);
+			box-shadow: 0 16px 34px rgba(6, 10, 18, 0.52), 0 0 0 1px rgba(201, 168, 76, 0.44), 0 0 18px rgba(201, 168, 76, 0.14);
+			filter: brightness(1.04) contrast(1.03);
+		}
+
+		.review-card:focus-within {
+			transform: translateY(-5px) scale(1.02);
+			border-color: rgba(201, 168, 76, 0.7);
+			box-shadow: 0 14px 30px rgba(6, 10, 18, 0.48), 0 0 0 1px rgba(201, 168, 76, 0.4);
+		}
+
+		.quote-mark {
+			position: static;
+			font-size: 1.7rem;
+			line-height: 1;
+			color: rgba(201, 168, 76, 0.42);
+			flex-shrink: 0;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			pointer-events: none;
+			font-family: "Playfair Display", serif;
+		}
+
+		.stars {
+			color: #f3c95c;
+			letter-spacing: 0.12em;
+			font-size: 0.86rem;
+			white-space: nowrap;
+			line-height: 1;
+			display: inline-flex;
+			align-items: center;
+			text-shadow: 0 0 8px rgba(243, 201, 92, 0.18);
+		}
+
+		.review-card blockquote {
+			font-style: italic;
+			color: #dfe7f8;
+			font-size: 0.94rem;
+			position: relative;
+			z-index: 1;
+			line-height: 1.65;
+			margin-top: 0.1rem;
+		}
+
+		.review-author {
+			display: flex;
+			align-items: center;
+			gap: 0.68rem;
+		}
+
+		.avatar {
+			width: 44px;
+			aspect-ratio: 1;
+			border-radius: 50%;
+			border: 1px solid rgba(201, 168, 76, 0.62);
+			display: grid;
+			place-items: center;
+			font-family: "Space Grotesk", sans-serif;
+			color: var(--accent);
+			background: rgba(10, 14, 26, 0.8);
+			font-weight: 700;
+		}
+
+		.review-author strong {
+			display: block;
+			font-size: 0.9rem;
+		}
+
+		.review-author small {
+			color: var(--text-secondary);
+			font-size: 0.76rem;
+		}
+
+		@media (prefers-reduced-motion: reduce) {
+			.reviews-track {
+				animation: none;
+			}
+
+			.review-card {
+				transition: border-color 0.2s ease-in-out;
+			}
+
+			.review-card:hover,
+			.review-card:focus-within {
+				transform: none;
+				filter: none;
+			}
+		}
+
+		.contact-grid {
+			display: grid;
+			gap: 1.2rem;
+			grid-template-columns: 1fr 1fr;
+			align-items: start;
+		}
+
+		.contact-left {
+			display: grid;
+			gap: 1rem;
+			align-content: start;
+			padding-right: 0.3rem;
+		}
+
+		.contact-left h2 {
+			font-size: clamp(2rem, 4vw, 3rem);
+			max-width: 560px;
+		}
+
+		.contact-links {
+			display: grid;
+			gap: 0.62rem;
+		}
+
+		.contact-link {
+			display: inline-flex;
+			align-items: center;
+			gap: 0.6rem;
+			width: fit-content;
+			border: 1px solid rgba(201, 168, 76, 0.42);
+			border-radius: 999px;
+			padding: 0.6rem 1rem;
+			color: #dfe8fb;
+			background: rgba(17, 34, 64, 0.58);
+			font-family: "Space Grotesk", sans-serif;
+			transition: transform var(--dur-fast) var(--ease-smooth), box-shadow var(--dur-fast) var(--ease-smooth), color var(--dur-fast) var(--ease-smooth), border-color var(--dur-fast) var(--ease-smooth), background var(--dur-fast) var(--ease-smooth);
+			position: relative;
+			overflow: hidden;
+			will-change: transform;
+		}
+
+		.contact-link::after {
+			content: "";
+			position: absolute;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			height: 2px;
+			background: linear-gradient(90deg, transparent, rgba(201, 168, 76, 0.85), transparent);
+			transform: scaleX(0.2);
+			opacity: 0;
+			transition: transform var(--dur-fast) var(--ease-smooth), opacity var(--dur-fast) var(--ease-smooth);
+		}
+
+		.contact-link i {
+			transition: transform var(--dur-fast) var(--ease-smooth), color var(--dur-fast) var(--ease-smooth);
+		}
+
+		.contact-link:hover {
+			color: #111318;
+			background: var(--accent);
+			border-color: rgba(201, 168, 76, 0.86);
+			transform: translateY(-3px);
+			box-shadow: 0 10px 24px rgba(201, 168, 76, 0.18);
+		}
+
+		.contact-link:hover i {
+			transform: translateX(1.5px);
+		}
+
+		.contact-link:hover::after {
+			opacity: 1;
+			transform: scaleX(1);
+		}
+
+		.contact-link:focus-visible {
+			outline: none;
+			box-shadow: 0 0 0 2px rgba(201, 168, 76, 0.26);
+		}
+
+		.contact-form {
+			padding: 1.15rem;
+			display: grid;
+			gap: 0.74rem;
+		}
+
+		.contact-form .field {
+			opacity: 0;
+			transform: translateY(12px);
+		}
+
+		.contact-form.form-ready .field {
+			animation: fieldFadeUp 0.44s ease-out both;
+			animation-delay: var(--field-delay, 0ms);
+		}
+
+		@keyframes fieldFadeUp {
+			from {
+				opacity: 0;
+				transform: translateY(12px);
+			}
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
+
+		.field {
+			display: grid;
+			gap: 0.35rem;
+			min-height: 86px;
+		}
+
+		.field-error {
+			font-size: 0.75rem;
+			color: #ffc8c7;
+			opacity: 0;
+			transform: translateY(-2px);
+			transition: opacity var(--dur-fast) var(--ease-smooth), transform var(--dur-fast) var(--ease-smooth);
+			will-change: transform, opacity;
+		}
+
+		.field-error.visible {
+			opacity: 1;
+			transform: translateY(0);
+		}
+
+		.field label {
+			font-family: "Space Grotesk", sans-serif;
+			font-size: 0.82rem;
+			color: #d6dff1;
+		}
+
+		.field input,
+		.field select,
+		.field textarea {
+			width: 100%;
+			border-radius: 12px;
+			border: 1px solid rgba(201, 168, 76, 0.26);
+			background: rgba(8, 12, 24, 0.58);
+			color: #f5f8ff;
+			padding: 0.72rem 0.82rem;
+			outline: none;
+			transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease, background 0.3s ease;
+			font: inherit;
+			caret-color: var(--accent);
+		}
+
+		.field input:focus,
+		.field select:focus,
+		.field textarea:focus {
+			border-color: rgba(201, 168, 76, 0.82);
+			box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.16);
+			background: rgba(10, 16, 30, 0.72);
+		}
+
+		.field select option:checked {
+			background: #c9a84c;
+			color: #121622;
+		}
+
+		.field input.error,
+		.field select.error,
+		.field textarea.error {
+			border-color: var(--danger);
+			box-shadow: 0 0 0 3px rgba(239, 83, 80, 0.18), 0 0 0 1px rgba(201, 168, 76, 0.2);
+			animation: fieldShake 0.32s ease;
+		}
+
+		@keyframes fieldShake {
+			0%,
+			100% {
+				transform: translateX(0);
+			}
+			25% {
+				transform: translateX(-4px);
+			}
+			75% {
+				transform: translateX(4px);
+			}
+		}
+
+		.submit-note {
+			color: #cfdbef;
+			font-size: 0.85rem;
+			text-align: center;
+		}
+
+		.form-feedback {
+			font-size: 0.86rem;
+			text-align: left;
+			padding: 0.68rem 0.82rem;
+			border-radius: 10px;
+			border: 1px solid transparent;
+			opacity: 0;
+			transform: translateY(8px);
+			visibility: hidden;
+			transition: opacity var(--dur-mid) var(--ease-smooth), transform var(--dur-mid) var(--ease-smooth);
+			will-change: transform, opacity;
+		}
+
+		.form-feedback.show {
+			opacity: 1;
+			transform: translateY(0);
+			visibility: visible;
+		}
+
+		.form-feedback.success {
+			color: #c9ffd7;
+			background: rgba(31, 104, 70, 0.22);
+			border-color: rgba(97, 215, 155, 0.45);
+		}
+
+		.form-feedback.error {
+			color: #ffd6d6;
+			background: rgba(148, 47, 58, 0.2);
+			border-color: rgba(239, 83, 80, 0.42);
+			animation: formShake 0.34s ease;
+		}
+
+		@keyframes formShake {
+			0%,
+			100% { transform: translateY(0); }
+			25% { transform: translateY(0) translateX(-4px); }
+			75% { transform: translateY(0) translateX(4px); }
+		}
+
+		.contact-form button[type="submit"] {
+			justify-content: center;
+			position: relative;
+			transition: transform var(--dur-fast) var(--ease-smooth), box-shadow var(--dur-mid) var(--ease-smooth);
+		}
+
+		.contact-form button[type="submit"]:hover {
+			transform: scale(1.03);
+			box-shadow: 0 10px 24px rgba(201, 168, 76, 0.24);
+		}
+
+		.contact-form button[type="submit"]:active {
+			transform: scale(0.97);
+		}
+
+		.contact-form button[type="submit"] .btn-spinner {
+			display: none;
+			width: 16px;
+			height: 16px;
+			border-radius: 50%;
+			border: 2px solid rgba(255, 255, 255, 0.32);
+			border-top-color: #fff;
+			animation: spin 0.75s linear infinite;
+		}
+
+		.contact-form button[type="submit"].is-loading .btn-spinner {
+			display: inline-block;
+		}
+
+		.contact-form button[type="submit"].is-loading {
+			cursor: wait;
+			opacity: 0.95;
+		}
+
+		@keyframes spin {
+			to { transform: rotate(360deg); }
+		}
+
+		.full-width {
+			width: 100%;
+		}
+
+		.floating-wa {
+			position: fixed;
+			right: 1.1rem;
+			bottom: 1.1rem;
+			z-index: 1300;
+			width: 58px;
+			aspect-ratio: 1;
+			border-radius: 50%;
+			background: #25d366;
+			color: #fff;
+			display: grid;
+			place-items: center;
+			font-size: 1.55rem;
+			box-shadow: 0 14px 32px rgba(0, 0, 0, 0.45);
+			transition: transform 0.3s ease;
+		}
+
+		.floating-wa:hover {
+			transform: scale(1.07);
+		}
+
+		.floating-wa::before {
+			content: "";
+			position: absolute;
+			inset: -8px;
+			border: 2px solid rgba(37, 211, 102, 0.45);
+			border-radius: 50%;
+			animation: ringPulse 1.8s ease infinite;
+		}
+
+		@keyframes ringPulse {
+			0% {
+				transform: scale(0.85);
+				opacity: 1;
+			}
+			100% {
+				transform: scale(1.55);
+				opacity: 0;
+			}
+		}
+
+		.wa-tip {
+			position: absolute;
+			right: 66px;
+			white-space: nowrap;
+			background: rgba(10, 14, 26, 0.88);
+			border: 1px solid rgba(201, 168, 76, 0.35);
+			color: #e5ebfb;
+			font-size: 0.74rem;
+			font-family: "Space Grotesk", sans-serif;
+			border-radius: 10px;
+			padding: 0.35rem 0.52rem;
+			opacity: 0;
+			transform: translateY(4px);
+			transition: opacity var(--dur-mid) var(--ease-smooth), transform var(--dur-mid) var(--ease-smooth);
+			pointer-events: none;
+		}
+
+		.floating-wa:hover .wa-tip {
+			opacity: 1;
+			transform: translateY(0);
+		}
+
+		footer {
+			padding: 2.6rem 0 2.2rem;
+			text-align: center;
+			background: rgba(6, 10, 18, 0.85);
+			border-top: 1px solid rgba(201, 168, 76, 0.4);
+			display: grid;
+			gap: 1rem;
+			justify-items: center;
+		}
+
+		.footer-links,
+		.footer-social {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			gap: 0.85rem;
+		}
+
+		.footer-links a {
+			color: #d6dff2;
+			font-family: "Space Grotesk", sans-serif;
+			font-size: 0.86rem;
+			transition: color var(--dur-fast) var(--ease-smooth), transform var(--dur-fast) var(--ease-smooth);
+		}
+
+		.footer-links a:hover {
+			color: var(--accent);
+			transform: translateY(-1px);
+		}
+
+		.footer-social a {
+			width: 34px;
+			aspect-ratio: 1;
+			border-radius: 50%;
+			border: 1px solid rgba(201, 168, 76, 0.45);
+			display: grid;
+			place-items: center;
+			color: var(--accent);
+			background: rgba(10, 14, 26, 0.5);
+			transition: transform var(--dur-fast) var(--ease-smooth), box-shadow var(--dur-fast) var(--ease-smooth), background var(--dur-fast) var(--ease-smooth), border-color var(--dur-fast) var(--ease-smooth), color var(--dur-fast) var(--ease-smooth);
+			position: relative;
+			will-change: transform;
+		}
+
+		.footer-social a i {
+			transition: transform var(--dur-fast) var(--ease-smooth);
+		}
+
+		.button,
+		.glass,
+		.project-card,
+		.review-card,
+		.contact-link,
+		.footer-social a,
+		.about-float-card,
+		.floating-wa,
+		.menu-toggle,
+		.modal-card {
+			transform: translateZ(0);
+			backface-visibility: hidden;
+		}
+
+		.footer-social a:hover {
+			transform: translateY(-3px) scale(1.04);
+			box-shadow: 0 8px 18px rgba(201, 168, 76, 0.2);
+			background: rgba(201, 168, 76, 0.14);
+			border-color: rgba(201, 168, 76, 0.85);
+			color: #fce7aa;
+		}
+
+		.footer-social a:hover i {
+			transform: scale(1.08);
+		}
+
+		.footer-social a:focus-visible {
+			outline: none;
+			box-shadow: 0 0 0 2px rgba(201, 168, 76, 0.26);
+		}
+
+		@media (max-width: 1100px) {
+			.projects-grid {
+				grid-template-columns: repeat(2, minmax(0, 1fr));
+			}
+
+			.service-grid {
+				grid-template-columns: repeat(2, minmax(0, 1fr));
+			}
+		}
+
+		@media (max-width: 900px) {
+			.nav-wrap {
+				grid-template-columns: auto 1fr auto;
+			}
+
+			.nav-links,
+			.nav-wrap .nav-cta {
+				display: none;
+			}
+
+			.menu-toggle {
+				display: block;
+				justify-self: end;
+			}
+
+			.about-grid,
+			.contact-grid {
+				grid-template-columns: 1fr;
+			}
+
+			.about-grid {
+				gap: 1.8rem;
+			}
+
+			.about-visual,
+			.about-content {
+				margin-inline: auto;
+			}
+
+			.about-content {
+				max-width: 720px;
+			}
+
+			.about-visual {
+				padding: 0.2rem;
+			}
+
+			.profile-frame {
+				min-height: 330px;
+			}
+
+			.placeholder-ring {
+				width: clamp(140px, 24vw, 160px);
+			}
+
+			.service-grid {
+				grid-template-columns: 1fr;
+			}
+
+			.reviews-shell {
+				padding-inline: 0;
+			}
+
+			.hero-copy {
+				font-size: 1rem;
+			}
+		}
+
+		@media (max-width: 640px) {
+			#about {
+				padding-left: 0;
+				padding-right: 0;
+			}
+
+			#about .container.about-grid {
+				width: 100%;
+				max-width: 100%;
+				padding-left: 10px;
+				padding-right: 10px;
+				margin-left: 0;
+				margin-right: 0;
+			}
+
+			.section {
+				padding: 5.4rem 0;
+			}
+
+			.hero h1 {
+				font-size: clamp(2rem, 9.2vw, 2.9rem);
+			}
+
+			.typewriter {
+				white-space: normal;
+				text-overflow: unset;
+				max-width: 100%;
+				line-height: 1.45;
+			}
+
+			.accepting {
+				max-width: 100%;
+				text-align: center;
+				line-height: 1.35;
+			}
+
+			.trust-bar span {
+				white-space: normal;
+			}
+
+			.projects-grid {
+				grid-template-columns: 1fr;
+				gap: 1rem;
+			}
+
+			.stats-row {
+				grid-template-columns: 1fr;
+			}
+
+			.hero-actions {
+				width: 100%;
+			}
+
+			.hero-actions .button {
+				width: min(360px, 100%);
+			}
+
+			.review-item {
+				flex-basis: clamp(230px, 84vw, 320px);
+			}
+
+			.reviews-shell {
+				padding-inline: 2.35rem;
+			}
+
+			.about-badge,
+			.about-float-card {
+				position: static;
+				width: fit-content;
+				margin-top: 12px;
+				padding: 8px 14px;
+				display: inline-block;
+			}
+
+			.about-visual {
+				display: grid;
+				justify-items: center;
+				padding: 0;
+				width: 100%;
+				max-width: none;
+				margin-left: 0;
+				margin-right: 0;
+			}
+
+			.about-content {
+				text-align: center;
+				justify-items: center;
+			}
+
+			.about-story {
+				max-width: 62ch;
+			}
+
+			.tool-list {
+				justify-content: center;
+			}
+
+			.profile-frame {
+				min-height: unset;
+				height: auto;
+				width: min(100%, 344px);
+				max-width: 344px;
+				margin: 0;
+				border-radius: 24px;
+			}
+
+			.profile-frame::before {
+				inset: 8px;
+			}
+
+			.profile-placeholder {
+				gap: 0;
+				padding: 18px 16px;
+			}
+
+			.placeholder-ring {
+				width: clamp(112px, 34vw, 132px);
+				box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.05), 0 0 0 6px rgba(201, 168, 76, 0.02), 0 5px 10px rgba(7, 11, 20, 0.24);
+				margin-bottom: 14px;
+			}
+
+			.about-badge,
+			.about-float-card {
+				margin-top: 12px;
+				line-height: 1.45;
+			}
+
+			.about-badge {
+				margin-top: 10px;
+				padding: 5px 12px;
+				font-size: 12px;
+				width: auto;
+				max-width: fit-content;
+			}
+
+			.profile-name {
+				line-height: 1.04;
+				margin-top: 12px;
+			}
+
+			.profile-role {
+				line-height: 1.35;
+				margin-top: 6px;
+			}
+
+			.review-card {
+				min-height: 0;
+			}
+
+			.contact-form {
+				padding: 1rem;
+			}
+
+			.contact-link {
+				white-space: normal;
+				line-height: 1.3;
+				text-align: center;
+			}
+
+			.project-card:active {
+				transform: scale(0.98);
+			}
+
+			.project-card .details-btn {
+				opacity: 1;
+				transform: none;
+			}
+		}
+
+		@media (max-width: 768px) {
+			.site-logo {
+				height: 30px;
+			}
+
+			.brand-text {
+				font-size: 14px;
+			}
+
+			.services-card,
+			.project-card {
+				backdrop-filter: blur(10px);
+				-webkit-backdrop-filter: blur(10px);
+			}
+
+			.hero-actions .button:active,
+			.hero-secondary-btn:active {
+				transform: scale(0.96);
+			}
+
+			.project-card {
+				padding: 1rem;
+			}
+
+			.project-card:active {
+				transform: scale(0.98);
+			}
+
+			.project-card .details-btn {
+				opacity: 1;
+				transform: none;
+			}
+		}
+
+		@media (max-width: 480px) {
+			#about .container.about-grid {
+				padding-left: 8px;
+				padding-right: 8px;
+			}
+
+			.container {
+				width: min(96vw, 96vw);
+			}
+
+			.nav-wrap {
+				min-height: 72px;
+				gap: 0.8rem;
+			}
+
+			.hero {
+				padding-top: 6.6rem;
+			}
+
+			.hero-content {
+				gap: 1.05rem;
+			}
+
+			.accepting {
+				font-size: 0.76rem;
+				padding: 0.42rem 0.76rem;
+			}
+
+			.reviews-shell {
+				padding-inline: 1.6rem;
+			}
+
+			.typewriter-wrap {
+				font-size: clamp(0.95rem, 4.2vw, 1.1rem);
+			}
+
+			.about-grid {
+				gap: 1.2rem;
+			}
+
+			.profile-frame {
+				min-height: unset;
+				height: auto;
+				max-width: 324px;
+			}
+
+			.profile-placeholder {
+				padding: 16px;
+			}
+
+			.placeholder-ring {
+				width: clamp(104px, 32vw, 122px);
+				margin-bottom: 12px;
+			}
+
+			.about-badge,
+			.about-float-card {
+				font-size: 0.78rem;
+				padding: 0.48rem 0.72rem;
+			}
+
+			.about-badge {
+				font-size: 12px;
+				padding: 5px 12px;
+				margin-top: 10px;
+			}
+
+			.about-content h2 {
+				font-size: clamp(1.6rem, 7.8vw, 2.05rem);
+			}
+
+			.about-story {
+				font-size: 0.96rem;
+			}
+
+			.contact-link {
+				width: 100%;
+				justify-content: center;
+				padding: 0.62rem 0.8rem;
+				font-size: 0.9rem;
+			}
+
+			.project-card {
+				padding: 0.8rem;
+			}
+
+			.preview {
+				min-height: 116px;
+			}
+
+			.footer-links {
+				gap: 0.6rem;
+			}
+
+			.footer-links a {
+				font-size: 0.82rem;
+			}
+		}
+
+		@media (max-width: 430px) {
+			.site-logo {
+				height: 28px;
+			}
+
+			.brand-text {
+				font-size: 13px;
+			}
+
+			.hero-content {
+				padding-bottom: 1.5rem;
+			}
+
+			.hero h1 {
+				font-size: clamp(1.85rem, 9.5vw, 2.55rem);
+			}
+
+			.trust-bar {
+				font-size: 0.83rem;
+				gap: 0.45rem;
+			}
+
+			.profile-name {
+				font-size: clamp(1.35rem, 6vw, 1.8rem);
+			}
+
+			.about-content h2,
+			.section-head h2,
+			.contact-left h2 {
+				font-size: clamp(1.65rem, 8vw, 2.2rem);
+			}
+		}
+
+		@media (max-width: 390px) {
+			#about .container.about-grid {
+				padding-left: 6px;
+				padding-right: 6px;
+			}
+
+			.section {
+				padding: 4.7rem 0;
+			}
+
+			.nav-wrap {
+				min-height: 68px;
+			}
+
+			.accepting {
+				font-size: 0.72rem;
+				padding: 0.38rem 0.62rem;
+			}
+
+			.hero-actions .button {
+				font-size: 0.92rem;
+				padding: 0.82rem 1rem;
+			}
+
+			.profile-frame {
+				min-height: unset;
+				height: auto;
+				max-width: 280px;
+			}
+
+			.placeholder-ring {
+				width: clamp(102px, 31vw, 120px);
+			}
+
+			.profile-name {
+				font-size: clamp(1.2rem, 6.2vw, 1.55rem);
+			}
+
+		}
+
+		@media (max-width: 380px) {
+			.hero-copy {
+				font-size: 0.95rem;
+			}
+
+			.section {
+				padding: 4.9rem 0;
+			}
+
+			.profile-frame {
+				min-height: 320px;
+			}
+
+			.reviews-shell {
+				padding-inline: 1.35rem;
+			}
+
+		}
+
+		@media (max-height: 500px) and (orientation: landscape) {
+			.site-header {
+				position: sticky;
+			}
+
+			.hero {
+				min-height: auto;
+				padding-top: 6rem;
+			}
+
+			.hero-content {
+				padding-bottom: 1.2rem;
+			}
+
+			.mobile-panel.open {
+				max-height: min(360px, calc(100svh - 64px));
+				overflow-y: auto;
+			}
+		}
+
+		@supports (padding: max(0px)) {
+			.site-header {
+				padding-top: env(safe-area-inset-top);
+			}
+
+			.floating-wa {
+				right: max(1.1rem, env(safe-area-inset-right));
+				bottom: max(1.1rem, env(safe-area-inset-bottom));
+			}
+
+			body {
+				padding-left: env(safe-area-inset-left);
+				padding-right: env(safe-area-inset-right);
+			}
+		}
+
+		@media (min-width: 1700px) {
+			:root {
+				--container: min(1320px, 88vw);
+			}
+
+			.section {
+				padding: 7.2rem 0;
+			}
+		}
+
+		@media (prefers-reduced-motion: reduce) {
+			html {
+				scroll-behavior: auto;
+			}
+
+			*,
+			*::before,
+			*::after {
+				animation-duration: 0.01ms !important;
+				animation-iteration-count: 1 !important;
+				transition-duration: 0.01ms !important;
+				scroll-behavior: auto !important;
+			}
+		}
+	</style>
+</head>
+<body>
+	<header class="site-header" id="siteHeader">
+		<div class="nav-wrap">
+			<a href="#home" class="logo-wrap brand">
+				<img src="/images/logo.png" alt="Automist Labs Logo" class="site-logo" loading="eager" decoding="async">
+				<span class="brand-text">Automist Labs</span>
+			</a>
+			<ul class="nav-links" id="desktopNav">
+				<li><a class="nav-link" href="#home">Home</a></li>
+				<li><a class="nav-link" href="#about">About</a></li>
+				<li><a class="nav-link" href="#services">Services</a></li>
+				<li><a class="nav-link" href="#projects">Projects</a></li>
+				<li><a class="nav-link" href="#reviews">Reviews</a></li>
+				<li><a class="nav-link" href="#contact">Contact</a></li>
+			</ul>
+			<a href="https://calendly.com/automistlabs/free-ai-automation-consultation" target="_blank" rel="noopener noreferrer" class="button button-primary nav-cta cta-btn" aria-label="Book a free automation consultation call">Start Your Project <span aria-hidden="true">&rarr;</span></a>
+			<button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation"><span></span></button>
+		</div>
+		<nav class="mobile-panel" id="mobilePanel" aria-label="Mobile navigation">
+			<ul>
+				<li><a href="#home">Home</a></li>
+				<li><a href="#about">About</a></li>
+				<li><a href="#services">Services</a></li>
+				<li><a href="#projects">Projects</a></li>
+				<li><a href="#reviews">Reviews</a></li>
+				<li><a href="#contact">Contact</a></li>
+				<li><a href="https://calendly.com/automistlabs/free-ai-automation-consultation" target="_blank" rel="noopener noreferrer" class="button button-primary cta-btn" style="justify-content:center; margin-top:0.3rem;" aria-label="Book a free automation consultation call">Start Your Project <span aria-hidden="true">&rarr;</span></a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<main>
+		<section class="hero section" id="home">
+			<canvas id="particleCanvas" aria-hidden="true"></canvas>
+			<div class="hero-content">
+				<div class="accepting reveal-up"><span class="dot-pulse"></span> Now Accepting New Clients - Worldwide</div>
+				<h1 class="reveal-up">Your Business Deserves<br>To Run On Autopilot.</h1>
+				<div class="typewriter-wrap reveal-up"><span class="typewriter" id="typewriterText"></span></div>
+				<p class="hero-copy reveal-up">At Automist Labs, we engineer intelligent automation systems powered by n8n, GoHighLevel, and AI - so your business scales faster, operates smarter, and generates revenue even while you sleep.</p>
+				<div class="hero-actions reveal-up">
+					<a href="https://calendly.com/automistlabs/free-ai-automation-consultation" target="_blank" rel="noopener noreferrer" class="button button-primary cta-btn" aria-label="Book a free automation consultation call">Start Your Project <span aria-hidden="true">&rarr;</span></a>
+					<a href="#projects" class="button button-ghost hero-secondary-btn">Explore Our Work</a>
+				</div>
+				<div class="trust-bar reveal-up">
+					<span>⚡ 100+ Automations Delivered</span>
+					<span>&middot;</span>
+					<span>🤖 n8n &amp; GHL Expert</span>
+					<span>&middot;</span>
+					<span>🌍 Serving Clients Worldwide</span>
+				</div>
+			</div>
+		</section>
+
+		<div class="section-divider"></div>
+
+		<section class="section" id="about">
+			<div class="container about-grid">
+				<div class="about-visual reveal-up">
+					<div class="profile-frame">
+						<div class="profile-placeholder">
+							<div class="placeholder-ring">
+								<img class="founder-image" src="images/founder.jpg" alt="Muhammad Saad, Founder of Automist Labs" width="512" height="512" loading="lazy" decoding="async">
+							</div>
+							<div class="profile-name">Muhammad Saad</div>
+							<div class="profile-role">Founder, Automist Labs</div>
+							<div class="about-badge">Founder &amp; Automation Specialist</div>
+						</div>
+					</div>
+					<div class="about-float-card">100+ Projects ✦</div>
+				</div>
+				<div class="about-content">
+					<div class="label reveal-up">Who We Are</div>
+					<h2 class="reveal-up">Driven by a Passion for Intelligent Systems.</h2>
+					<p class="about-story reveal-up">I'm Muhammad Saad, founder of Automist Labs. From the moment I discovered automation, I became obsessed with building systems that let businesses do more with less. I've since engineered 100+ custom workflows using n8n and GoHighLevel - from AI-powered lead generation systems to complete business operating systems. I'm also currently expanding into video editing to deliver even more value to clients. Automist Labs isn't just a service - it's your unfair competitive advantage.</p>
+					<div class="tool-list reveal-up">
+						<span class="pill">n8n</span>
+						<span class="pill">GoHighLevel</span>
+						<span class="pill">AI Agents</span>
+						<span class="pill">Make.com</span>
+						<span class="pill">REST APIs</span>
+						<span class="pill">Webhooks</span>
+						<span class="pill">Video Editing (Soon)</span>
+					</div>
+					<div class="stats-row reveal-up">
+						<div class="stat-card">
+							<div class="stat-number" data-counter="100" data-suffix="+" data-progress="1">0</div>
+							<div class="stat-label">Automations Built</div>
+							<div class="stat-progress"><span></span></div>
+						</div>
+						<div class="stat-card stat-card-wide">
+							<div class="stat-number" data-counter="20" data-suffix="+" data-progress="1">0</div>
+							<div class="stat-label stat-label-nowrap">Business Systems Deployed</div>
+							<div class="stat-progress"><span></span></div>
+						</div>
+						<div class="stat-card">
+							<div class="stat-number" data-counter="100" data-suffix="%" data-progress="1">0</div>
+							<div class="stat-label">Client Satisfaction Goal</div>
+							<div class="stat-progress"><span></span></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<div class="section-divider"></div>
+
+		<section class="section" id="services">
+			<div class="container">
+				<div class="section-head">
+					<div class="label reveal-up">What We Do</div>
+					<h2 class="reveal-up">End-to-End Automation for Growing Businesses.</h2>
+					<p class="reveal-up">Whether you're drowning in manual tasks, losing leads, or struggling to scale - we build the system that fixes it permanently.</p>
+				</div>
+				<div class="service-grid">
+					<article class="service-card services-card glass reveal-up">
+						<span class="badge service-corner">⭐ Core Expertise</span>
+						<div class="service-icon"><i class="fa-solid fa-diagram-project" aria-hidden="true"></i></div>
+						<h3>n8n Workflow Automation</h3>
+						<p>Our primary expertise. We design and deploy powerful multi-step automation workflows using n8n - connecting your apps, APIs, databases, and AI models to eliminate repetitive work and unlock real operational scale.</p>
+						<div class="service-tags">
+							<span>API Integrations</span><span>AI Agents</span><span>Data Pipelines</span><span>Webhooks</span><span>Multi-step Workflows</span>
+						</div>
+					</article>
+					<article class="service-card services-card glass reveal-up">
+						<div class="service-icon"><i class="fa-solid fa-people-arrows" aria-hidden="true"></i></div>
+						<h3>GoHighLevel CRM Systems</h3>
+						<p>We build complete GHL ecosystems - automated pipelines, intelligent lead nurturing sequences, follow-up systems, and sub-account setups that turn your CRM into a client-converting machine that never sleeps.</p>
+						<div class="service-tags">
+							<span>Pipelines</span><span>Follow-up Sequences</span><span>Snapshots</span><span>Sub-accounts</span><span>Lead Nurturing</span>
+						</div>
+					</article>
+					<article class="service-card services-card glass reveal-up">
+						<span class="badge service-corner">Coming Soon</span>
+						<div class="service-icon" style="opacity:0.74;"><i class="fa-solid fa-film" aria-hidden="true"></i></div>
+						<h3>Video Editing (Coming Soon)</h3>
+						<p>Professional video editing for content creators and brands. Reels, YouTube videos, and short-form content that converts. Launching very soon.</p>
+						<div class="service-tags">
+							<span>Reels</span><span>YouTube</span><span>Short-form Content</span>
+						</div>
+					</article>
+				</div>
+				<div class="services-cta-wrap reveal-up">
+					<p style="color:#dbe4f7;">Not sure where to start?</p>
+					<a href="https://calendly.com/automistlabs/free-ai-automation-consultation" target="_blank" rel="noopener noreferrer" class="button button-primary cta-btn" aria-label="Book a free automation consultation call">Book a Free Discovery Call <span aria-hidden="true">&rarr;</span></a>
+				</div>
+			</div>
+		</section>
+
+		<div class="section-divider"></div>
+
+		<section class="section" id="projects">
+			<div class="container">
+				<div class="section-head">
+					<div class="label reveal-up">Our Work</div>
+					<h2 class="reveal-up">100+ Automations. Real Systems. Real Results.</h2>
+					<p class="reveal-up">A curated selection from our portfolio of automation workflows and CRM systems built for businesses worldwide.</p>
+				</div>
+				<div class="filters reveal-up" id="projectFilters">
+					<button class="filter-btn active" data-filter="all">All</button>
+					<button class="filter-btn" data-filter="n8n">n8n</button>
+					<button class="filter-btn" data-filter="ai">AI Agents</button>
+					<button class="filter-btn" data-filter="data">Data &amp; CRM</button>
+				</div>
+				<div class="projects-grid-wrap" id="projectsWrap">
+					<div class="projects-grid" id="projectsGrid"></div>
+				</div>
+				<div class="projects-expand" id="projectsExpandWrap">
+					<button id="projectsExpandBtn" class="button button-ghost">See More Projects <span aria-hidden="true">&rarr;</span></button>
+				</div>
+				<div class="projects-banner reveal-up">
+					<h3 style="font-family:'Playfair Display', serif; font-size:1.4rem;">These are just a selection of 100+ systems we've built.</h3>
+					<p>Primary expertise: n8n. Also delivering powerful GoHighLevel solutions.</p>
+					<a href="https://calendly.com/automistlabs/free-ai-automation-consultation" target="_blank" rel="noopener noreferrer" class="button button-primary cta-btn" aria-label="Book a free automation consultation call">Start Your Project <span aria-hidden="true">&rarr;</span></a>
+				</div>
+			</div>
+		</section>
+
+		<section class="section" id="reviews">
+			<div class="container">
+				<div class="section-head">
+					<div class="label reveal-up">Client Love</div>
+					<h2 class="reveal-up">Trusted by Businesses Worldwide.</h2>
+				</div>
+				<div class="reviews-shell reveal-up">
+					<div class="reviews-viewport">
+						<div class="reviews-track" id="reviewsTrack"></div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="section" id="contact">
+			<div class="container contact-grid">
+				<div class="contact-left">
+					<div class="label reveal-up">Get In Touch</div>
+					<h2 class="reveal-up">Let's Build Your Automation System.</h2>
+					<p class="reveal-up">Whether you need a single workflow or a complete business automation system - we're ready to engineer it. Book a free discovery call or reach out directly. We respond within 24 hours.</p>
+					<div class="contact-links reveal-up">
+						<a class="contact-link" href="mailto:contact@automistlabs.com" target="_blank" rel="noopener noreferrer"><i class="fa-regular fa-envelope"></i> contact@automistlabs.com</a>
+						<a class="contact-link" href="https://wa.me/923246961640?text=Hey!%20I%20need%20help%20automating%20my%20business.%20Can%20we%20talk%3F" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp</a>
+						<a class="contact-link contact-btn cta-btn" href="https://calendly.com/automistlabs/free-ai-automation-consultation" target="_blank" rel="noopener noreferrer" aria-label="Book a free automation consultation call"><i class="fa-regular fa-calendar"></i> Book a Free Call</a>
+						<a class="contact-link" href="https://www.linkedin.com/in/automistlabs/" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-linkedin-in"></i> LinkedIn</a>
+						<a class="contact-link" href="https://www.instagram.com/automistlabs/" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-instagram"></i> Instagram</a>
+						<a class="contact-link" href="https://x.com/AutomistLabs" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-x-twitter"></i> X (Twitter)</a>
+					</div>
+				</div>
+
+				<form class="contact-form glass reveal-up" id="contactForm" novalidate>
+					<div class="field">
+						<label for="fullName">Full Name</label>
+						<input type="text" id="fullName" name="fullName" required>
+					</div>
+					<div class="field">
+						<label for="email">Email Address</label>
+						<input type="email" id="email" name="email" required>
+					</div>
+					<div class="field">
+						<label for="businessType">Business Type</label>
+						<select id="businessType" name="businessType" required>
+							<option value="">Select</option>
+							<option>Agency</option>
+							<option>E-commerce</option>
+							<option>Coaching</option>
+							<option>SaaS</option>
+							<option>Other</option>
+						</select>
+					</div>
+					<div class="field">
+						<label for="serviceNeeded">Service Needed</label>
+						<select id="serviceNeeded" name="serviceNeeded" required>
+							<option value="">Select</option>
+							<option>n8n Automation</option>
+							<option>GHL System</option>
+							<option>AI Agent</option>
+							<option>Full Business System</option>
+							<option>Not Sure Yet</option>
+						</select>
+					</div>
+					<div class="field">
+						<label for="projectDetails">Project Details</label>
+						<textarea id="projectDetails" name="projectDetails" rows="5" required></textarea>
+					</div>
+					<button class="button button-primary full-width" type="submit">
+						<span class="btn-text">Send Message</span>
+						<span class="btn-spinner" aria-hidden="true"></span>
+						<span aria-hidden="true">&rarr;</span>
+					</button>
+					<div id="formFeedback" class="form-feedback" aria-live="polite"></div>
+					<p class="submit-note">✦ We respond to all inquiries within 24 hours.</p>
+				</form>
+			</div>
+		</section>
+	</main>
+
+	<footer>
+		<a href="#home" class="logo-wrap brand" style="justify-self:center;">
+			<img src="/images/logo.png" alt="Automist Labs Logo" class="site-logo" loading="lazy" decoding="async">
+			<span class="brand-text">Automist Labs</span>
+		</a>
+		<p style="color:#e9d08c; font-family:'Space Grotesk', sans-serif;">We Automate. You Dominate.</p>
+		<div class="footer-links">
+			<a href="#home">Home</a>
+			<a href="#about">About</a>
+			<a href="#services">Services</a>
+			<a href="#projects">Projects</a>
+			<a href="#reviews">Reviews</a>
+			<a href="#contact">Contact</a>
+		</div>
+		<div class="footer-social">
+			<a href="https://www.linkedin.com/in/automistlabs/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+			<a href="https://www.instagram.com/automistlabs/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+			<a href="https://x.com/AutomistLabs" target="_blank" rel="noopener noreferrer" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+			<a href="https://wa.me/923246961640?text=Hey!%20I%20need%20help%20automating%20my%20business.%20Can%20we%20talk%3F" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+		</div>
+		<p style="font-size:0.85rem; color:#9faac4;">&copy; 2026 Automist Labs. All rights reserved. | automistlabs.com</p>
+	</footer>
+
+	<a class="floating-wa" href="https://wa.me/923246961640?text=Hey!%20I%20need%20help%20automating%20my%20business.%20Can%20we%20talk%3F" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
+		<i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+		<span class="wa-tip">Chat with us on WhatsApp</span>
+	</a>
+
+	<div class="modal" id="projectModal" aria-hidden="true">
+		<div class="modal-card" role="dialog" aria-modal="true" aria-label="Project details">
+			<button class="modal-close" id="modalClose" aria-label="Close details">&times;</button>
+			<div class="modal-body" id="modalBody"></div>
+		</div>
+	</div>
+
+	<script>
+		const projectData = [
+			{
+				id: 2,
+				title: "AI Customer Support Automation System",
+				categories: ["n8n", "ai"],
+				short: "Intelligent support bot that resolves tickets, escalates issues, and logs all interactions.",
+				full: "An n8n workflow connects a GPT-4 powered support agent to the client's helpdesk, Slack, and CRM. It auto-resolves common queries, routes complex tickets to humans with full context, and maintains a complete interaction log - eliminating support backlog overnight.",
+				tools: ["n8n", "OpenAI", "Slack", "CRM"]
+			},
+			{
+				id: 3,
+				title: "Cold Email Outreach Sequence (3-Step)",
+				categories: ["n8n"],
+				short: "Automated 3-touch cold email campaign with smart follow-ups, reply detection, and CRM logging.",
+				full: "Built entirely in n8n, this system sends a personalized 3-email sequence, detects replies to pause follow-ups automatically, and logs every interaction into the CRM. Increased client reply rates by 3x compared to manual outreach.",
+				tools: ["n8n", "Gmail", "Google Sheets", "AI"]
+			},
+			{
+				id: 4,
+				title: "WhatsApp AI Product Assistance System",
+				categories: ["n8n", "ai"],
+				short: "AI-powered WhatsApp bot that answers queries, qualifies buyers, and books discovery calls.",
+				full: "This n8n workflow connects the WhatsApp Business API to an OpenAI assistant trained on product data. It answers customer questions 24/7, qualifies purchase intent, and books calls automatically - turning cold inquiries into warm leads with zero human effort.",
+				tools: ["n8n", "WhatsApp API", "OpenAI"]
+			},
+			{
+				id: 5,
+				title: "Agency Lead Nurturing Pipeline",
+				categories: ["ghl"],
+				short: "Multi-stage GHL pipeline that nurtures cold leads with automated follow-ups until they convert.",
+				full: "A fully built GoHighLevel pipeline with automated SMS, email, and voicemail sequences that move leads through every funnel stage. Configured with smart triggers, time-delay rules, and reply detection - converting leads that would otherwise go cold.",
+				tools: ["GoHighLevel", "SMS", "Email", "Workflows"]
+			},
+			{
+				id: 6,
+				title: "Content Repurposing & Distribution Engine",
+				categories: ["n8n", "ai"],
+				short: "Takes one content piece and auto-repurposes it across LinkedIn, X, Instagram, and email.",
+				full: "Feed one long-form content piece into this n8n workflow and it uses OpenAI to rewrite and reformat it for LinkedIn, X, Instagram, and email newsletters - then publishes or queues each version automatically. One input, five outputs, zero manual work.",
+				tools: ["n8n", "OpenAI", "Social APIs"]
+			},
+			{
+				id: 7,
+				title: "Coaching Business Appointment System",
+				categories: ["ghl"],
+				short: "Complete GHL appointment booking, reminder, and follow-up system for a coaching brand.",
+				full: "Built for a high-ticket coaching client, this GHL system automates the entire appointment lifecycle - booking confirmations, 24hr reminders, no-show follow-ups, and post-call nurture sequences. Show-up rates improved significantly and the calendar runs itself.",
+				tools: ["GoHighLevel", "Calendly", "SMS", "Email"]
+			},
+			{
+				id: 8,
+				title: "SaaS Lead Qualification & CRM Logging",
+				categories: ["n8n", "data"],
+				short: "Scores and qualifies inbound leads automatically, logging enriched data directly into CRM.",
+				full: "This n8n workflow intercepts every inbound lead form submission, enriches contact data via API, scores lead quality using an AI prompt, and logs a fully tagged, prioritized record into Airtable - so the sales team focuses only on high-value prospects.",
+				tools: ["n8n", "Airtable", "OpenAI", "Webhooks"]
+			},
+			{
+				id: 9,
+				title: "Abandoned Cart Recovery Automation",
+				categories: ["n8n"],
+				short: "Detects abandoned carts and fires personalized recovery sequences to win back customers.",
+				full: "Connected to Shopify via webhook, this n8n automation detects cart abandonment, waits a smart delay, then sends a personalized 3-email recovery sequence with dynamic product details. Recovered significant lost revenue within the first 30 days.",
+				tools: ["n8n", "Shopify", "Gmail", "AI"]
+			},
+			{
+				id: 10,
+				title: "Weekly Executive Reporting Automation",
+				categories: ["n8n", "data"],
+				short: "Pulls data from multiple sources and delivers formatted executive reports every Monday.",
+				full: "Every Monday at 8AM, this n8n workflow pulls KPI data from Google Sheets, CRM, and ad platforms, formats a clean executive summary, and delivers it via email and Slack - giving leadership full visibility with zero manual effort.",
+				tools: ["n8n", "Google Sheets", "Slack", "Email"]
+			},
+			{
+				id: 11,
+				title: "Client Onboarding & Provisioning System",
+				categories: ["ghl"],
+				short: "Fully automated onboarding from contract sign to first delivery - zero manual steps.",
+				full: "The moment a client signs, this GHL automation triggers a full onboarding sequence: welcome email, intake form, task assignment, sub-account creation, and first-week check-in. Onboarding time reduced from days to minutes.",
+				tools: ["GoHighLevel", "n8n", "Email Automation"]
+			},
+			{
+				id: 12,
+				title: "Real Estate CRM Automation System",
+				categories: ["ghl"],
+				short: "End-to-end GHL CRM with automated lead routing, follow-up sequences, and deal tracking.",
+				full: "A complete GoHighLevel CRM buildout for a real estate firm - automated lead routing from multiple sources, follow-up sequences by property interest, pipeline stage automation, and deal-close triggers. Zero leads fall through the cracks.",
+				tools: ["GoHighLevel", "Webhooks", "Email", "SMS"]
+			}
+		];
+
+		const projectShowcaseMeta = {
+			2: {
+				folder: "ai-support",
+				subtitle: "AI Support Orchestration",
+				points: [
+					"Problem solved: repetitive support tickets were consuming team bandwidth and slowing response times.",
+					"Workflow logic: n8n routes inbound tickets through AI triage, resolves FAQs, and escalates complex cases with full context.",
+					"Result / impact: faster first response, reduced backlog, and consistent support quality around the clock."
+				]
+			},
+			3: {
+				folder: "cold-email",
+				subtitle: "Outbound Lead Generation Engine",
+				points: [
+					"Problem solved: manual outreach lacked consistency and follow-up timing.",
+					"Workflow logic: three-step campaign automates sends, detects replies, pauses sequences, and syncs CRM state.",
+					"Result / impact: higher reply rates, cleaner tracking, and scalable outbound performance."
+				]
+			},
+			4: {
+				folder: "whatsapp-ai",
+				subtitle: "Conversational Commerce Assistant",
+				points: [
+					"Problem solved: customer queries were delayed and leads were dropping off before qualification.",
+					"Workflow logic: WhatsApp conversations are handled by an AI assistant trained on offer data with booking triggers.",
+					"Result / impact: faster lead qualification and more discovery calls booked automatically."
+				]
+			},
+			6: {
+				folder: "content-engine",
+				subtitle: "Omnichannel Content Repurposing",
+				points: [
+					"Problem solved: one piece of content required manual adaptation for every platform.",
+					"Workflow logic: n8n transforms source content into platform-specific formats and queues distribution.",
+					"Result / impact: consistent publishing cadence with dramatically reduced production effort."
+				]
+			},
+			8: {
+				folder: "saas-crm",
+				subtitle: "Lead Intelligence + CRM Routing",
+				points: [
+					"Problem solved: sales teams were spending time on low-quality inbound leads.",
+					"Workflow logic: incoming leads are enriched, AI-scored, and routed into CRM with tags and priority metadata.",
+					"Result / impact: better pipeline quality and faster response on high-intent opportunities."
+				]
+			},
+			9: {
+				folder: "cart-recovery",
+				subtitle: "Revenue Recovery Automation",
+				points: [
+					"Problem solved: abandoned carts represented recurring revenue leakage.",
+					"Workflow logic: behavior-triggered follow-ups send personalized reminders with dynamic product context.",
+					"Result / impact: recovered purchases and measurable increase in retained revenue."
+				]
+			},
+			10: {
+				folder: "reporting",
+				subtitle: "Executive KPI Intelligence",
+				points: [
+					"Problem solved: weekly reporting required manual data collection across multiple systems.",
+					"Workflow logic: scheduled n8n pipelines aggregate KPIs, format summaries, and deliver reports to leadership channels.",
+					"Result / impact: reliable reporting cadence with better strategic visibility and zero manual prep."
+				]
+			}
+		};
+
+		let modalMediaCleanup = null;
+		let modalStepState = null;
+
+		const baseReviewData = [
+			{
+				quote: "Muhammad saved our agency 25+ hours every week. The n8n system he built is like having a full-time employee - without the salary. Exceptional work.",
+				author: "James R.",
+				role: "Founder, Digital Marketing Agency"
+			},
+			{
+				quote: "Our GHL pipeline was losing leads daily. Automist Labs rebuilt everything from scratch - our lead conversion went up 40% within the first month.",
+				author: "Sarah K.",
+				role: "Business Coach & Course Creator"
+			},
+			{
+				quote: "The AI lead qualification system he built pays for itself every single week. Fast delivery, deep expertise, and genuinely cares about results.",
+				author: "Ali M.",
+				role: "E-commerce Brand Owner"
+			},
+			{
+				quote: "We were manually handling every client onboarding step. Automist Labs automated the entire process - what used to take 3 hours now takes 3 minutes.",
+				author: "Priya S.",
+				role: "SaaS Founder"
+			},
+			{
+				quote: "The cold email system Muhammad built generated 14 qualified replies in the first week. I've worked with other automation freelancers - none come close to this level.",
+				author: "David L.",
+				role: "B2B Agency Owner"
+			},
+			{
+				quote: "Our WhatsApp bot now handles 80% of customer inquiries automatically. Sales are up, response time is instant, and my team is finally free to focus on growth.",
+				author: "Fatima H.",
+				role: "Online Retail Business Owner"
+			}
+		];
+
+		const reviewProfiles = [
+			{ author: "Omar T.", role: "Operations Lead, Marketing Agency", sector: "operations" },
+			{ author: "Nadia V.", role: "Founder, Coaching Studio", sector: "coaching" },
+			{ author: "Usman Q.", role: "Director, Real Estate Team", sector: "real estate" },
+			{ author: "Lina A.", role: "Head of Growth, SaaS Startup", sector: "saas" },
+			{ author: "Hassan Y.", role: "E-commerce Store Owner", sector: "e-commerce" },
+			{ author: "Mariam E.", role: "Agency Account Manager", sector: "agency" },
+			{ author: "Bilal C.", role: "Founder, Consulting Firm", sector: "consulting" },
+			{ author: "Ayesha D.", role: "Course Creator", sector: "education" },
+			{ author: "Kamran N.", role: "CEO, Service Business", sector: "services" },
+			{ author: "Sofia M.", role: "Head of Client Success", sector: "support" },
+			{ author: "Zain P.", role: "Growth Partner, B2B Agency", sector: "b2b" },
+			{ author: "Hiba R.", role: "Founder, Wellness Brand", sector: "wellness" },
+			{ author: "Rayan I.", role: "COO, Digital Firm", sector: "operations" },
+			{ author: "Farah K.", role: "Marketing Director", sector: "marketing" },
+			{ author: "Saif W.", role: "Founder, Recruitment Agency", sector: "recruitment" },
+			{ author: "Noor S.", role: "SaaS Product Consultant", sector: "saas" },
+			{ author: "Ibrahim J.", role: "Head of Sales", sector: "sales" },
+			{ author: "Amna B.", role: "Founder, Education Business", sector: "education" },
+			{ author: "Talha U.", role: "Marketplace Operator", sector: "marketplace" },
+			{ author: "Sana H.", role: "Client Delivery Manager", sector: "delivery" },
+			{ author: "Danish F.", role: "Founder, Design Agency", sector: "agency" },
+			{ author: "Rida G.", role: "Growth Strategist", sector: "growth" },
+			{ author: "Khalid L.", role: "Business Owner", sector: "services" },
+			{ author: "Mina O.", role: "Operations Manager", sector: "operations" },
+			{ author: "Adeel Z.", role: "Founder, Ecom Brand", sector: "e-commerce" },
+			{ author: "Nimra T.", role: "CRM Specialist", sector: "crm" },
+			{ author: "Yasir X.", role: "Agency Founder", sector: "agency" },
+			{ author: "Hareem V.", role: "Marketing Consultant", sector: "marketing" },
+			{ author: "Raheel P.", role: "SaaS Founder", sector: "saas" },
+			{ author: "Iqra M.", role: "Business Coach", sector: "coaching" },
+			{ author: "Shayan R.", role: "Lead Gen Consultant", sector: "b2b" },
+			{ author: "Mehak Y.", role: "Brand Operator", sector: "e-commerce" },
+			{ author: "Saad A.", role: "Founder, Media Agency", sector: "agency" },
+			{ author: "Zoya N.", role: "Workflow Manager", sector: "operations" },
+			{ author: "Hamza Q.", role: "Sales Ops Manager", sector: "sales" },
+			{ author: "Laiba C.", role: "Founder, Local Business", sector: "services" },
+			{ author: "Huzaifa D.", role: "Growth Lead", sector: "growth" },
+			{ author: "Areeba E.", role: "Client Success Lead", sector: "support" },
+			{ author: "Fahad I.", role: "Founder, SaaS Agency", sector: "saas" },
+			{ author: "Nawal K.", role: "CRM Consultant", sector: "crm" },
+			{ author: "Rehan L.", role: "Founder, B2B Studio", sector: "b2b" },
+			{ author: "Maya B.", role: "Digital Product Owner", sector: "product" },
+			{ author: "Aiman S.", role: "Operations Consultant", sector: "operations" },
+			{ author: "Faris H.", role: "Real Estate Consultant", sector: "real estate" }
+		];
+
+		const quoteBlueprints = [
+			"Automist Labs gave us a complete automation backbone for our {sector}. We stopped patching manual tasks and finally started scaling predictably.",
+			"Before working with Muhammad, our follow-up speed was inconsistent. Now every lead gets handled on time and our conversion numbers are stronger each month.",
+			"Their n8n + CRM setup removed daily busywork from our team. We gained hours back and reinvested that time into growth activities.",
+			"Execution was clean, communication was sharp, and the final system was production-ready from day one. Exactly what a premium automation partner should deliver.",
+			"Our pipeline quality improved immediately after implementation. Fewer leaks, better visibility, and far smoother handoffs between teams.",
+			"This was not just an automation project. It became a full operating system upgrade for our business with measurable revenue impact.",
+			"The workflows are fast, stable, and easy for our team to operate. We now run with confidence because the backend systems are reliable.",
+			"If you care about outcomes, Automist Labs is the right choice. The systems they built keep performing every single week."
+		];
+
+		const reviewData = [
+			...baseReviewData,
+			...reviewProfiles.map((profile, index) => ({
+				quote: quoteBlueprints[index % quoteBlueprints.length].replace("{sector}", profile.sector),
+				author: profile.author,
+				role: profile.role
+			}))
+		].slice(0, 50);
+
+		const projectsGrid = document.getElementById("projectsGrid");
+		const projectsWrap = document.getElementById("projectsWrap");
+		const projectsExpandWrap = document.getElementById("projectsExpandWrap");
+		const projectsExpandBtn = document.getElementById("projectsExpandBtn");
+		const projectFilters = document.getElementById("projectFilters");
+		const projectModal = document.getElementById("projectModal");
+		const modalBody = document.getElementById("modalBody");
+		const modalClose = document.getElementById("modalClose");
+		const siteHeader = document.getElementById("siteHeader");
+		const menuToggle = document.getElementById("menuToggle");
+		const mobilePanel = document.getElementById("mobilePanel");
+		const typewriterText = document.getElementById("typewriterText");
+		const contactForm = document.getElementById("contactForm");
+
+		let currentFilter = "all";
+		let expanded = false;
+		let selectedProject = null;
+		let projectsViewportMode = getProjectsViewportMode();
+
+		const typeLines = [
+			"Stop losing hours to manual, repetitive work.",
+			"Stop losing leads to slow follow-ups.",
+			"Stop letting inefficiency block your growth."
+		];
+
+		function categoryClass(categories) {
+			if (categories.includes("ghl")) return "cat-ghl";
+			if (categories.includes("ai")) return "cat-ai";
+			return "cat-n8n";
+		}
+
+		function categoryLabel(categories) {
+			if (categories.includes("ghl")) return "GoHighLevel";
+			if (categories.includes("ai")) return "AI Agent";
+			if (categories.includes("data")) return "Data & CRM";
+			return "n8n";
+		}
+
+		function svgPreviewLabel(text) {
+			return `
+				<div class="preview">
+					<svg viewBox="0 0 320 170" aria-hidden="true">
+						<rect x="22" y="68" width="58" height="30" rx="6" fill="none" stroke="#C9A84C" stroke-width="1.3"/>
+						<rect x="128" y="34" width="64" height="30" rx="6" fill="none" stroke="#2DD4BF" stroke-width="1.3"/>
+						<rect x="126" y="106" width="64" height="30" rx="6" fill="none" stroke="#C9A84C" stroke-width="1.3"/>
+						<rect x="238" y="68" width="58" height="30" rx="6" fill="none" stroke="#2DD4BF" stroke-width="1.3"/>
+						<line x1="80" y1="83" x2="128" y2="49" stroke="#C9A84C" stroke-width="1.2"/>
+						<line x1="80" y1="83" x2="126" y2="122" stroke="#C9A84C" stroke-width="1.2"/>
+						<line x1="192" y1="49" x2="238" y2="83" stroke="#2DD4BF" stroke-width="1.2"/>
+						<line x1="190" y1="122" x2="238" y2="83" stroke="#2DD4BF" stroke-width="1.2"/>
+						<circle cx="80" cy="83" r="3" fill="#C9A84C"/>
+						<circle cx="128" cy="49" r="3" fill="#2DD4BF"/>
+						<circle cx="126" cy="122" r="3" fill="#C9A84C"/>
+						<circle cx="238" cy="83" r="3" fill="#2DD4BF"/>
+					</svg>
+					<small>${text}</small>
+				</div>`;
+		}
+
+		function projectWorkflowPreview(project) {
+			const folder = projectShowcaseMeta[project.id]?.folder;
+			if (!folder) return svgPreviewLabel("Workflow Preview");
+
+			return `
+				<div class="preview" data-preview-wrapper="true">
+					<img class="project-workflow-thumb" src="projects/${folder}/workflow.jpg" alt="${project.title} workflow preview" loading="lazy" decoding="async">
+					<small>Workflow Preview</small>
+				</div>`;
+		}
+
+		function projectCardTemplate(project, options = {}) {
+			const classes = ["project-card"];
+			if (options.extraClass) classes.push(options.extraClass);
+
+			return `
+				<article class="${classes.join(" ")}" data-project-id="${project.id}" style="--stagger:${options.staggerMs || 0}ms; --reveal-delay:${options.revealMs || 0}ms;">
+					<div class="project-top">
+						<span class="cat-badge ${categoryClass(project.categories)}">${categoryLabel(project.categories)}</span>
+					</div>
+					${projectWorkflowPreview(project)}
+					<h3>${project.title}</h3>
+					<p>${project.short}</p>
+					<div class="tool-pills">${project.tools.map((tool) => `<span>${tool}</span>`).join("")}</div>
+					<button class="details-btn" type="button">View Details &rarr;</button>
+				</article>`;
+		}
+
+		function bindProjectPreviewFallbacks() {
+			projectsGrid.querySelectorAll(".project-workflow-thumb").forEach((img) => {
+				img.addEventListener("error", () => {
+					const wrapper = img.closest("[data-preview-wrapper]");
+					if (!wrapper) return;
+					wrapper.outerHTML = svgPreviewLabel("Workflow Preview");
+				}, { once: true });
+			});
+		}
+
+		function filteredProjects() {
+			const nonGhlProjects = projectData.filter((p) => !p.categories.includes("ghl"));
+			if (currentFilter === "all") return nonGhlProjects;
+			return nonGhlProjects.filter((p) => p.categories.includes(currentFilter));
+		}
+
+		function getProjectsViewportMode() {
+			if (window.innerWidth <= 768) return "mobile";
+			if (window.innerWidth < 1024) return "tablet";
+			return "desktop";
+		}
+
+		function getInitialVisibleCount() {
+			if (currentFilter !== "all") return Number.MAX_SAFE_INTEGER;
+			if (projectsViewportMode === "mobile") return 4;
+			if (projectsViewportMode === "tablet") return 6;
+			return 8;
+		}
+
+		function getMobileFeaturedProjectIds(items) {
+			const aiItems = items.filter((p) => p.categories.includes("ai"));
+			const picks = [...aiItems.slice(0, 3)];
+			const unique = [];
+
+			picks.forEach((project) => {
+				if (project && !unique.some((p) => p.id === project.id)) unique.push(project);
+			});
+
+			if (unique.length < 4) {
+				items.forEach((project) => {
+					if (unique.length >= 4) return;
+					if (!unique.some((p) => p.id === project.id)) unique.push(project);
+				});
+			}
+
+			return new Set(unique.slice(0, 4).map((p) => p.id));
+		}
+
+		function renderProjects() {
+			const items = filteredProjects();
+			const initialVisible = getInitialVisibleCount();
+			const usingMobilePriority = projectsViewportMode === "mobile" && currentFilter === "all";
+			const featuredIds = usingMobilePriority ? getMobileFeaturedProjectIds(items) : new Set();
+			const orderedItems = usingMobilePriority
+				? [...items.filter((p) => featuredIds.has(p.id)), ...items.filter((p) => !featuredIds.has(p.id))]
+				: items;
+
+			projectsGrid.innerHTML = orderedItems
+				.map((project, index) => {
+					const isExtra = currentFilter === "all" && index >= initialVisible;
+					const extraClass = isExtra && !expanded ? "project-collapsed" : "";
+					return projectCardTemplate(project, {
+						extraClass,
+						staggerMs: Math.min(index, 10) * 60,
+						revealMs: isExtra ? Math.min(index - initialVisible, 10) * 70 : 0
+					});
+				})
+				.join("");
+
+			const canToggle = currentFilter === "all" && orderedItems.length > initialVisible;
+			projectsExpandWrap.classList.toggle("visible", canToggle);
+			projectsExpandWrap.classList.toggle("hidden", !canToggle);
+			if (canToggle) {
+				projectsExpandBtn.innerHTML = expanded ? "See Less &uarr;" : "See More Projects <span aria-hidden=\"true\">&rarr;</span>";
+			}
+
+			bindProjectPreviewFallbacks();
+
+			requestAnimationFrame(() => {
+				projectsGrid.querySelectorAll(".project-card").forEach((card, index) => {
+					card.style.setProperty("--i", String(Math.min(index, 12)));
+					card.classList.add("active");
+				});
+			});
+
+			projectsWrap.style.maxHeight = "";
+			window.setTimeout(refreshSectionMetrics, 50);
+		}
+
+		function animateProjectsHeight(mutator) {
+			const startHeight = projectsGrid.getBoundingClientRect().height;
+			projectsWrap.style.maxHeight = `${Math.max(startHeight + 28, 120)}px`;
+			mutator();
+
+			requestAnimationFrame(() => {
+				const endHeight = projectsGrid.getBoundingClientRect().height;
+				projectsWrap.style.maxHeight = `${Math.max(endHeight + 28, 120)}px`;
+			});
+
+			window.setTimeout(() => {
+				projectsWrap.style.maxHeight = "";
+			}, 560);
+		}
+
+		function toggleProjectsExpansion() {
+			const initialVisible = getInitialVisibleCount();
+			const totalCards = projectsGrid.querySelectorAll(".project-card").length;
+			if (totalCards <= initialVisible) return;
+
+			const hiddenCards = Array.from(projectsGrid.querySelectorAll(".project-card.project-collapsed"));
+			if (!expanded) {
+				let firstRevealed = null;
+				animateProjectsHeight(() => {
+					hiddenCards.forEach((card, index) => {
+						if (!firstRevealed) firstRevealed = card;
+						card.classList.remove("project-collapsed");
+						card.classList.add("project-reveal");
+						card.classList.add("active");
+						card.style.setProperty("--i", String(Math.min(initialVisible + index, 12)));
+						card.style.setProperty("--reveal-delay", `${Math.min(index, 10) * 70}ms`);
+						window.setTimeout(() => {
+							card.classList.remove("project-reveal");
+						}, 520 + index * 40);
+					});
+				});
+				expanded = true;
+				projectsExpandBtn.innerHTML = "See Less &uarr;";
+				window.setTimeout(refreshSectionMetrics, 420);
+
+				if (firstRevealed) {
+					firstRevealed.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth", block: "nearest" });
+				}
+				return;
+			}
+
+			const extraCards = Array.from(projectsGrid.querySelectorAll(".project-card")).slice(initialVisible);
+			animateProjectsHeight(() => {
+				extraCards.forEach((card) => {
+					card.classList.remove("project-reveal");
+					card.classList.add("project-collapsed");
+				});
+			});
+			expanded = false;
+			projectsExpandBtn.innerHTML = "See More Projects <span aria-hidden=\"true\">&rarr;</span>";
+			projectsWrap.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth", block: "start" });
+			window.setTimeout(refreshSectionMetrics, 300);
+		}
+
+		function getProjectShowcase(project) {
+			const meta = projectShowcaseMeta[project.id] || {};
+			const subtitle = meta.subtitle || `${categoryLabel(project.categories)} Automation System`;
+			const points = meta.points || [
+				`Problem solved: ${project.short}`,
+				"Workflow logic: trigger-based automation connected to the required tools and channels.",
+				"Result / impact: improved consistency, time savings, and a more reliable delivery process."
+			];
+
+			const overview = project.short;
+			const problem = points[0].replace(/^Problem solved:\s*/i, "");
+			const solution = points[1].replace(/^Workflow logic:\s*/i, "");
+			const result = points[2].replace(/^Result\s*\/\s*impact:\s*/i, "");
+
+			if (!meta.folder) {
+				return {
+					subtitle,
+					overview,
+					problem,
+					solution,
+					result,
+					features: points,
+					mediaBase: "",
+					workflow: "",
+					video: "",
+					outputs: []
+				};
+			}
+
+			const base = `projects/${meta.folder}`;
+			return {
+				subtitle,
+				overview,
+				problem,
+				solution,
+				result,
+				features: points,
+				mediaBase: base,
+				workflow: `${base}/workflow.jpg`,
+				video: `${base}/video.mp4`,
+				outputs: []
+			};
+		}
+
+		function checkImageExists(src) {
+			return new Promise((resolve) => {
+				const img = new Image();
+				img.onload = () => resolve(true);
+				img.onerror = () => resolve(false);
+				img.src = src;
+			});
+		}
+
+		async function resolveOutputImages(basePath) {
+			if (!basePath) return [];
+			const extPriority = ["jpg", "jpeg", "png", "webp"];
+			const outputCandidates = Array.from({ length: 12 }, (_, i) => i + 1)
+				.flatMap((index) => extPriority.map((ext) => `${basePath}/output-${index}.${ext}`));
+			const checks = await Promise.all(outputCandidates.map((src) => checkImageExists(src)));
+			const found = outputCandidates.filter((_, index) => checks[index]);
+			const byNumber = new Map();
+			for (const src of found) {
+				const match = src.match(/output-(\d+)\.(jpg|jpeg|png|webp)$/i);
+				if (!match) continue;
+				const order = Number(match[1]);
+				if (!byNumber.has(order)) byNumber.set(order, src);
+			}
+			return Array.from(byNumber.keys()).sort((a, b) => a - b).map((key) => byNumber.get(key));
+		}
+
+		function buildOutputsMarkup(outputs, title) {
+			if (!outputs.length) {
+				return `<div class="empty-media">No output gallery is available for this project yet.</div>`;
+			}
+
+			return `<div class="outputs-grid" data-outputs-grid>
+				<div class="output-viewer" data-output-viewer>
+					<div class="output-viewport media-stage">
+						<div class="output-track" data-output-track>
+				${outputs
+					.map((src, index) => `
+						<article class="output-slide" data-output-slide="${index}">
+							<div class="output-item" ${index > 0 ? 'data-optional="true"' : ""}>
+								<img src="${src}" alt="${title} output ${index + 1}" loading="lazy" decoding="async" ${index > 0 ? 'data-optional="true"' : ""}>
+							</div>
+						</article>`)
+					.join("")}
+						</div>
+					</div>
+					<div class="output-indicator" data-output-indicator></div>
+				</div>
+			</div>`;
+		}
+
+		function initOutputStepViewer() {
+			const viewer = modalBody.querySelector("[data-output-viewer]");
+			if (!viewer) return null;
+
+			const track = viewer.querySelector("[data-output-track]");
+			const indicator = viewer.querySelector("[data-output-indicator]");
+			if (!track || !indicator) return null;
+
+			const slides = () => Array.from(track.querySelectorAll(".output-slide"));
+			let currentOutputIndex = 0;
+
+			function render() {
+				const total = slides().length;
+				if (!total) {
+					viewer.outerHTML = '<div class="empty-media">No output gallery is available for this project yet.</div>';
+					return;
+				}
+
+				currentOutputIndex = Math.max(0, Math.min(currentOutputIndex, total - 1));
+				slides().forEach((slide, index) => {
+					slide.classList.toggle("active", index === currentOutputIndex);
+				});
+				indicator.textContent = `Output ${currentOutputIndex + 1} of ${total}`;
+			}
+
+			render();
+
+			return {
+				canNext() {
+					const total = slides().length;
+					return currentOutputIndex < total - 1;
+				},
+				canPrev() {
+					return currentOutputIndex > 0;
+				},
+				next() {
+					const total = slides().length;
+					if (currentOutputIndex >= total - 1) return false;
+					currentOutputIndex += 1;
+					render();
+					return true;
+				},
+				prev() {
+					if (currentOutputIndex <= 0) return false;
+					currentOutputIndex -= 1;
+					render();
+					return true;
+				},
+				reset() {
+					currentOutputIndex = 0;
+					render();
+				}
+			};
+		}
+
+		function initModalStepNavigation() {
+			const track = modalBody.querySelector("[data-step-track]");
+			const prevBtn = modalBody.querySelector("[data-step-prev]");
+			const nextBtn = modalBody.querySelector("[data-step-next]");
+			const modalScrollContainer = modalBody.closest(".modal");
+			const viewport = modalBody.querySelector(".project-step-viewport");
+			let outputApi = initOutputStepViewer();
+			if (!track || !prevBtn || !nextBtn || !viewport) return;
+
+			const totalSteps = track.children.length;
+			let currentStep = 0;
+			const onResizeAlign = () => alignArrowsToVisual();
+
+			function alignArrowsToVisual() {
+				const activeStep = track.children[currentStep];
+				if (!activeStep) {
+					prevBtn.style.top = "50%";
+					nextBtn.style.top = "50%";
+					return;
+				}
+
+				const visual = activeStep.querySelector(".media-stage, .empty-media");
+				if (!visual) {
+					prevBtn.style.top = "50%";
+					nextBtn.style.top = "50%";
+					return;
+				}
+
+				const visualRect = visual.getBoundingClientRect();
+				const viewportRect = viewport.getBoundingClientRect();
+				const visualCenter = (visualRect.top - viewportRect.top) + (visualRect.height / 2);
+				prevBtn.style.top = `${visualCenter}px`;
+				nextBtn.style.top = `${visualCenter}px`;
+			}
+
+			function renderStep() {
+				track.style.transform = `translateX(-${currentStep * 100}%)`;
+				if (currentStep === 2 && outputApi) {
+					prevBtn.disabled = false;
+					nextBtn.disabled = !outputApi.canNext();
+				} else {
+					prevBtn.disabled = currentStep === 0;
+					nextBtn.disabled = currentStep === totalSteps - 1;
+				}
+				if (currentStep !== 2) outputApi?.reset();
+				alignArrowsToVisual();
+			}
+
+			function goToStep(next) {
+				currentStep = Math.max(0, Math.min(next, totalSteps - 1));
+				renderStep();
+				if (modalScrollContainer) {
+					modalScrollContainer.scrollTo({ top: 0, behavior: "smooth" });
+				}
+			}
+
+			prevBtn.addEventListener("click", () => {
+				if (currentStep === 2 && outputApi?.prev()) return;
+				goToStep(currentStep - 1);
+			});
+			nextBtn.addEventListener("click", () => {
+				if (currentStep === 2 && outputApi?.next()) return;
+				goToStep(currentStep + 1);
+			});
+
+			modalStepState = {
+				next: () => {
+					if (currentStep === 2 && outputApi?.next()) return;
+					goToStep(currentStep + 1);
+				},
+				prev: () => {
+					if (currentStep === 2 && outputApi?.prev()) return;
+					goToStep(currentStep - 1);
+				},
+				syncOutputs: () => {
+					outputApi = initOutputStepViewer();
+					renderStep();
+				},
+				close: () => {
+					window.removeEventListener("resize", onResizeAlign);
+					modalStepState = null;
+				}
+			};
+
+			window.addEventListener("resize", onResizeAlign, { passive: true });
+
+			renderStep();
+		}
+
+		async function openProjectModal(id) {
+			selectedProject = projectData.find((p) => p.id === id);
+			if (!selectedProject) return;
+			const modalProjectId = selectedProject.id;
+
+			if (typeof modalMediaCleanup === "function") modalMediaCleanup();
+			modalMediaCleanup = null;
+			modalStepState = null;
+			const showcase = getProjectShowcase(selectedProject);
+			showcase.outputs = await resolveOutputImages(showcase.mediaBase);
+			if (!selectedProject || selectedProject.id !== modalProjectId) return;
+			const outputsMarkup = buildOutputsMarkup(showcase.outputs, selectedProject.title);
+
+			modalBody.innerHTML = `
+				<div class="project-step-shell">
+					<div class="project-step-viewport">
+						<button class="step-nav-btn left" type="button" data-step-prev aria-label="Previous step">&larr;</button>
+						<div class="project-step-track" data-step-track>
+							<section class="project-step step-scroll">
+								<div class="project-step-title">Step 1 - Workflow Image</div>
+								<div class="step-content-stack">
+									${showcase.workflow
+										? `<div class="media-frame media-stage workflow-frame">
+											<img class="workflow-image" src="${showcase.workflow}" alt="${selectedProject.title} workflow" loading="lazy" decoding="async">
+										</div>`
+										: `<div class="empty-media">Workflow image is not available for this project.</div>`}
+									<div class="step-inline-flow">
+										<div class="step-status-line">Step 1 of 3 - Next: Video</div>
+									</div>
+									<div class="step-scroll-hint">Scroll to explore details &darr;</div>
+									<div class="step1-details-wrap">
+										<div class="step1-details-scroll">
+											<div class="project-meta">
+						<span class="cat-badge ${categoryClass(selectedProject.categories)}">${categoryLabel(selectedProject.categories)}</span>
+						<div class="project-subtitle">${showcase.subtitle}</div>
+						<h2>${selectedProject.title}</h2>
+
+						<div class="project-section">
+							<h4>Overview</h4>
+							<p>${showcase.overview}</p>
+						</div>
+						<div class="project-section">
+							<h4>Problem</h4>
+							<p>${showcase.problem}</p>
+						</div>
+						<div class="project-section">
+							<h4>Solution</h4>
+							<p>${showcase.solution}</p>
+						</div>
+						<div class="project-section">
+							<h4>Result</h4>
+							<p>${showcase.result}</p>
+						</div>
+						<div class="project-section">
+							<h4>Key Features</h4>
+							<ul class="project-points">${showcase.features.map((point) => `<li>${point}</li>`).join("")}</ul>
+						</div>
+						<div class="tool-pills">${selectedProject.tools.map((tool) => `<span>${tool}</span>`).join("")}</div>
+						<div class="modal-actions">
+							<a href="https://calendly.com/automistlabs/free-ai-automation-consultation" target="_blank" rel="noopener noreferrer" class="button button-primary cta-btn" id="modalContactCta" aria-label="Book a free automation consultation call">Start a Similar Project <span aria-hidden="true">&rarr;</span></a>
+						</div>
+									</div>
+								</div>
+							</div>
+						</div>
+							</section>
+							<section class="project-step">
+								<div class="project-step-title">Step 2 - Video</div>
+								${showcase.video
+									? `<div class="media-frame media-stage video-frame">
+										<video class="project-video" controls preload="metadata" playsinline poster="${showcase.workflow || ""}">
+											<source src="${showcase.video}" type="video/mp4">
+										</video>
+									</div>`
+									: `<div class="empty-media">Video walkthrough is not available for this project.</div>`}
+								<div class="step-inline-flow">
+									<div class="step-status-line">Step 2 of 3 - Next: Outputs</div>
+								</div>
+							</section>
+							<section class="project-step">
+								<div class="project-step-title">Step 3 - Output Images</div>
+								${outputsMarkup}
+								<div class="step-inline-flow">
+									<div class="step-status-line">Step 3 of 3 - Next: Done</div>
+								</div>
+							</section>
+						</div>
+						<button class="step-nav-btn right" type="button" data-step-next aria-label="Next step">&rarr;</button>
+								</div>
+				</div>
+			`;
+
+			const abortController = new AbortController();
+			modalMediaCleanup = () => abortController.abort();
+
+			modalBody.addEventListener("error", (event) => {
+				const node = event.target;
+				if (!(node instanceof HTMLImageElement)) return;
+				if (node.classList.contains("workflow-image")) {
+					const parent = node.closest(".media-frame");
+					if (parent) {
+						parent.outerHTML = '<div class="empty-media">Workflow image is not available for this project.</div>';
+					}
+					return;
+				}
+
+				if (node.dataset.optional === "true") {
+					const item = node.closest(".output-slide");
+					if (item) {
+						item.remove();
+						modalStepState?.syncOutputs?.();
+					}
+				}
+			}, { capture: true, signal: abortController.signal });
+
+			projectModal.classList.add("open");
+			projectModal.setAttribute("aria-hidden", "false");
+			document.body.classList.add("modal-open");
+			initModalStepNavigation();
+
+			const modalContactCta = document.getElementById("modalContactCta");
+			if (modalContactCta) {
+				modalContactCta.addEventListener("click", () => {
+					closeModal();
+				}, { once: true });
+			}
+		}
+
+		function closeModal() {
+			modalBody.querySelectorAll("video").forEach((video) => {
+				if (video instanceof HTMLVideoElement) video.pause();
+			});
+			if (typeof modalMediaCleanup === "function") modalMediaCleanup();
+			modalMediaCleanup = null;
+			if (modalStepState) modalStepState.close();
+			projectModal.classList.remove("open");
+			projectModal.setAttribute("aria-hidden", "true");
+			document.body.classList.remove("modal-open");
+			modalBody.innerHTML = "";
+			selectedProject = null;
+		}
+
+		projectsExpandBtn.addEventListener("click", () => {
+			if (currentFilter === "all") {
+				toggleProjectsExpansion();
+				return;
+			}
+			renderProjects();
+		});
+
+		projectsGrid.addEventListener("click", (event) => {
+			const card = event.target.closest(".project-card");
+			if (!card) return;
+			const id = Number(card.getAttribute("data-project-id"));
+			if (!Number.isFinite(id)) return;
+			openProjectModal(id);
+		});
+
+		projectFilters.addEventListener("click", (event) => {
+			const button = event.target.closest(".filter-btn");
+			if (!button) return;
+
+			const nextFilter = button.getAttribute("data-filter");
+			if (nextFilter === currentFilter) return;
+
+			currentFilter = nextFilter;
+			expanded = false;
+
+			projectFilters.querySelectorAll(".filter-btn").forEach((btn) => btn.classList.remove("active"));
+			button.classList.add("active");
+
+			projectsWrap.classList.add("fading");
+			setTimeout(() => {
+				renderProjects();
+				projectsWrap.classList.remove("fading");
+			}, 260);
+		});
+
+		modalClose.addEventListener("click", closeModal);
+		projectModal.addEventListener("click", (event) => {
+			if (event.target === projectModal) closeModal();
+		});
+
+		document.addEventListener("keydown", (event) => {
+			if (!projectModal.classList.contains("open")) return;
+			if (event.key === "Escape") closeModal();
+			if (event.key === "ArrowLeft") {
+				event.preventDefault();
+				modalStepState?.prev();
+			}
+			if (event.key === "ArrowRight") {
+				event.preventDefault();
+				modalStepState?.next();
+			}
+		});
+
+		const reviewsTrack = document.getElementById("reviewsTrack");
+		const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+		function renderReviews() {
+			const loopedReviews = [...reviewData, ...reviewData];
+
+			reviewsTrack.innerHTML = loopedReviews
+				.map((item) => `
+					<article class="review-card review-item">
+						<div class="review-head">
+							<div class="quote-mark">&ldquo;</div>
+							<div class="stars">⭐⭐⭐⭐⭐</div>
+						</div>
+						<blockquote>${item.quote}</blockquote>
+						<div class="review-author">
+							<span class="avatar">${item.author.charAt(0)}</span>
+							<div>
+								<strong>${item.author}</strong>
+								<small>${item.role}</small>
+							</div>
+						</div>
+					</article>
+				`).join("");
+
+			updateReviewMarqueeMetrics();
+		}
+
+		function updateReviewMarqueeMetrics() {
+			const items = reviewsTrack.querySelectorAll(".review-item");
+			if (!items.length) return;
+
+			const originalCount = Math.floor(items.length / 2);
+			if (!originalCount) return;
+
+			const trackStyles = window.getComputedStyle(reviewsTrack);
+			const gap = Number.parseFloat(trackStyles.gap || "0") || 0;
+			let shift = 0;
+
+			for (let i = 0; i < originalCount; i += 1) {
+				shift += items[i].getBoundingClientRect().width;
+			}
+			shift += gap * originalCount;
+
+			const pxPerSecond = window.innerWidth <= 640 ? 28 : window.innerWidth <= 900 ? 32 : 36;
+			const duration = Math.max(24, shift / pxPerSecond);
+
+			reviewsTrack.style.setProperty("--reviews-shift", `${shift}px`);
+			reviewsTrack.style.setProperty("--reviews-duration", `${duration}s`);
+
+			if (prefersReducedMotion) {
+				reviewsTrack.style.animation = "none";
+				reviewsTrack.style.transform = "translate3d(0, 0, 0)";
+			} else {
+				reviewsTrack.style.animation = "none";
+				void reviewsTrack.offsetWidth;
+				reviewsTrack.style.animation = "reviewsMarquee var(--reviews-duration, 56s) linear infinite";
+			}
+		}
+
+		let resizeTimer;
+		window.addEventListener("resize", () => {
+			window.clearTimeout(resizeTimer);
+			resizeTimer = window.setTimeout(() => {
+				const nextMode = getProjectsViewportMode();
+				if (nextMode !== projectsViewportMode) {
+					projectsViewportMode = nextMode;
+					expanded = false;
+					renderProjects();
+				}
+				refreshSectionMetrics();
+				updateReviewMarqueeMetrics();
+			}, 120);
+		});
+
+		window.addEventListener("orientationchange", () => {
+			window.setTimeout(() => {
+				refreshSectionMetrics();
+				updateReviewMarqueeMetrics();
+			}, 160);
+		});
+
+		const allSections = document.querySelectorAll("section[id]");
+		const navLinks = document.querySelectorAll(".nav-link");
+		let sectionMetrics = [];
+
+		function refreshSectionMetrics() {
+			sectionMetrics = Array.from(allSections).map((section) => ({
+				id: section.getAttribute("id"),
+				top: section.offsetTop,
+				bottom: section.offsetTop + section.offsetHeight
+			}));
+		}
+
+		function updateScrollState() {
+			siteHeader.classList.toggle("scrolled", window.scrollY > 22);
+
+			const triggerLine = window.scrollY + 140;
+			sectionMetrics.forEach((section) => {
+				if (triggerLine >= section.top && triggerLine < section.bottom) {
+					const id = section.id;
+					navLinks.forEach((link) => {
+						link.classList.toggle("active", link.getAttribute("href") === `#${id}`);
+					});
+				}
+			});
+		}
+
+		let scrollTicking = false;
+		window.addEventListener("scroll", () => {
+			if (scrollTicking) return;
+			scrollTicking = true;
+			requestAnimationFrame(() => {
+				updateScrollState();
+				scrollTicking = false;
+			});
+		}, { passive: true });
+		refreshSectionMetrics();
+		updateScrollState();
+
+		menuToggle.addEventListener("click", () => {
+			const open = menuToggle.classList.toggle("open");
+			mobilePanel.classList.toggle("open", open);
+		});
+
+		mobilePanel.querySelectorAll("a").forEach((link) => {
+			link.addEventListener("click", () => {
+				menuToggle.classList.remove("open");
+				mobilePanel.classList.remove("open");
+			});
+		});
+
+		function initTypewriter() {
+			if (prefersReducedMotion) {
+				typewriterText.textContent = typeLines[0] || "";
+				return;
+			}
+
+			let lineIndex = 0;
+			let charIndex = 0;
+			let deleting = false;
+
+			function tick() {
+				const line = typeLines[lineIndex];
+				if (!deleting) {
+					charIndex += 1;
+					typewriterText.textContent = line.slice(0, charIndex);
+					if (charIndex >= line.length) {
+						deleting = true;
+						setTimeout(tick, 1350);
+						return;
+					}
+				} else {
+					charIndex -= 1;
+					typewriterText.textContent = line.slice(0, Math.max(charIndex, 0));
+					if (charIndex <= 0) {
+						deleting = false;
+						lineIndex = (lineIndex + 1) % typeLines.length;
+					}
+				}
+
+				const delay = deleting ? 36 : 58;
+				setTimeout(tick, delay);
+			}
+
+			tick();
+		}
+
+		document.addEventListener("DOMContentLoaded", function () {
+			document.querySelectorAll(".contact-btn").forEach((btn) => {
+				btn.addEventListener("click", function () {
+					console.log("Calendly button clicked");
+				});
+			});
+		});
+
+		function initRevealObserver() {
+			const revealCandidates = document.querySelectorAll(".reveal, .reveal-up:not(.service-card), .reveal-left, .reveal-right, .reveal-scale, .section-head .label, .section-head h2, .section-head p");
+			const serviceGrid = document.querySelector(".service-grid");
+			const serviceCards = serviceGrid ? Array.from(serviceGrid.querySelectorAll(".service-card")) : [];
+
+			if (prefersReducedMotion) {
+				revealCandidates.forEach((item) => item.classList.add("visible", "active"));
+				document.querySelectorAll(".reveal, .reveal-up, .reveal-left, .reveal-right, .reveal-scale").forEach((item) => item.classList.add("visible", "active"));
+				return;
+			}
+
+			document.querySelectorAll("section").forEach((section) => {
+				const children = section.querySelectorAll(
+					"h1, h2, h3, p, .button, .service-card, .project-card, .stat-card, .contact-link, .field, .review-card, .accepting, .hero-actions, .trust-bar, .profile-frame, .about-badge, .about-float-card"
+				);
+				children.forEach((child, idx) => {
+					if (child.closest(".service-card") && !child.classList.contains("service-card")) {
+						child.classList.remove("reveal-up", "visible");
+						child.style.transitionDelay = "0s";
+						child.style.transition = "";
+						child.style.opacity = "";
+						child.style.transform = "";
+						return;
+					}
+
+					if (child.classList.contains("project-card") || child.classList.contains("button")) {
+						child.classList.add("reveal-scale");
+						child.classList.remove("reveal-up");
+					}
+
+					if (child.classList.contains("profile-frame")) {
+						child.classList.add("reveal-left");
+						child.classList.remove("reveal-up");
+					}
+
+					if (child.classList.contains("contact-link")) {
+						child.classList.add("reveal-right");
+						child.classList.remove("reveal-up");
+					}
+
+					const hasVariant = child.classList.contains("reveal") || child.classList.contains("reveal-left") || child.classList.contains("reveal-right") || child.classList.contains("reveal-scale");
+					if (!child.classList.contains("reveal-up") && !hasVariant) child.classList.add("reveal-up");
+					if (child.classList.contains("service-card")) {
+						child.style.setProperty("--i", String(idx % 6));
+						return;
+					}
+					child.style.transitionDelay = `${(idx % 8) * 0.15}s`;
+				});
+			});
+
+			const observer = new IntersectionObserver(
+				(entries) => {
+					entries.forEach((entry) => {
+						if (entry.isIntersecting) {
+							if (entry.target.classList.contains("service-grid")) {
+								serviceCards.forEach((card) => {
+									card.classList.add("visible", "active");
+								});
+								observer.unobserve(entry.target);
+								return;
+							}
+							entry.target.classList.add("visible", "active");
+							observer.unobserve(entry.target);
+						}
+					});
+				},
+				{ threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
+			);
+
+			revealCandidates.forEach((item) => observer.observe(item));
+				document.querySelectorAll(".reveal, .reveal-up:not(.service-card), .reveal-left, .reveal-right, .reveal-scale").forEach((item) => observer.observe(item));
+			if (serviceGrid) observer.observe(serviceGrid);
+		}
+
+		function initServicesCardsObserver() {
+			const cards = document.querySelectorAll(".services-card");
+			if (!cards.length) return;
+
+			if (prefersReducedMotion) {
+				cards.forEach((card) => card.classList.add("visible"));
+				return;
+			}
+
+			const observer = new IntersectionObserver((entries) => {
+				entries.forEach((entry) => {
+					if (!entry.isIntersecting) return;
+					entry.target.classList.add("visible", "active");
+					observer.unobserve(entry.target);
+				});
+			}, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+
+			cards.forEach((card) => observer.observe(card));
+		}
+
+		function initCounters() {
+			const statCards = document.querySelectorAll(".stat-card");
+
+			if (prefersReducedMotion) {
+				statCards.forEach((card) => {
+					const numberEl = card.querySelector(".stat-number");
+					const progressFillEl = card.querySelector(".stat-progress span");
+					if (!numberEl) return;
+					const target = Number(numberEl.getAttribute("data-counter") || "0");
+					const suffix = numberEl.getAttribute("data-suffix") || "";
+					const progressFill = Number(numberEl.getAttribute("data-progress") || "1");
+					numberEl.textContent = `${target}${suffix}`;
+					if (progressFillEl) {
+						progressFillEl.style.transform = `scaleX(${Math.max(0, Math.min(progressFill, 1))})`;
+					}
+					card.classList.add("count-finished");
+					card.dataset.animated = "true";
+				});
+				return;
+			}
+
+			function easeOutQuart(x) {
+				return 1 - Math.pow(1 - x, 4);
+			}
+
+			const counterObserver = new IntersectionObserver(
+				(entries) => {
+					entries.forEach((entry) => {
+						if (!entry.isIntersecting) return;
+						const card = entry.target;
+						if (card.dataset.animated === "true") {
+							counterObserver.unobserve(card);
+							return;
+						}
+
+						const numberEl = card.querySelector(".stat-number");
+						const progressFillEl = card.querySelector(".stat-progress span");
+						if (!numberEl) return;
+
+						const target = Number(numberEl.getAttribute("data-counter") || "0");
+						const suffix = numberEl.getAttribute("data-suffix") || "";
+						const progressFill = Number(numberEl.getAttribute("data-progress") || "1");
+						const duration = 1450;
+						const start = performance.now();
+						const index = Number(Array.from(statCards).indexOf(card));
+
+						setTimeout(() => {
+							card.classList.add("is-active");
+						}, Math.max(index, 0) * 120);
+
+						function animate(now) {
+							const progress = Math.min((now - start) / duration, 1);
+							const eased = easeOutQuart(progress);
+							const value = Math.floor(eased * target);
+							numberEl.textContent = `${value}${suffix}`;
+							if (progressFillEl) {
+								progressFillEl.style.transform = `scaleX(${Math.max(0, Math.min(eased * progressFill, 1))})`;
+							}
+							if (progress < 1) {
+								requestAnimationFrame(animate);
+							} else {
+								card.style.setProperty("--progress", `${Math.max(0, Math.min(progressFill, 1))}`);
+								card.classList.add("count-finished");
+								card.dataset.animated = "true";
+							}
+						}
+
+						requestAnimationFrame(animate);
+						counterObserver.unobserve(card);
+					});
+				},
+				{ threshold: 0.42 }
+			);
+
+			statCards.forEach((card) => counterObserver.observe(card));
+		}
+
+		function initFormValidation() {
+			const submitBtn = contactForm.querySelector("button[type='submit']");
+			const btnText = submitBtn.querySelector(".btn-text");
+			const feedback = document.getElementById("formFeedback");
+			const fields = Array.from(contactForm.querySelectorAll("input[required], select[required], textarea[required]"));
+
+			fields.forEach((field, index) => {
+				field.closest(".field")?.style.setProperty("--field-delay", `${index * 60}ms`);
+				const parent = field.closest(".field");
+				if (parent && !parent.querySelector(".field-error")) {
+					const errorEl = document.createElement("small");
+					errorEl.className = "field-error";
+					errorEl.setAttribute("aria-live", "polite");
+					parent.appendChild(errorEl);
+				}
+			});
+
+			const formObserver = new IntersectionObserver(
+				(entries) => {
+					entries.forEach((entry) => {
+						if (!entry.isIntersecting) return;
+						contactForm.classList.add("form-ready");
+						formObserver.disconnect();
+					});
+				},
+				{ threshold: 0.2 }
+			);
+			formObserver.observe(contactForm);
+
+			function setFieldError(field, message) {
+				const errorEl = field.closest(".field")?.querySelector(".field-error");
+				field.classList.add("error");
+				if (errorEl) {
+					errorEl.textContent = message;
+					errorEl.classList.add("visible");
+				}
+			}
+
+			function clearFieldError(field) {
+				const errorEl = field.closest(".field")?.querySelector(".field-error");
+				field.classList.remove("error");
+				if (errorEl) {
+					errorEl.textContent = "";
+					errorEl.classList.remove("visible");
+				}
+			}
+
+			function setFeedback(message, type) {
+				feedback.classList.remove("success", "error", "show");
+				feedback.textContent = message;
+				feedback.classList.add(type);
+				requestAnimationFrame(() => feedback.classList.add("show"));
+			}
+
+			function validateFields() {
+				let valid = true;
+				fields.forEach((field) => {
+					const value = field.value.trim();
+					if (!value) {
+						setFieldError(field, "This field is required.");
+						valid = false;
+						return;
+					}
+
+					if (field.type === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+						setFieldError(field, "Enter a valid email address.");
+						valid = false;
+						return;
+					}
+
+					clearFieldError(field);
+				});
+
+				return valid;
+			}
+
+			fields.forEach((field) => {
+				field.addEventListener("input", () => {
+					if (field.value.trim()) clearFieldError(field);
+				});
+				field.addEventListener("change", () => {
+					if (field.value.trim()) clearFieldError(field);
+				});
+			});
+
+			contactForm.addEventListener("submit", async (event) => {
+				event.preventDefault();
+				feedback.classList.remove("show", "success", "error");
+
+				if (!validateFields()) return;
+
+				const payload = {
+					name: contactForm.fullName.value.trim(),
+					email: contactForm.email.value.trim(),
+					businessType: contactForm.businessType.value.trim(),
+					serviceNeeded: contactForm.serviceNeeded.value.trim(),
+					message: contactForm.projectDetails.value.trim()
+				};
+
+				console.log("[contact] sending payload", payload);
+
+				submitBtn.disabled = true;
+				submitBtn.classList.add("is-loading");
+				if (btnText) btnText.textContent = "Sending...";
+
+				try {
+					const response = await fetch("http://localhost:3000/send-email", {
+						method: "POST",
+						headers: { "Content-Type": "application/json" },
+						body: JSON.stringify(payload)
+					});
+					const result = await response.json().catch(() => ({}));
+					console.log("[contact] backend response", { status: response.status, result });
+
+					if (!response.ok) {
+						throw new Error(result.error || "Failed to send message");
+					}
+
+					setFeedback("✅ Message sent successfully!", "success");
+					contactForm.reset();
+					feedback.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth", block: "nearest" });
+				} catch (error) {
+					if (error instanceof TypeError) {
+						console.error("[contact] network error", error);
+					} else {
+						console.error("[contact] submission failed", error);
+					}
+					setFeedback("❌ Failed to send message", "error");
+				} finally {
+					submitBtn.disabled = false;
+					submitBtn.classList.remove("is-loading");
+					if (btnText) btnText.textContent = "Send Message";
+				}
+			});
+		}
+
+		function initParticleMesh() {
+			if (prefersReducedMotion) return;
+
+			const canvas = document.getElementById("particleCanvas");
+			const ctx = canvas.getContext("2d");
+			let width = 0;
+			let height = 0;
+			let maxNodes = window.innerWidth <= 768 ? 28 : 40;
+			const nodes = [];
+			let frameId = null;
+
+			function resize() {
+				width = canvas.width = canvas.offsetWidth * Math.min(window.devicePixelRatio, 2);
+				height = canvas.height = canvas.offsetHeight * Math.min(window.devicePixelRatio, 2);
+				ctx.setTransform(1, 0, 0, 1, 0, 0);
+				ctx.scale(Math.min(window.devicePixelRatio, 2), Math.min(window.devicePixelRatio, 2));
+			}
+
+			function createNodes() {
+				maxNodes = window.innerWidth <= 768 ? 28 : 40;
+				nodes.length = 0;
+				const w = canvas.offsetWidth;
+				const h = canvas.offsetHeight;
+				for (let i = 0; i < maxNodes; i += 1) {
+					nodes.push({
+						x: Math.random() * w,
+						y: Math.random() * h,
+						vx: (Math.random() - 0.5) * 0.3,
+						vy: (Math.random() - 0.5) * 0.3,
+						r: Math.random() * 1.8 + 1
+					});
+				}
+			}
+
+			function draw() {
+				if (document.hidden) {
+					frameId = null;
+					return;
+				}
+
+				const w = canvas.offsetWidth;
+				const h = canvas.offsetHeight;
+				ctx.clearRect(0, 0, w, h);
+
+				nodes.forEach((node) => {
+					node.x += node.vx;
+					node.y += node.vy;
+
+					if (node.x < 0 || node.x > w) node.vx *= -1;
+					if (node.y < 0 || node.y > h) node.vy *= -1;
+
+					ctx.beginPath();
+					ctx.arc(node.x, node.y, node.r, 0, Math.PI * 2);
+					ctx.fillStyle = "rgba(201, 168, 76, 0.78)";
+					ctx.fill();
+				});
+
+				for (let i = 0; i < nodes.length; i += 1) {
+					for (let j = i + 1; j < nodes.length; j += 1) {
+						const dx = nodes[i].x - nodes[j].x;
+						const dy = nodes[i].y - nodes[j].y;
+						const dist = Math.hypot(dx, dy);
+						if (dist < 145) {
+							const opacity = (1 - dist / 145) * 0.28;
+							ctx.beginPath();
+							ctx.moveTo(nodes[i].x, nodes[i].y);
+							ctx.lineTo(nodes[j].x, nodes[j].y);
+							ctx.strokeStyle = `rgba(140, 165, 215, ${opacity * 0.75})`;
+							ctx.lineWidth = 1;
+							ctx.stroke();
+						}
+					}
+				}
+
+				frameId = requestAnimationFrame(draw);
+			}
+
+			resize();
+			createNodes();
+			draw();
+			document.addEventListener("visibilitychange", () => {
+				if (!document.hidden && !frameId) {
+					draw();
+				}
+			});
+
+			let particleResizeTimer;
+			window.addEventListener("resize", () => {
+				window.clearTimeout(particleResizeTimer);
+				particleResizeTimer = window.setTimeout(() => {
+					resize();
+					createNodes();
+				}, 120);
+			});
+		}
+
+		document.addEventListener("click", (event) => {
+			const anchor = event.target.closest("a[href^='#']");
+			if (!anchor) return;
+			const href = anchor.getAttribute("href");
+			if (!href || href.length <= 1) return;
+			const target = document.querySelector(href);
+			if (!target) return;
+			event.preventDefault();
+			const y = target.getBoundingClientRect().top + window.scrollY - 84;
+			window.scrollTo({ top: y, behavior: prefersReducedMotion ? "auto" : "smooth" });
+		});
+
+		renderProjects();
+		renderReviews();
+		initTypewriter();
+		initRevealObserver();
+		initServicesCardsObserver();
+		initCounters();
+		initFormValidation();
+		initParticleMesh();
+	</script>
+</body>
+</html>
