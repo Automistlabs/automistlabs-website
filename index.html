@@ -1432,6 +1432,30 @@
 			will-change: transform;
 		}
 
+		/* ADDED: Responsive + clickable project images */
+		.clickable-image,
+		.project-output-thumb,
+		.workflow-image,
+		.output-item img {
+			width: 100%;
+			max-width: 100%;
+			height: auto;
+			border-radius: 12px;
+			display: block;
+			cursor: zoom-in;
+			transition: transform 0.35s ease, box-shadow 0.35s ease;
+		}
+
+		@media (hover: hover) and (pointer: fine) {
+			.clickable-image:hover,
+			.project-output-thumb:hover,
+			.workflow-image:hover,
+			.output-item img:hover {
+				transform: scale(1.02);
+				box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+			}
+		}
+
 		.project-card h3 {
 			font-size: 1.07rem;
 			line-height: 1.35;
@@ -1980,6 +2004,68 @@
 			align-items: center;
 		}
 
+		/* ADDED: Fullscreen image modal */
+		.image-viewer-modal {
+			position: fixed;
+			inset: 0;
+			z-index: 2600;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			padding: clamp(0.8rem, 2.2vw, 1.4rem);
+			background: rgba(4, 8, 18, 0.92);
+			backdrop-filter: blur(10px);
+			-webkit-backdrop-filter: blur(10px);
+			opacity: 0;
+			pointer-events: none;
+			transition: opacity 0.24s ease;
+		}
+
+		.image-viewer-modal.open {
+			opacity: 1;
+			pointer-events: auto;
+		}
+
+		.image-viewer-close {
+			position: absolute;
+			top: max(0.8rem, env(safe-area-inset-top));
+			right: max(0.8rem, env(safe-area-inset-right));
+			width: 44px;
+			height: 44px;
+			border-radius: 50%;
+			border: 1px solid rgba(201, 168, 76, 0.55);
+			background: rgba(10, 15, 30, 0.86);
+			color: #f8d98f;
+			font-size: 1.35rem;
+			line-height: 1;
+			cursor: pointer;
+			transition: transform 0.24s ease, box-shadow 0.24s ease, background 0.24s ease;
+		}
+
+		.image-viewer-close:hover {
+			transform: scale(1.05);
+			background: rgba(201, 168, 76, 0.16);
+			box-shadow: 0 0 14px rgba(201, 168, 76, 0.3);
+		}
+
+		.image-viewer-content {
+			max-width: min(94vw, 1280px);
+			max-height: min(90vh, 900px);
+			width: auto;
+			height: auto;
+			object-fit: contain;
+			border-radius: 14px;
+			box-shadow: 0 20px 56px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.12);
+			transform: scale(0.97);
+			opacity: 0;
+			transition: transform 0.24s ease, opacity 0.24s ease;
+		}
+
+		.image-viewer-modal.open .image-viewer-content {
+			transform: scale(1);
+			opacity: 1;
+		}
+
 		@media (max-width: 900px) {
 			.modal {
 				padding: 0.5rem;
@@ -2102,6 +2188,11 @@
 
 			.project-step-title {
 				font-size: 0.73rem;
+			}
+
+			.image-viewer-content {
+				max-width: 100%;
+				max-height: calc(100svh - 110px);
 			}
 
 			.project-meta {
@@ -3551,6 +3642,12 @@
 		</div>
 	</div>
 
+	<!-- ADDED: Fullscreen project image viewer -->
+	<div class="image-viewer-modal" id="imageViewerModal" aria-hidden="true">
+		<button class="image-viewer-close" id="imageViewerClose" aria-label="Close fullscreen image">&times;</button>
+		<img class="image-viewer-content" id="imageViewerContent" src="" alt="Expanded project image" loading="eager" decoding="async">
+	</div>
+
 	<script>
 		const projectData = [
 			{
@@ -3820,6 +3917,9 @@
 		const projectModal = document.getElementById("projectModal");
 		const modalBody = document.getElementById("modalBody");
 		const modalClose = document.getElementById("modalClose");
+		const imageViewerModal = document.getElementById("imageViewerModal");
+		const imageViewerClose = document.getElementById("imageViewerClose");
+		const imageViewerContent = document.getElementById("imageViewerContent");
 		const siteHeader = document.getElementById("siteHeader");
 		const menuToggle = document.getElementById("menuToggle");
 		const mobilePanel = document.getElementById("mobilePanel");
@@ -3877,7 +3977,7 @@
 
 			return `
 				<div class="preview" data-preview-wrapper="true">
-					<img class="project-workflow-thumb" src="Projects/${folder}/workflow.jpg" alt="${project.title} workflow preview" loading="lazy" decoding="async">
+					<img class="project-workflow-thumb clickable-image" src="Projects/${folder}/workflow.jpg" alt="${project.title} workflow preview" loading="lazy" decoding="async">
 					<small>Workflow Preview</small>
 				</div>`;
 		}
@@ -4130,7 +4230,7 @@
 					.map((src, index) => `
 						<article class="output-slide" data-output-slide="${index}">
 							<div class="output-item" ${index > 0 ? 'data-optional="true"' : ""}>
-								<img src="${src}" alt="${title} output ${index + 1}" loading="lazy" decoding="async" ${index > 0 ? 'data-optional="true"' : ""}>
+								<img class="project-output-thumb clickable-image" src="${src}" alt="${title} output ${index + 1}" loading="lazy" decoding="async" ${index > 0 ? 'data-optional="true"' : ""}>
 							</div>
 						</article>`)
 					.join("")}
@@ -4308,7 +4408,7 @@
 								<div class="step-content-stack">
 									${showcase.workflow
 										? `<div class="media-frame media-stage workflow-frame">
-											<img class="workflow-image" src="${showcase.workflow}" alt="${selectedProject.title} workflow" loading="lazy" decoding="async">
+											<img class="workflow-image clickable-image" src="${showcase.workflow}" alt="${selectedProject.title} workflow" loading="lazy" decoding="async">
 										</div>`
 										: `<div class="empty-media">Workflow image is not available for this project.</div>`}
 									<div class="step-inline-flow">
@@ -4436,12 +4536,54 @@
 		});
 
 		projectsGrid.addEventListener("click", (event) => {
+			const clickedImage = event.target.closest(".clickable-image");
+			if (clickedImage) {
+				return;
+			}
+
 			const card = event.target.closest(".project-card");
 			if (!card) return;
 			const id = Number(card.getAttribute("data-project-id"));
 			if (!Number.isFinite(id)) return;
 			openProjectModal(id);
 		});
+
+		/* ADDED: Delegated fullscreen modal for dynamic images */
+		function openImageViewer(src, alt) {
+			if (!imageViewerModal || !imageViewerContent || !src) return;
+			imageViewerContent.src = src;
+			imageViewerContent.alt = alt || "Expanded project image";
+			imageViewerModal.classList.add("open");
+			imageViewerModal.setAttribute("aria-hidden", "false");
+		}
+
+		function closeImageViewer() {
+			if (!imageViewerModal || !imageViewerContent) return;
+			imageViewerModal.classList.remove("open");
+			imageViewerModal.setAttribute("aria-hidden", "true");
+			window.setTimeout(() => {
+				if (imageViewerModal.classList.contains("open")) return;
+				imageViewerContent.src = "";
+			}, 180);
+		}
+
+		document.addEventListener("click", (event) => {
+			const targetImage = event.target.closest(".clickable-image");
+			if (!(targetImage instanceof HTMLImageElement)) return;
+			event.preventDefault();
+			event.stopPropagation();
+			openImageViewer(targetImage.currentSrc || targetImage.src, targetImage.alt);
+		});
+
+		if (imageViewerClose) {
+			imageViewerClose.addEventListener("click", closeImageViewer);
+		}
+
+		if (imageViewerModal) {
+			imageViewerModal.addEventListener("click", (event) => {
+				if (event.target === imageViewerModal) closeImageViewer();
+			});
+		}
 
 		projectFilters.addEventListener("click", (event) => {
 			const button = event.target.closest(".filter-btn");
@@ -4469,6 +4611,11 @@
 		});
 
 		document.addEventListener("keydown", (event) => {
+			if (event.key === "Escape" && imageViewerModal?.classList.contains("open")) {
+				closeImageViewer();
+				return;
+			}
+
 			if (!projectModal.classList.contains("open")) return;
 			if (event.key === "Escape") closeModal();
 			if (event.key === "ArrowLeft") {
