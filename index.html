@@ -3468,7 +3468,7 @@
 					</div>
 				</div>
 
-				<form class="contact-form glass reveal-up" id="contactForm" action="https://formspree.io/f/mzdkqpbn" method="POST">
+				<form class="contact-form glass reveal-up" id="contact-form" action="https://formspree.io/f/mzdkqpbn" method="POST">
 					<input type="hidden" name="_subject" value="New Automist Labs Lead">
 					<input type="hidden" name="_next" value="https://automistlabs-website.vercel.app">
 					<div class="field">
@@ -3510,7 +3510,7 @@
 						<span class="btn-spinner" aria-hidden="true"></span>
 						<span aria-hidden="true">&rarr;</span>
 					</button>
-					<div id="formFeedback" class="form-feedback" aria-live="polite"></div>
+					<div id="form-status" class="form-feedback" aria-live="polite"></div>
 					<p class="submit-note">✦ We respond to all inquiries within 24 hours.</p>
 				</form>
 			</div>
@@ -3825,6 +3825,7 @@
 		const menuToggle = document.getElementById("menuToggle");
 		const mobilePanel = document.getElementById("mobilePanel");
 		const typewriterText = document.getElementById("typewriterText");
+		const contactForm = document.getElementById("contact-form");
 
 		let currentFilter = "all";
 		let expanded = false;
@@ -4924,6 +4925,64 @@
 			});
 		}
 
+		function initContactFormSubmission() {
+			if (!contactForm) return;
+
+			const submitButton = contactForm.querySelector("button[type='submit']");
+			const buttonText = submitButton ? submitButton.querySelector(".btn-text") : null;
+			const statusEl = document.getElementById("form-status");
+			const defaultButtonText = buttonText ? buttonText.textContent : "Send Message";
+
+			function setStatus(message, type) {
+				if (!statusEl) return;
+				statusEl.textContent = message;
+				statusEl.classList.remove("success", "error", "show");
+				statusEl.classList.add(type);
+				requestAnimationFrame(() => statusEl.classList.add("show"));
+			}
+
+			contactForm.addEventListener("submit", async (event) => {
+				event.preventDefault();
+				if (!contactForm.checkValidity()) {
+					contactForm.reportValidity();
+					return;
+				}
+
+				if (submitButton) {
+					submitButton.disabled = true;
+					submitButton.classList.add("is-loading");
+				}
+				if (buttonText) buttonText.textContent = "Sending...";
+				if (statusEl) statusEl.classList.remove("success", "error", "show");
+
+				try {
+					const response = await fetch(contactForm.action, {
+						method: "POST",
+						body: new FormData(contactForm),
+						headers: {
+							Accept: "application/json"
+						}
+					});
+
+					if (response.ok) {
+						contactForm.reset();
+						setStatus("✅ Thank you! Your message has been sent successfully. We will get back to you within 24 hours.", "success");
+					} else {
+						setStatus("❌ Something went wrong. Please try again.", "error");
+					}
+				} catch (error) {
+					console.error("[contact-form] submission failed", error);
+					setStatus("❌ Something went wrong. Please try again.", "error");
+				} finally {
+					if (submitButton) {
+						submitButton.disabled = false;
+						submitButton.classList.remove("is-loading");
+					}
+					if (buttonText) buttonText.textContent = defaultButtonText;
+				}
+			});
+		}
+
 		document.addEventListener("click", (event) => {
 			const anchor = event.target.closest("a[href^='#']");
 			if (!anchor) return;
@@ -4939,6 +4998,7 @@
 		renderProjects();
 		renderReviews();
 		initTypewriter();
+		initContactFormSubmission();
 		initRevealObserver();
 		initServicesCardsObserver();
 		initCounters();
