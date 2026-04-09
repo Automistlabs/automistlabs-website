@@ -3136,6 +3136,15 @@
 		}
 
 		@media (max-width: 768px) {
+			.container,
+			.section,
+			.project-card,
+			.modal-content,
+			.modal-card {
+				padding-left: 12px;
+				padding-right: 12px;
+			}
+
 			.site-logo {
 				height: 30px;
 			}
@@ -3148,6 +3157,86 @@
 			.project-card {
 				backdrop-filter: blur(10px);
 				-webkit-backdrop-filter: blur(10px);
+			}
+
+			/* Mobile declutter: keep to essential layers only */
+			.project-card::before,
+			.services-card::before,
+			.services-card::after,
+			.review-card::before,
+			.review-card::after {
+				display: none !important;
+			}
+
+			.project-card,
+			.services-card,
+			.review-card {
+				border-width: 1px;
+				box-shadow: 0 8px 18px rgba(0, 0, 0, 0.26) !important;
+			}
+
+			.project-step-viewport,
+			.project-meta {
+				border: 0;
+				background: rgba(8, 12, 22, 0.52);
+				box-shadow: none;
+			}
+
+			.media-frame,
+			.output-viewport {
+				padding: 0;
+				border: 1px solid rgba(255, 255, 255, 0.14);
+				box-shadow: none;
+			}
+
+			.preview {
+				padding: 0;
+				border-width: 1px;
+				min-height: 170px;
+			}
+
+			.project-workflow-thumb {
+				position: static;
+				inset: auto;
+				padding: 0;
+				height: auto;
+				object-fit: cover;
+			}
+
+			.preview small {
+				display: none;
+			}
+
+			.media-frame img,
+			.media-frame video,
+			.output-item img,
+			.workflow-image,
+			.clickable-image,
+			.project-output-thumb {
+				width: 100%;
+				height: auto;
+				max-width: 100%;
+				object-fit: cover;
+			}
+
+			.hero-copy,
+			.about-story,
+			.project-card p,
+			.project-copy,
+			.project-section p,
+			.project-points li,
+			.contact-left p {
+				max-width: 100%;
+				line-height: 1.65;
+			}
+
+			.project-card,
+			.project-section,
+			.tool-pills,
+			.modal-actions,
+			.field,
+			.contact-links {
+				margin-bottom: 12px;
 			}
 
 			.hero-actions .button:active,
@@ -3170,6 +3259,15 @@
 		}
 
 		@media (max-width: 480px) {
+			.container,
+			.section,
+			.project-card,
+			.modal-content,
+			.modal-card {
+				padding-left: 8px;
+				padding-right: 8px;
+			}
+
 			#about .container.about-grid {
 				padding-left: 8px;
 				padding-right: 8px;
@@ -3255,8 +3353,14 @@
 				padding: 0.8rem;
 			}
 
+			.project-step-viewport,
+			.modal-body {
+				padding-left: 8px;
+				padding-right: 8px;
+			}
+
 			.preview {
-				min-height: 116px;
+				min-height: 156px;
 			}
 
 			.footer-links {
