@@ -8,10 +8,15 @@
 	<link rel="icon" type="image/png" href="Images/logo.png">
 	<link rel="icon" type="image/png" sizes="32x32" href="Images/logo.png">
 	<link rel="icon" type="image/png" sizes="16x16" href="Images/logo.png">
+	<link rel="preload" as="image" href="Images/logo.png" fetchpriority="high">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+	<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap">
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+	<noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet"></noscript>
+	<link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" media="print" onload="this.media='all'">
+	<noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer"></noscript>
 	<style>
 		:root {
 			--bg-primary: #0A0E1A;
@@ -352,7 +357,7 @@
 			object-fit: contain;
 			display: block;
 			flex-shrink: 0;
-			filter: drop-shadow(0 0 6px rgba(255, 215, 0, 0.2));
+			filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.3)) saturate(1.06);
 			transition: transform 0.3s ease;
 		}
 
@@ -3602,6 +3607,34 @@
 			box-shadow: 0 10px 22px rgba(6, 10, 18, 0.35);
 		}
 
+		/* Light mode for constrained devices: keep premium look while lowering paint/animation cost */
+		body.performance-lite .reviews-track,
+		body.performance-lite .founder-image,
+		body.performance-lite .about-float-card,
+		body.performance-lite .accepting,
+		body.performance-lite .floating-wa::before {
+			animation: none !important;
+		}
+
+		body.performance-lite .review-card,
+		body.performance-lite .project-card,
+		body.performance-lite .services-card,
+		body.performance-lite .glass {
+			backdrop-filter: none !important;
+			-webkit-backdrop-filter: none !important;
+		}
+
+		body.performance-lite .review-card:hover,
+		body.performance-lite .project-card:hover,
+		body.performance-lite .services-card:hover {
+			box-shadow: 0 8px 18px rgba(0, 0, 0, 0.28) !important;
+		}
+
+		main > section:not(#home) {
+			content-visibility: auto;
+			contain-intrinsic-size: 1px 900px;
+		}
+
 		@media (prefers-reduced-motion: reduce) {
 			html {
 				scroll-behavior: auto;
@@ -4945,6 +4978,11 @@
 
 		const reviewsTrack = document.getElementById("reviewsTrack");
 		const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+		const isConstrainedDevice = prefersReducedMotion || window.matchMedia("(hover: none) and (pointer: coarse)").matches || ((navigator.hardwareConcurrency || 8) <= 4);
+
+		if (isConstrainedDevice) {
+			document.body.classList.add("performance-lite");
+		}
 
 		function renderReviews() {
 			const loopedReviews = [...reviewData, ...reviewData];
@@ -4971,6 +5009,15 @@
 		}
 
 		function updateReviewMarqueeMetrics() {
+			if (document.body.classList.contains("performance-lite")) {
+				reviewsTrack.style.setProperty("--reviews-duration", "72s");
+				if (prefersReducedMotion) {
+					reviewsTrack.style.animation = "none";
+					reviewsTrack.style.transform = "translate3d(0, 0, 0)";
+				}
+				return;
+			}
+
 			const items = reviewsTrack.querySelectorAll(".review-item");
 			if (!items.length) return;
 
@@ -5293,7 +5340,7 @@
 
 
 		function initParticleMesh() {
-			if (prefersReducedMotion) return;
+			if (prefersReducedMotion || document.body.classList.contains("performance-lite")) return;
 
 			const canvas = document.getElementById("particleCanvas");
 			const ctx = canvas.getContext("2d");
@@ -5482,13 +5529,22 @@
 		});
 
 		renderProjects();
-		renderReviews();
-		initTypewriter();
+		requestAnimationFrame(renderReviews);
+		requestAnimationFrame(initTypewriter);
 		initContactFormSubmission();
-		initRevealObserver();
-		initServicesCardsObserver();
-		initCounters();
-		initParticleMesh();
+
+		const deferNonCritical = () => {
+			initRevealObserver();
+			initServicesCardsObserver();
+			initCounters();
+			initParticleMesh();
+		};
+
+		if ("requestIdleCallback" in window) {
+			window.requestIdleCallback(deferNonCritical, { timeout: 900 });
+		} else {
+			window.setTimeout(deferNonCritical, 120);
+		}
 	</script>
 </body>
 </html>
