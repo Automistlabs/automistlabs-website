@@ -2105,7 +2105,7 @@
 			.output-viewport {
 				height: auto;
 				min-height: 0;
-				aspect-ratio: 4 / 3;
+				aspect-ratio: 16 / 10;
 				padding: 0;
 			}
 
@@ -3198,21 +3198,21 @@
 				padding: 0;
 				border: 1px solid rgba(255, 255, 255, 0.14);
 				box-shadow: none;
-				aspect-ratio: 4 / 3;
+				aspect-ratio: 16 / 10;
 			}
 
 			.preview {
 				padding: 0;
 				border-width: 1px;
-				min-height: 186px;
+				min-height: 142px;
 			}
 
 			.project-workflow-thumb {
-				position: static;
-				inset: auto;
+				position: absolute;
+				inset: 0;
 				padding: 0;
-				height: auto;
-				object-fit: cover;
+				height: 100%;
+				object-fit: contain;
 			}
 
 			.preview small {
@@ -3226,9 +3226,9 @@
 			.clickable-image,
 			.project-output-thumb {
 				width: 100%;
-				height: auto;
+				height: 100%;
 				max-width: 100%;
-				object-fit: cover;
+				object-fit: contain;
 			}
 
 			.hero-copy,
@@ -3377,7 +3377,7 @@
 			}
 
 			.preview {
-				min-height: 172px;
+				min-height: 128px;
 			}
 
 			.footer-links {
@@ -3481,7 +3481,7 @@
 
 		}
 
-		/* Mobile media fit lock: remove frame gaps and keep all media fully filled */
+		/* Mobile media fit lock: balanced fit with no zoom/crop and no inner gaps */
 		@media (max-width: 900px) {
 			.preview,
 			.media-frame,
@@ -3489,14 +3489,14 @@
 			.output-viewport {
 				padding: 0 !important;
 				overflow: hidden;
-				align-items: stretch;
-				justify-content: stretch;
+				align-items: center;
+				justify-content: center;
 			}
 
 			.preview,
 			.media-frame,
 			.output-viewport {
-				aspect-ratio: 4 / 3;
+				aspect-ratio: 16 / 10;
 			}
 
 			.media-stage,
@@ -3517,7 +3517,7 @@
 			.project-video {
 				width: 100% !important;
 				height: 100% !important;
-				object-fit: cover;
+				object-fit: contain;
 				object-position: center;
 				display: block;
 				margin: 0;
