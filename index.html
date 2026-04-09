@@ -3652,7 +3652,8 @@
 				</div>
 
 				<form class="contact-form glass reveal-up" id="contact-form" action="https://formspree.io/f/mzdkqpbn" method="POST">
-					<input type="hidden" name="_subject" value="New Automist Labs Lead">
+					<input type="hidden" name="_replyto" value="contact@automistlabs.com">
+					<input type="hidden" name="_subject" value="New Lead from Automist Labs Website">
 					<div class="field">
 						<label for="fullName">Full Name</label>
 						<input type="text" id="fullName" name="name" required>
@@ -5215,6 +5216,8 @@
 
 		function initContactFormSubmission() {
 			if (!contactForm) return;
+			const FORMSPREE_NOTIFY_EMAIL = "contact@automistlabs.com";
+			const FORMSPREE_SUBJECT = "New Lead from Automist Labs Website";
 
 			const submitButton = contactForm.querySelector("button[type='submit']");
 			const buttonText = submitButton ? submitButton.querySelector(".btn-text") : null;
@@ -5244,18 +5247,39 @@
 				if (statusEl) statusEl.classList.remove("success", "error", "show");
 
 				try {
+					const formData = new FormData(contactForm);
+					formData.set("_replyto", FORMSPREE_NOTIFY_EMAIL);
+					formData.set("_subject", FORMSPREE_SUBJECT);
+
 					const response = await fetch(contactForm.action, {
 						method: "POST",
-						body: new FormData(contactForm),
+						body: formData,
 						headers: {
 							Accept: "application/json"
 						}
 					});
 
+					let responseBody = null;
+					try {
+						responseBody = await response.clone().json();
+					} catch {
+						responseBody = null;
+					}
+
 					if (response.ok) {
+						console.log("[contact-form] Formspree submission succeeded", {
+							status: response.status,
+							statusText: response.statusText,
+							responseBody
+						});
 						contactForm.reset();
 						setStatus("✅ Thank you! Your message has been sent successfully. We will get back to you within 24 hours.", "success");
 					} else {
+						console.warn("[contact-form] Formspree submission returned non-OK response", {
+							status: response.status,
+							statusText: response.statusText,
+							responseBody
+						});
 						setStatus("❌ Something went wrong. Please try again.", "error");
 					}
 				} catch (error) {
