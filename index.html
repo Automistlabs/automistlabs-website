@@ -3481,6 +3481,59 @@
 
 		}
 
+		/* Mobile media fit lock: remove frame gaps and keep all media fully filled */
+		@media (max-width: 900px) {
+			.preview,
+			.media-frame,
+			.media-frame.video-frame,
+			.output-viewport {
+				padding: 0 !important;
+				overflow: hidden;
+				align-items: stretch;
+				justify-content: stretch;
+			}
+
+			.preview,
+			.media-frame,
+			.output-viewport {
+				aspect-ratio: 4 / 3;
+			}
+
+			.media-stage,
+			.output-viewer,
+			.output-track,
+			.output-slide,
+			.output-slide.active,
+			.output-item {
+				height: 100%;
+			}
+
+			.project-workflow-thumb,
+			.workflow-image,
+			.project-output-thumb,
+			.output-item img,
+			.media-frame img,
+			.media-frame video,
+			.project-video {
+				width: 100% !important;
+				height: 100% !important;
+				object-fit: cover;
+				object-position: center;
+				display: block;
+				margin: 0;
+			}
+
+			.project-workflow-thumb {
+				position: absolute;
+				inset: 0;
+				padding: 0;
+			}
+
+			.preview svg {
+				display: none;
+			}
+		}
+
 		@media (max-height: 500px) and (orientation: landscape) {
 			.site-header {
 				position: sticky;
