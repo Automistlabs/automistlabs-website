@@ -2067,13 +2067,15 @@
 
 		@media (max-width: 900px) {
 			.modal {
-				padding: 0.5rem;
+				padding: 0.35rem;
 			}
 
 			.modal-card {
-				width: 92%;
+				width: 96%;
 				max-height: none;
-				padding: 0.72rem;
+				padding: 0.58rem;
+				border: 0;
+				box-shadow: 0 12px 26px rgba(0, 0, 0, 0.34);
 			}
 
 			.project-step {
@@ -2087,7 +2089,7 @@
 			}
 
 			.project-step-viewport {
-				padding: 0 2.55rem;
+				padding: 0 0.4rem;
 			}
 
 			.project-step.step-scroll {
@@ -2103,8 +2105,8 @@
 			.output-viewport {
 				height: auto;
 				min-height: 0;
-				aspect-ratio: 16 / 10;
-				padding: 13px;
+				aspect-ratio: 4 / 3;
+				padding: 0;
 			}
 
 			.step-content-stack {
@@ -3141,8 +3143,17 @@
 			.project-card,
 			.modal-content,
 			.modal-card {
-				padding-left: 12px;
-				padding-right: 12px;
+				padding-left: 10px;
+				padding-right: 10px;
+			}
+
+			.container {
+				width: 100%;
+				max-width: none;
+			}
+
+			.section {
+				overflow-x: clip;
 			}
 
 			.site-logo {
@@ -3171,14 +3182,14 @@
 			.project-card,
 			.services-card,
 			.review-card {
-				border-width: 1px;
-				box-shadow: 0 8px 18px rgba(0, 0, 0, 0.26) !important;
+				border-color: rgba(255, 255, 255, 0.1);
+				box-shadow: 0 6px 14px rgba(0, 0, 0, 0.22) !important;
 			}
 
 			.project-step-viewport,
 			.project-meta {
 				border: 0;
-				background: rgba(8, 12, 22, 0.52);
+				background: rgba(8, 12, 22, 0.42);
 				box-shadow: none;
 			}
 
@@ -3187,12 +3198,13 @@
 				padding: 0;
 				border: 1px solid rgba(255, 255, 255, 0.14);
 				box-shadow: none;
+				aspect-ratio: 4 / 3;
 			}
 
 			.preview {
 				padding: 0;
 				border-width: 1px;
-				min-height: 170px;
+				min-height: 186px;
 			}
 
 			.project-workflow-thumb {
@@ -3236,7 +3248,11 @@
 			.modal-actions,
 			.field,
 			.contact-links {
-				margin-bottom: 12px;
+				margin-bottom: 14px;
+			}
+
+			.contact-form {
+				padding: 0.78rem;
 			}
 
 			.hero-actions .button:active,
@@ -3264,8 +3280,8 @@
 			.project-card,
 			.modal-content,
 			.modal-card {
-				padding-left: 8px;
-				padding-right: 8px;
+				padding-left: 6px;
+				padding-right: 6px;
 			}
 
 			#about .container.about-grid {
@@ -3274,7 +3290,8 @@
 			}
 
 			.container {
-				width: min(96vw, 96vw);
+				width: 100%;
+				max-width: none;
 			}
 
 			.nav-wrap {
@@ -3296,7 +3313,7 @@
 			}
 
 			.reviews-shell {
-				padding-inline: 1.6rem;
+				padding-inline: 1rem;
 			}
 
 			.typewriter-wrap {
@@ -3355,12 +3372,12 @@
 
 			.project-step-viewport,
 			.modal-body {
-				padding-left: 8px;
-				padding-right: 8px;
+				padding-left: 6px;
+				padding-right: 6px;
 			}
 
 			.preview {
-				min-height: 156px;
+				min-height: 172px;
 			}
 
 			.footer-links {
